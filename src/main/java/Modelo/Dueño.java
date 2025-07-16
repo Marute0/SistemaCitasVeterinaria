@@ -4,38 +4,37 @@
  */
 package Modelo;
 
-import java.util.Arrays;
-
 /**
  *
  * @author Ususario
  */
 public class Dueño extends Persona{
-    //Atributos
-    private Mascota[] mascotasAsociadas;
+    private String direccion;
 
-    //constructor
-
-    public Dueño(Mascota[] mascotasAsociadas, String nombre, String apellido, String id, String email, String numeroTelefono) {
-        super(nombre, apellido, id, email, numeroTelefono);
-        this.mascotasAsociadas = mascotasAsociadas;
+    //método constructor
+    public Dueño(String dirección, String nombre, String apellido, int ID, String email, String numeroTelefono) {
+        super(nombre, apellido, ID, email, numeroTelefono);
+        this.direccion = dirección;
     }
 
-    //Getter
-    public Mascota[] getMascotasAsociadas() {
-        return mascotasAsociadas;
+    
+    //getters and setters
+    public String getDirección() {
+        return direccion;
     }
 
+    public void setDirección(String dirección) {
+        this.direccion = dirección;
+    }
     
     
     @Override
     public String mostrarInformación(){
         return getNombre() + " " + 
                getApellido() + "," + 
-               getId() + "," + 
+               getID() + "," + 
                getEmail() + "," + 
-               getNumeroTelefono() + "," + 
-               Arrays.toString(mascotasAsociadas); 
+               getNumeroTelefono(); 
     }
     
 }

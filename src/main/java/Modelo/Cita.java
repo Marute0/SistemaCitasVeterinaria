@@ -70,9 +70,8 @@ public class Cita {
     //Método para posterior guargado en la base de datos
     @Override
     public String toString() {
-        return "Cita{idmascota=" + mascota.getIdMascota() +
-                ", idDueño='" + dueño.getId() +
-                "', idEmpresarialDoctor='" + doctor.getIdEmpresarial() +
+        return "Cita{idmascota=" + mascota.getID() +
+                ", idDueño='" + dueño.getID() +
                 "', idCita='" + idCita +  
                 "', Fecha='" + fecha +
                 "', prioridad=" + nivelPrioridad + "}";

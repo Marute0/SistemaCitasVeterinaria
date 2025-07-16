@@ -11,8 +11,8 @@ import java.util.Arrays;
  * @author Ususario
  */
 public class Mascota {
+    private int ID;
     private String nombre;
-    private int idMascota;
     private int edad;
     private String tipo;
     private String raza;
@@ -21,7 +21,7 @@ public class Mascota {
 
     public Mascota(String nombre, int idMascota, int edad, String tipo, String raza, String sexo, float peso) {
         this.nombre = nombre;
-        this.idMascota = idMascota;
+        this.ID = idMascota;
         this.edad = edad;
         this.tipo = tipo;
         this.raza = raza;
@@ -33,8 +33,8 @@ public class Mascota {
         return nombre;
     }
 
-    public int getIdMascota() {
-        return idMascota;
+    public int getID() {
+        return ID;
     }
 
     public int getEdad() {
@@ -62,7 +62,7 @@ public class Mascota {
     @Override
     public String toString(){
         return nombre + "," + 
-               idMascota + "," + 
+               ID + "," + 
                edad + "," + 
                tipo + "," + 
                raza + "," + 

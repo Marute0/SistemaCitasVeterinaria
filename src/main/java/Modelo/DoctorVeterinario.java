@@ -11,52 +11,45 @@ package Modelo;
  */
 public class DoctorVeterinario extends Persona{
     //Atributos
-    private String usuario;
     private String contraseña;
     private String especializacion;
-    private String idEmpresarial;
 
      //Constructor
-
-    public DoctorVeterinario(String usuario, String contraseña, String especializacion, String idEmpresarial, String nombre, String apellido, String id, String email, String numeroTelefono) {
-        super(nombre, apellido, id, email, numeroTelefono);
-        this.usuario = usuario;
+    
+    
+    
+    public DoctorVeterinario(String contraseña, String especializacion, String nombre, String apellido, int ID, String email, String numeroTelefono) {
+        super(nombre, apellido, ID, email, numeroTelefono);
         this.contraseña = contraseña;
         this.especializacion = especializacion;
-        this.idEmpresarial = idEmpresarial;
-    }
-   
-
-    //Getters
-    public String getEspecializacion() {
-        return especializacion;
     }
 
-    public String getIdEmpresarial() {
-        return idEmpresarial;
-    }
 
-    //Setters
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
+    public String getContraseña() {
+        return contraseña;
     }
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
 
-    
+    public String getEspecializacion() {
+        return especializacion;
+    }
+
+    public void setEspecializacion(String especializacion) {
+        this.especializacion = especializacion;
+    }
+
+
     
     @Override
     public String mostrarInformación() {
         return getNombre() + " " + 
                getApellido() + "," + 
-               usuario + "," + 
                contraseña + "," + 
-               getId() + "," + 
                getEmail() + "," + 
                getNumeroTelefono() + "," + 
-               idEmpresarial + "," + 
                especializacion + ",";
     }
 

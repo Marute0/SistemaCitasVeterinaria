@@ -75,8 +75,7 @@ public class DisponibilidadDoctor {
     
     @Override
         public String toString() {
-        return "Disponibilidad{"+
-                "idEmpresarial doctor= " + doctor.getIdEmpresarial() + '\'' +
+        return "Disponibilidad{" + '\'' +
                 ", nombreDoctor= " + doctor.nombreCompleto()+ '\'' +
                 ", Fecha='" + fecha + '\'' +
                 ", Tiempo de inicio='" + tiempoInicio + '\'' +
