@@ -1,5 +1,12 @@
 package Vista;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 
 
 /*
@@ -29,54 +36,18 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDialog1 = new javax.swing.JDialog();
-        jFrame1 = new javax.swing.JFrame();
-        jDialog2 = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
         Rigth = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        Titulsosoos = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        tipus = new javax.swing.JComboBox<>();
+        usuario = new javax.swing.JTextField();
+        tipousuario = new javax.swing.JComboBox<>();
         contras = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         ckbox = new javax.swing.JCheckBox();
-
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jDialog1Layout.setVerticalGroup(
-            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
-        jFrame1.getContentPane().setLayout(jFrame1Layout);
-        jFrame1Layout.setHorizontalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jFrame1Layout.setVerticalGroup(
-            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jDialog2Layout = new javax.swing.GroupLayout(jDialog2.getContentPane());
-        jDialog2.getContentPane().setLayout(jDialog2Layout);
-        jDialog2Layout.setHorizontalGroup(
-            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        jDialog2Layout.setVerticalGroup(
-            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("LOGIN");
@@ -114,24 +85,25 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("USUARIO");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("TIPO DE USUARIO");
+        Titulsosoos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        Titulsosoos.setText("TIPO DE USUARIO");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setText("CONTRASEÑA");
 
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        usuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        usuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                usuarioActionPerformed(evt);
             }
         });
 
-        tipus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        tipus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione un tipo de usuario...", "Administrador", "Doctor" }));
-        tipus.addActionListener(new java.awt.event.ActionListener() {
+        tipousuario.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        tipousuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Doctor" }));
+        tipousuario.setSelectedIndex(-1);
+        tipousuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tipusActionPerformed(evt);
+                tipousuarioActionPerformed(evt);
             }
         });
 
@@ -144,7 +116,7 @@ public class Login extends javax.swing.JFrame {
         jButton1.setBackground(new java.awt.Color(171, 101, 61));
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("ENTRAR");
+        jButton1.setText("INGRESAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -174,14 +146,14 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(usuario, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(tipus, javax.swing.GroupLayout.Alignment.LEADING, 0, 370, Short.MAX_VALUE)
+                                .addComponent(Titulsosoos, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tipousuario, javax.swing.GroupLayout.Alignment.LEADING, 0, 370, Short.MAX_VALUE)
                                 .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(ckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(ckbox, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1))))
                 .addGap(0, 38, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -190,13 +162,13 @@ public class Login extends javax.swing.JFrame {
                 .addGap(17, 17, 17)
                 .addComponent(jLabel1)
                 .addGap(53, 53, 53)
-                .addComponent(jLabel3)
+                .addComponent(Titulsosoos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tipus, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tipousuario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -228,17 +200,90 @@ public class Login extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+//    void tipUser(){
+//        if(tipousuario.getSelectedItem().equals("Administrador"))
+//        {
+//            Administrador a = new Administrador();
+//            a.show();
+//            
+//        }else{
+//            if(tipousuario.getSelectedItem().equals("Doctor"))
+//            {
+//                Doctor m = new Doctor();
+//            m.show();
+//            }
+//        }
+//    }
+    
+    private void tipUser() {
+    String documento = usuario.getText(); // Asumo que tienes un JTextField para el documento
+    String contrasena = new String(contras.getPassword()); // Asumo un JPasswordField
+    
+    if(documento.isEmpty() || contrasena.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor complete todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    String rolSeleccionado = (String) tipousuario.getSelectedItem();
+    
+    try (Connection conexion = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/sistemacitasveterinaria", 
+            "root", 
+            " ");
+         PreparedStatement pst = conexion.prepareStatement(
+             "SELECT * FROM " + (rolSeleccionado.equals("Administrador") ? "administradores" : "doctores") + 
+             " WHERE nDocumento = ? AND contraseña = ?")) {
+        
+        pst.setString(1, documento);
+        pst.setString(2, contrasena);
+        
+        ResultSet rs = pst.executeQuery();
+        
+        if (rs.next()) {
+            String nombre = rs.getString("nombre");
+            JOptionPane.showMessageDialog(this, "Bienvenid@ " + nombre, "Login Exitoso", JOptionPane.INFORMATION_MESSAGE);
+            
+            if (rolSeleccionado.equals("Administrador")) {
+                new Administrador().setVisible(true);
+            } else {
+                new Doctor().setVisible(true);
+            }
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Credenciales incorrectas", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, 
+            "Error de conexión: " + e.getMessage(), 
+            "Error", 
+            JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    }
+}
+    private void usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_usuarioActionPerformed
 
-    private void tipusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipusActionPerformed
+    private void tipousuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipousuarioActionPerformed
        // TODO add your handling code here:
-    }//GEN-LAST:event_tipusActionPerformed
+    }//GEN-LAST:event_tipousuarioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+//   String usu=usuario.getText(), con=contras.getText();
+//   if(usu.equals("JOEL") && con.equals("usuario123"))
+//   {
+//       Administrador a = new Administrador();
+//       Doctor m = new Doctor();
+//       
+//       JOptionPane.showMessageDialog(null, "Bienvenido al himalaya " + usu);
+tipUser();
+//       //dispose();
+//      
+//   }else
+//   {
+//        JOptionPane.showMessageDialog(null, "Error verifica los datos");
+//   }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void ckboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckboxActionPerformed
@@ -293,19 +338,16 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Rigth;
+    private javax.swing.JLabel Titulsosoos;
     private javax.swing.JCheckBox ckbox;
     private javax.swing.JPasswordField contras;
     private javax.swing.JButton jButton1;
-    private javax.swing.JDialog jDialog1;
-    private javax.swing.JDialog jDialog2;
-    private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JComboBox<String> tipus;
+    private javax.swing.JComboBox<String> tipousuario;
+    private javax.swing.JTextField usuario;
     // End of variables declaration//GEN-END:variables
 }
