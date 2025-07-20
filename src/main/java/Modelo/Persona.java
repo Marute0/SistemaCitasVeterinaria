@@ -12,17 +12,22 @@ public abstract class Persona {
         private int ID;
         private String nombre;
         private String apellido;
+        private String nDocumento;
         private String email;
         private String numeroTelefono;
 
-    public Persona(String nombre, String apellido, int ID, String email, String numeroTelefono) {
+        
+        //Constructor de la clase
+    public Persona(int ID, String nombre, String apellido, String nDocumento, String email, String numeroTelefono) {
         this.ID = ID;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.nDocumento = nDocumento;
         this.email = email;
         this.numeroTelefono = numeroTelefono;
     }
 
+        //Getters and Setters
     public String getNombre() {
         return nombre;
     }
@@ -39,6 +44,14 @@ public abstract class Persona {
         this.apellido = apellido;
     }
 
+    public String getnDocumento() {
+        return nDocumento;
+    }
+
+    public void setnDocumento(String nDocumento) {
+        this.nDocumento = nDocumento;
+    }
+    
     public int getID() {
         return ID;
     }
@@ -62,15 +75,16 @@ public abstract class Persona {
     public void setNumeroTelefono(String numeroTelefono) {
         this.numeroTelefono = numeroTelefono;
     }
-
-
-
-
         
+    
+    
+    //método para el nombre completo
     public String nombreCompleto(){
         return nombre + " " + apellido;
     }
     
+    
+    //método abstracto
     public abstract String mostrarInformación();
     
         

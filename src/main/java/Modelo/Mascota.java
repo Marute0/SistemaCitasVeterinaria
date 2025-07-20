@@ -4,8 +4,6 @@
  */
 package Modelo;
 
-import java.util.Arrays;
-
 /**
  *
  * @author Ususario
@@ -18,16 +16,20 @@ public class Mascota {
     private String raza;
     private String sexo;
     private float peso;
+    private int idDueño;
 
-    public Mascota(String nombre, int idMascota, int edad, String tipo, String raza, String sexo, float peso) {
+    public Mascota(int ID, String nombre, int edad, String tipo, String raza, String sexo, float peso, int idDueño) {
+        this.ID = ID;
         this.nombre = nombre;
-        this.ID = idMascota;
         this.edad = edad;
         this.tipo = tipo;
         this.raza = raza;
         this.sexo = sexo;
         this.peso = peso;
+        this.idDueño = idDueño;
     }
+
+
 
     public String getNombre() {
         return nombre;
@@ -55,6 +57,14 @@ public class Mascota {
 
     public float getPeso() {
         return peso;
+    }
+
+    public int getIdDueño() {
+        return idDueño;
+    }
+
+    public void setIdDueño(int idDueño) {
+        this.idDueño = idDueño;
     }
 
   

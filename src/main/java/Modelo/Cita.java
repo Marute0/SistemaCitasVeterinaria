@@ -13,9 +13,9 @@ import java.time.LocalDate;
 public class Cita {
     //Atributos
     private String idCita;
-    private Mascota mascota;
-    private Dueño dueño;
-    private DoctorVeterinario doctor;
+    private Mascota mascota; //información general
+    private Dueño dueño; //nombre completo, dirección, contacto
+    private DoctorVeterinario doctor; //nombre completo, especializacion
     private LocalDate fecha;
     private int nivelPrioridad;
 

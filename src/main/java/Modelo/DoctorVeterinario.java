@@ -15,16 +15,15 @@ public class DoctorVeterinario extends Persona{
     private String especializacion;
 
      //Constructor
-    
-    
-    
-    public DoctorVeterinario(String contraseña, String especializacion, String nombre, String apellido, int ID, String email, String numeroTelefono) {
-        super(nombre, apellido, ID, email, numeroTelefono);
+
+    public DoctorVeterinario(int ID, String nombre, String apellido, String nDocumento, String email, String numeroTelefono, String contraseña, String especializacion) {
+        super(ID, nombre, apellido, nDocumento, email, numeroTelefono);
         this.contraseña = contraseña;
         this.especializacion = especializacion;
     }
 
-
+    //Getters anda setters
+    
     public String getContraseña() {
         return contraseña;
     }

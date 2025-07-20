@@ -14,12 +14,13 @@ public class Administrador extends Persona{
     //Atributos
         private String contraseña;
 
+        
     //Constructor
-
-    public Administrador(String nombre, String apellido, int ID, String email, String numeroTelefono) {
-        super(nombre, apellido, ID, email, numeroTelefono);
-    }
-
+    public Administrador(int ID, String nombre, String apellido, String nDocumento, String email, String numeroTelefono, String contraseña) {
+        super(ID, nombre, apellido, nDocumento, email, numeroTelefono);
+        this.contraseña = contraseña;
+    }    
+    
     public String getContraseña() {
         return contraseña;
     }
@@ -27,20 +28,16 @@ public class Administrador extends Persona{
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
-
-
     
     
     //Método para posterior guargado en la base de datos
+
     @Override
     public String mostrarInformación() {
-        return getNombre() + " " + 
-               getApellido() + "," + 
-               getID() + "," + 
-               getEmail() + "," + 
-               getNumeroTelefono() + "," +
-               contraseña;
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+  
         
         
 }

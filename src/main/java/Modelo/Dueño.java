@@ -12,13 +12,18 @@ public class Dueño extends Persona{
     private String direccion;
 
     //método constructor
-    public Dueño(String dirección, String nombre, String apellido, int ID, String email, String numeroTelefono) {
-        super(nombre, apellido, ID, email, numeroTelefono);
-        this.direccion = dirección;
+
+    public Dueño(int ID, String nombre, String apellido, String nDocumento, String email, String numeroTelefono, String direccion) {
+        super(ID, nombre, apellido, nDocumento, email, numeroTelefono);
+        this.direccion = direccion;
     }
+
 
     
     //getters and setters
+    
+    
+    
     public String getDirección() {
         return direccion;
     }

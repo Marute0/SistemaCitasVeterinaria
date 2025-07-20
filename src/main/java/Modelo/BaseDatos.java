@@ -6,7 +6,7 @@ package Modelo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -15,27 +15,44 @@ import java.sql.Statement;
  * @author Ususario
  */
 public class BaseDatos {
-    private String user = "root"; //Usuario 
-    private String pass = ""; //Contraseña
-    private String url = "jdbc:mysql://localhost:3306/SistemaCitasVeterinaria"; //RutaBasedeDatos
+    private String user = "root";
+    private String pass = "";
+    private String url = "jdbc:mysql://localhost:3306/SistemaCitasVeterinaria";
+    private Connection connection;  // Agregamos la conexión como campo
     private Statement statement;
     
-    public BaseDatos(){
+    public BaseDatos() {
         try {
-            Connection connection = DriverManager.getConnection(url, user, pass);
-            statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            // 1. Establecer conexión
+            connection = DriverManager.getConnection(url, user, pass);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    // Nuevo método para obtener PreparedStatement
+    public PreparedStatement getPreparedStatement(String sql) throws SQLException {
+        return connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+    }
+
+    // Método para operaciones que necesitan retornar claves generadas
+    public PreparedStatement getPreparedStatementWithKeys(String sql) throws SQLException {
+        return connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+    }
+
+    // Mantenemos el método existente por compatibilidad (pero debería deprecarse)
     public Statement getStatement() {
         return statement;
     }
-    
-    
-    
-    
-    
-    
+
+    // Método para cerrar la conexión
+    public void close() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
