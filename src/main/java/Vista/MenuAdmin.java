@@ -4,20 +4,15 @@
  */
 package Vista;
 
-/**
- *
- * @author Daniela
- */
 public class MenuAdmin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MenuAdmin
-     */
     public MenuAdmin() {
         initComponents();
+        this.setTitle("Menú Administrador"); // título visible en la barra
         this.setExtendedState(this.MAXIMIZED_VERT);
     }
 
+    AnimateBTT anim = new AnimateBTT();
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,48 +22,297 @@ public class MenuAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        menu = new javax.swing.JPanel();
+        nombre = new javax.swing.JLabel();
+        btt_masco = new javax.swing.JPanel();
+        btt_mascotas = new javax.swing.JLabel();
+        btt_cita = new javax.swing.JPanel();
+        btt_citas = new javax.swing.JLabel();
+        btt_doc = new javax.swing.JPanel();
+        btt_doctores = new javax.swing.JLabel();
+        btt_contrase = new javax.swing.JPanel();
+        btt_contraseña = new javax.swing.JLabel();
+        btt_cerrar = new javax.swing.JPanel();
+        btt_salir = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(171, 101, 61));
-        jPanel2.setToolTipText("");
-        jPanel2.setAlignmentX(0.0F);
-        jPanel2.setAlignmentY(0.0F);
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        menu.setBackground(new java.awt.Color(96, 131, 52));
+        menu.setToolTipText("");
+        menu.setAutoscrolls(true);
+        menu.setMinimumSize(new java.awt.Dimension(200, 700));
+        menu.setPreferredSize(new java.awt.Dimension(200, 700));
 
-        jLabel1.setFont(new java.awt.Font("Artifakt Element Black", 2, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(223, 216, 205));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("PET SCHEDULE");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        nombre.setFont(new java.awt.Font("Artifakt Element Black", 2, 24)); // NOI18N
+        nombre.setForeground(new java.awt.Color(247, 254, 239));
+        nombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        nombre.setText("PET SCHEDULE");
 
-        jPanel1.setBackground(new java.awt.Color(223, 216, 205));
+        btt_masco.setBackground(new java.awt.Color(168, 202, 126));
+        btt_masco.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btt_mascoMousePressed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 190, Short.MAX_VALUE)
+        btt_mascotas.setFont(new java.awt.Font("Artifakt Element Black", 0, 18)); // NOI18N
+        btt_mascotas.setForeground(new java.awt.Color(247, 254, 239));
+        btt_mascotas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/mascota.png"))); // NOI18N
+        btt_mascotas.setText(" Mascotas");
+        btt_mascotas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btt_mascotasMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btt_mascoLayout = new javax.swing.GroupLayout(btt_masco);
+        btt_masco.setLayout(btt_mascoLayout);
+        btt_mascoLayout.setHorizontalGroup(
+            btt_mascoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btt_mascoLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(btt_mascotas, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 70, Short.MAX_VALUE)
+        btt_mascoLayout.setVerticalGroup(
+            btt_mascoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btt_mascoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btt_mascotas, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 170, 190, 70));
-        jPanel1.getAccessibleContext().setAccessibleName("");
-        jPanel1.getAccessibleContext().setAccessibleDescription("");
+        btt_cita.setBackground(new java.awt.Color(168, 202, 126));
+        btt_cita.setPreferredSize(new java.awt.Dimension(200, 120));
+        btt_cita.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btt_citaMousePressed(evt);
+            }
+        });
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 700));
+        btt_citas.setFont(new java.awt.Font("Artifakt Element Black", 0, 18)); // NOI18N
+        btt_citas.setForeground(new java.awt.Color(247, 254, 239));
+        btt_citas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/calendario (2).png"))); // NOI18N
+        btt_citas.setText(" Citas");
+        btt_citas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btt_citasMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btt_citaLayout = new javax.swing.GroupLayout(btt_cita);
+        btt_cita.setLayout(btt_citaLayout);
+        btt_citaLayout.setHorizontalGroup(
+            btt_citaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btt_citaLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(btt_citas, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        btt_citaLayout.setVerticalGroup(
+            btt_citaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btt_citaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btt_citas, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        btt_doc.setBackground(new java.awt.Color(168, 202, 126));
+        btt_doc.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btt_docMousePressed(evt);
+            }
+        });
+
+        btt_doctores.setFont(new java.awt.Font("Artifakt Element Black", 0, 18)); // NOI18N
+        btt_doctores.setForeground(new java.awt.Color(247, 254, 239));
+        btt_doctores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/doctor.png"))); // NOI18N
+        btt_doctores.setText(" Doctores");
+        btt_doctores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btt_doctoresMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btt_docLayout = new javax.swing.GroupLayout(btt_doc);
+        btt_doc.setLayout(btt_docLayout);
+        btt_docLayout.setHorizontalGroup(
+            btt_docLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btt_docLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(btt_doctores, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        btt_docLayout.setVerticalGroup(
+            btt_docLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btt_docLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btt_doctores, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        btt_contrase.setBackground(new java.awt.Color(168, 202, 126));
+        btt_contrase.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btt_contraseMousePressed(evt);
+            }
+        });
+
+        btt_contraseña.setFont(new java.awt.Font("Artifakt Element Black", 0, 15)); // NOI18N
+        btt_contraseña.setForeground(new java.awt.Color(247, 254, 239));
+        btt_contraseña.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/candado.png"))); // NOI18N
+        btt_contraseña.setText("Cambiar Contraseña");
+        btt_contraseña.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btt_contraseñaMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btt_contraseLayout = new javax.swing.GroupLayout(btt_contrase);
+        btt_contrase.setLayout(btt_contraseLayout);
+        btt_contraseLayout.setHorizontalGroup(
+            btt_contraseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btt_contraseLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btt_contraseña)
+                .addGap(33, 33, 33))
+        );
+        btt_contraseLayout.setVerticalGroup(
+            btt_contraseLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btt_contraseLayout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addComponent(btt_contraseña)
+                .addGap(15, 15, 15))
+        );
+
+        btt_cerrar.setBackground(new java.awt.Color(168, 202, 126));
+        btt_cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btt_cerrarMousePressed(evt);
+            }
+        });
+
+        btt_salir.setFont(new java.awt.Font("Artifakt Element Black", 0, 18)); // NOI18N
+        btt_salir.setForeground(new java.awt.Color(247, 254, 239));
+        btt_salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cerrar-sesion (1).png"))); // NOI18N
+        btt_salir.setText(" Cerrar Sesión");
+        btt_salir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                btt_salirMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btt_cerrarLayout = new javax.swing.GroupLayout(btt_cerrar);
+        btt_cerrar.setLayout(btt_cerrarLayout);
+        btt_cerrarLayout.setHorizontalGroup(
+            btt_cerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btt_cerrarLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(btt_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+        btt_cerrarLayout.setVerticalGroup(
+            btt_cerrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(btt_cerrarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btt_salir, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout menuLayout = new javax.swing.GroupLayout(menu);
+        menu.setLayout(menuLayout);
+        menuLayout.setHorizontalGroup(
+            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuLayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(btt_cita, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btt_masco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btt_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btt_contrase, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(btt_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        menuLayout.setVerticalGroup(
+            menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(menuLayout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50)
+                .addComponent(btt_cita, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btt_masco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btt_doc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btt_contrase, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btt_cerrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        btt_masco.getAccessibleContext().setAccessibleName("");
+        btt_masco.getAccessibleContext().setAccessibleDescription("");
+
+        getContentPane().add(menu, java.awt.BorderLayout.CENTER);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btt_mascotasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btt_mascotasMousePressed
+        anim.seleccionarMascotas(btt_cita, btt_citas, btt_masco, btt_mascotas, btt_doc, btt_doctores, btt_contrase, btt_contraseña,btt_cerrar, btt_salir);
+    }//GEN-LAST:event_btt_mascotasMousePressed
+
+    private void btt_mascoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btt_mascoMousePressed
+        anim.seleccionarMascotas(btt_cita, btt_citas, btt_masco, btt_mascotas, btt_doc, btt_doctores, btt_contrase, btt_contraseña,btt_cerrar, btt_salir);
+    }//GEN-LAST:event_btt_mascoMousePressed
+
+    private void btt_citasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btt_citasMousePressed
+        anim.seleccionarCitas(btt_cita, btt_citas, btt_masco, btt_mascotas, btt_doc, btt_doctores, btt_contrase, btt_contraseña,btt_cerrar, btt_salir);
+    }//GEN-LAST:event_btt_citasMousePressed
+
+    private void btt_citaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btt_citaMousePressed
+        anim.seleccionarCitas(btt_cita, btt_citas, btt_masco, btt_mascotas, btt_doc, btt_doctores, btt_contrase, btt_contraseña,btt_cerrar, btt_salir);
+    }//GEN-LAST:event_btt_citaMousePressed
+
+    private void btt_doctoresMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btt_doctoresMousePressed
+        anim.seleccionarDoctores(btt_cita, btt_citas, btt_masco, btt_mascotas, btt_doc, btt_doctores, btt_contrase, btt_contraseña,btt_cerrar, btt_salir);
+    }//GEN-LAST:event_btt_doctoresMousePressed
+
+    private void btt_docMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btt_docMousePressed
+        anim.seleccionarDoctores(btt_cita, btt_citas, btt_masco, btt_mascotas, btt_doc, btt_doctores, btt_contrase, btt_contraseña,btt_cerrar, btt_salir);
+    }//GEN-LAST:event_btt_docMousePressed
+
+    private void btt_contraseñaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btt_contraseñaMousePressed
+        anim.seleccionarContraseña(btt_cita, btt_citas, btt_masco, btt_mascotas, btt_doc, btt_doctores, btt_contrase, btt_contraseña,btt_cerrar, btt_salir);
+    }//GEN-LAST:event_btt_contraseñaMousePressed
+
+    private void btt_contraseMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btt_contraseMousePressed
+        anim.seleccionarContraseña(btt_cita, btt_citas, btt_masco, btt_mascotas, btt_doc, btt_doctores, btt_contrase, btt_contraseña,btt_cerrar, btt_salir);
+    }//GEN-LAST:event_btt_contraseMousePressed
+
+    private void btt_salirMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btt_salirMousePressed
+        anim.seleccionarSalir(btt_cita, btt_citas, btt_masco, btt_mascotas, btt_doc, btt_doctores, btt_contrase, btt_contraseña,btt_cerrar, btt_salir);
+    }//GEN-LAST:event_btt_salirMousePressed
+
+    private void btt_cerrarMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btt_cerrarMousePressed
+        anim.seleccionarSalir(btt_cita, btt_citas, btt_masco, btt_mascotas, btt_doc, btt_doctores, btt_contrase, btt_contraseña,btt_cerrar, btt_salir);
+    }//GEN-LAST:event_btt_cerrarMousePressed
 
     /**
      * @param args the command line arguments
@@ -105,8 +349,19 @@ public class MenuAdmin extends javax.swing.JFrame {
      });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel btt_cerrar;
+    private javax.swing.JPanel btt_cita;
+    private javax.swing.JLabel btt_citas;
+    private javax.swing.JPanel btt_contrase;
+    private javax.swing.JLabel btt_contraseña;
+    private javax.swing.JPanel btt_doc;
+    private javax.swing.JLabel btt_doctores;
+    private javax.swing.JPanel btt_masco;
+    private javax.swing.JLabel btt_mascotas;
+    private javax.swing.JLabel btt_salir;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel menu;
+    private javax.swing.JLabel nombre;
     // End of variables declaration//GEN-END:variables
 }
