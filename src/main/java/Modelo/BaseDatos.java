@@ -15,44 +15,76 @@ import java.sql.Statement;
  * @author Ususario
  */
 public class BaseDatos {
-    private String user = "root";
-    private String pass = "";
-    private String url = "jdbc:mysql://localhost:3306/SistemaCitasVeterinaria";
-    private Connection connection;  // Agregamos la conexión como campo
-    private Statement statement;
+    private final String user = "root";
+    private final String pass = "";
+    private final String url = "jdbc:mysql://localhost:3306/SistemaCitasVeterinaria"
+                            + "?useSSL=false"
+                            + "&serverTimezone=UTC"
+                            + "&allowPublicKeyRetrieval=true";
+    
+    private Connection connection;
     
     public BaseDatos() {
         try {
-            // 1. Establecer conexión
+            // 1. Registrar el driver explícitamente (IMPORTANTE)
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            
+            // 2. Establecer conexión con parámetros seguros
             connection = DriverManager.getConnection(url, user, pass);
+            System.out.println("Conexión exitosa a la base de datos");
+            
+        } catch (ClassNotFoundException e) {
+            System.err.println("ERROR: Driver JDBC no encontrado");
+            e.printStackTrace();
         } catch (SQLException e) {
+            System.err.println("ERROR al conectar a la base de datos");
             e.printStackTrace();
         }
     }
 
-    // Nuevo método para obtener PreparedStatement
+    // Método para obtener PreparedStatement (mejorado)
     public PreparedStatement getPreparedStatement(String sql) throws SQLException {
-        return connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        if (connection == null || connection.isClosed()) {
+            throw new SQLException("Conexión no disponible");
+        }
+        return connection.prepareStatement(sql);
     }
 
     // Método para operaciones que necesitan retornar claves generadas
     public PreparedStatement getPreparedStatementWithKeys(String sql) throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            throw new SQLException("Conexión no disponible");
+        }
         return connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
     }
 
-    // Mantenemos el método existente por compatibilidad (pero debería deprecarse)
-    public Statement getStatement() {
-        return statement;
+    // Método para obtener Statement (con verificación de conexión)
+    public Statement getStatement() throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            throw new SQLException("Conexión no disponible");
+        }
+        return connection.createStatement();
     }
 
-    // Método para cerrar la conexión
+    // Método para cerrar la conexión (mejorado)
     public void close() {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
+                System.out.println("Conexión cerrada correctamente");
             }
         } catch (SQLException e) {
+            System.err.println("Error al cerrar la conexión");
             e.printStackTrace();
+        }
+    }
+    
+    // Método para verificar si la conexión está activa
+    public boolean isConnected() {
+        try {
+            return connection != null && !connection.isClosed();
+        } catch (SQLException e) {
+            return false;
         }
     }
 }

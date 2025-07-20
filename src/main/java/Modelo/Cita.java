@@ -12,36 +12,26 @@ import java.time.LocalDate;
  */
 public class Cita {
     //Atributos
-    private String idCita;
-    private Mascota mascota; //información general
-    private Dueño dueño; //nombre completo, dirección, contacto
-    private DoctorVeterinario doctor; //nombre completo, especializacion
+    private String ID;
+    private String idDueño;
+    private String idMascota;
+    private String idDoctor;
     private LocalDate fecha;
     private int nivelPrioridad;
 
     //Constructor
-    public Cita(String idCita, Dueño dueño, DoctorVeterinario doctor, LocalDate fecha, int nivelPrioridad) {
-        this.idCita = idCita;
-        this.dueño = dueño;
-        this.doctor = doctor;
+
+    public Cita(String ID, String idDueño, String idMascota, String idDoctor, LocalDate fecha, int nivelPrioridad) {
+        this.ID = ID;
+        this.idDueño = idDueño;
+        this.idMascota = idMascota;
+        this.idDoctor = idDoctor;
         this.fecha = fecha;
         this.nivelPrioridad = nivelPrioridad;
     }
 
-    
     //Getters
-    public String getIdCita() {
-        return idCita;
-    }
-
-    public Dueño getDueño() {
-        return dueño;
-    }
-
-    public DoctorVeterinario getDoctor() {
-        return doctor;
-    }
-
+   
     public LocalDate getFecha() {
         return fecha;
     }
@@ -50,31 +40,48 @@ public class Cita {
         return nivelPrioridad;
     }
 
+    public String getID() {
+        return ID;
+    }
+
+    public String getIdDueño() {
+        return idDueño;
+    }
+
+    public String getIdMascota() {
+        return idMascota;
+    }
+
+    public String getIdDoctor() {
+        return idDoctor;
+    }
+
+    
     //Setters
-    public void setDueño(Dueño dueño) {
-        this.dueño = dueño;
+
+    public void setID(String ID) {
+        this.ID = ID;
     }
 
-    public void setDoctor(DoctorVeterinario doctor) {
-        this.doctor = doctor;
+    public void setIdDueño(String idDueño) {
+        this.idDueño = idDueño;
     }
 
+    public void setIdMascota(String idMascota) {
+        this.idMascota = idMascota;
+    }
+
+    public void setIdDoctor(String idDoctor) {
+        this.idDoctor = idDoctor;
+    }
+
+    public void setNivelPrioridad(int nivelPrioridad) {
+        this.nivelPrioridad = nivelPrioridad;
+    }
+    
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
-    public void setIdCita(String idCita) {
-        this.idCita = idCita;
-    }
-
-    //Método para posterior guargado en la base de datos
-    @Override
-    public String toString() {
-        return "Cita{idmascota=" + mascota.getID() +
-                ", idDueño='" + dueño.getID() +
-                "', idCita='" + idCita +  
-                "', Fecha='" + fecha +
-                "', prioridad=" + nivelPrioridad + "}";
-    }
     
 }
