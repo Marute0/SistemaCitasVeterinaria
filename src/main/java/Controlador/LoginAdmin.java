@@ -26,17 +26,17 @@ public class LoginAdmin {
     
     
     //Crea el admin si ve que no existe en la base de datos
-    public boolean crearUsuarioAdminAutomatico() {
+    public String crearUsuarioAdminAutomatico() {
         
         String nombre = "Admin";
         String apellido = "Principal";
-        String nDocumento = "00000000"; // Documento predeterminado
+        String nDocumento = "11041105"; // Documento predeterminado
         String email = "admin@veterinaria.com";
         String telefono = "555-0000";
         String contraseña = generadorContraseñas.generarContraseñaTemporal();
         // Crear usuario en BD
         String sql = "INSERT INTO `administradores` ( `nombre`,`apellido`, `nDocumento`, `email`, `numeroTelefono`, `contraseña`) "
-                + "VALUES (?,?,?,?,?,?))";
+                + "VALUES (?,?,?,?,?,?)";
         
         try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
                 pstmt.setString(1, nombre);
@@ -47,17 +47,23 @@ public class LoginAdmin {
                 pstmt.setString(6, contraseña);
 
                 int filasAfectadas = pstmt.executeUpdate();
-                return filasAfectadas > 0;
+                 if (filasAfectadas > 0){
+                     return contraseña;
+                }else {
+                    return null;
+                }
+                
 
         } catch (SQLException e) {
             e.printStackTrace();
-                return false;
+                return null;
+
         }
     }
 
     
         public boolean verificarCredencialesAdmin(String nDocumento, String contraseñaIngresada) {
-        String sql = "SELECT `contraseña` FROM `administradores` WHERE `nDocumento` = ?";
+        String sql = "SELECT * FROM `administradores` WHERE `nDocumento` = ? AND `contraseña` = ?";
 
         try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
             pstmt.setString(1, nDocumento);

@@ -125,7 +125,7 @@
                                       <Component id="jLabel4" alignment="0" min="-2" pref="128" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="ckbox" alignment="0" min="-2" pref="112" max="-2" attributes="0"/>
-                                  <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="Bingresar" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -153,7 +153,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="ckbox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="Bingresar" min="-2" pref="33" max="-2" attributes="0"/>
                       <EmptySpace pref="53" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -216,7 +216,7 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="2">
                     <StringItem index="0" value="Administrador"/>
-                    <StringItem index="1" value="Doctor"/>
+                    <StringItem index="1" value="Doctor Veterinario"/>
                   </StringArray>
                 </Property>
                 <Property name="selectedIndex" type="int" value="-1"/>
@@ -233,7 +233,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="contrasActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="Bingresar">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="3d" green="65" red="ab" type="rgb"/>
@@ -247,7 +247,7 @@
                 <Property name="text" type="java.lang.String" value="INGRESAR"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BingresarActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="ckbox">
