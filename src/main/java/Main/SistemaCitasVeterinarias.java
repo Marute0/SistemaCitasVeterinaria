@@ -4,6 +4,8 @@
 
 package Main;
 
+import Vista.Login;
+
 
 /**
  *
@@ -12,7 +14,10 @@ package Main;
 public class SistemaCitasVeterinarias {
 
     public static void main(String[] args) {
-
+    java.awt.EventQueue.invokeLater(() -> {
+        new Login().setVisible(true);
+    });
+}
     };
     
-}
+
