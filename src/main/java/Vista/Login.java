@@ -1,11 +1,5 @@
 package Vista;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import Controlador.GeneradorContraseñas;
 import Controlador.ControladorAdmin;
 import Controlador.LoginAdmin;
@@ -314,21 +308,21 @@ if (tipoSeleccionado.isEmpty() || documento.isEmpty() || contraseña.isEmpty()) 
 switch (tipoo) {
         case "Administrador":
             if (LoginAdmin.verificarCredencialesAdmin(documento, contraseña)) {
-                JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso como Administrador");
+                JOptionPane.showMessageDialog(this, "Inicio de sesión como Administrador, exitoso");
                 new MenuAdmin().setVisible(true); // Abre JFrame del admin
                 this.dispose(); // Cierra el login
             } else {
-                JOptionPane.showMessageDialog(this, "Datos erroneos, por favor intenta de nuevo");
+                JOptionPane.showMessageDialog(this, "Datos erroneos, por favor revisa los datos");
             }
             break;
 
         case "Doctor Veterinario":
             if (controladorDoctor.verificarCredencialesDoctor(documento, contraseña)) {
-                JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso como Dcotor Veterinario");
+                JOptionPane.showMessageDialog(this, "Inicio de sesión como Doctor Veterinario, exitoso");
                 new MenuDoctor().setVisible(true); // Abre JFrame del doctor
                 this.dispose();
             } else {
-                JOptionPane.showMessageDialog(this, "Credenciales inválidas para Veterinario");
+                JOptionPane.showMessageDialog(this, "Datos erroneos, por favor revisa los datos");
             }
             break;
 
