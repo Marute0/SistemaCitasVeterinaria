@@ -51,7 +51,11 @@ public class MenuAdmin extends javax.swing.JFrame {
         jLabel3.setText("jLabel3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(245, 254, 239));
+        setEnabled(false);
+        setMinimumSize(new java.awt.Dimension(1180, 700));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1180, 700));
 
         menu.setBackground(new java.awt.Color(96, 131, 52));
         menu.setToolTipText("");
@@ -120,10 +124,10 @@ public class MenuAdmin extends javax.swing.JFrame {
         btt_cita.setLayout(btt_citaLayout);
         btt_citaLayout.setHorizontalGroup(
             btt_citaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(btt_citaLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btt_citaLayout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
                 .addComponent(btt_citas, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
         );
         btt_citaLayout.setVerticalGroup(
             btt_citaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -268,7 +272,18 @@ public class MenuAdmin extends javax.swing.JFrame {
         btt_masco.getAccessibleContext().setAccessibleName("");
         btt_masco.getAccessibleContext().setAccessibleDescription("");
 
-        getContentPane().add(menu, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(1246, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         pack();
         setLocationRelativeTo(null);
