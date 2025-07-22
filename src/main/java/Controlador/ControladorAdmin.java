@@ -36,7 +36,6 @@ public class ControladorAdmin {
         }
     }
    
-     
 // Actualizar contraseña
     public boolean actualizarContraseña(int id, String nuevaPassword) {
         String sql = "UPDATE `administradores` SET `contraseña`= ? WHERE `ID`=? ";
@@ -49,6 +48,5 @@ public class ControladorAdmin {
             return false;
         }
     }
-    
-    
+
 }

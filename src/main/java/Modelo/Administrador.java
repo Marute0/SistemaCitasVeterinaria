@@ -13,7 +13,6 @@ package Modelo;
 public class Administrador extends Persona{
     //Atributos
         private String contraseña;
-
         
     //Constructor
     public Administrador(int ID, String nombre, String apellido, String nDocumento, String email, String numeroTelefono, String contraseña) {
@@ -42,8 +41,5 @@ public class Administrador extends Persona{
     
         return getNombre() + " " + getApellido();
     
-    }
-  
-        
-        
+    }     
 }
