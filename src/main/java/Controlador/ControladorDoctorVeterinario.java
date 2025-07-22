@@ -13,10 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Ususario
- */
 public class ControladorDoctorVeterinario {
     private DoctorVeterinario DV;
     private BaseDatos baseDatos;

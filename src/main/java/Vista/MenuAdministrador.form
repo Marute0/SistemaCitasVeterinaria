@@ -268,20 +268,25 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="TituloMascotas1" min="-2" pref="163" max="-2" attributes="0"/>
+                      <Component id="TituloCitas" min="-2" pref="163" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="Btt_Programar" min="-2" pref="464" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="Btt_CitasProgramadas" min="-2" pref="320" max="-2" attributes="0"/>
+                          <Component id="txtInfCita" min="-2" pref="236" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="txtEspecialidad" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="ComboEspecialidad" min="-2" pref="219" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="txtDoctor" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="ComboDoctor" min="-2" pref="253" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jLabel2" min="-2" pref="186" max="-2" attributes="0"/>
+                          <Component id="txt_InfPersonal" min="-2" pref="186" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="nombre3" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="nombre4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="nombre5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtNombres" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtApellidos" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtCedula" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -292,63 +297,62 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="nombre8" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtDireccion" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="ComboDireccion" min="-2" pref="379" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Component id="nombre6" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtTelefono" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="ComboTelefono" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="nombre7" min="-2" max="-2" attributes="0"/>
+                                          <Component id="txtEmail" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="ComboEmail" min="-2" pref="400" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                           </Group>
-                          <Component id="jLabel3" min="-2" pref="236" max="-2" attributes="0"/>
-                          <Component id="jLabel4" min="-2" pref="236" max="-2" attributes="0"/>
+                          <Component id="txtInfMascita" min="-2" pref="236" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="nombre10" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtTipo" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="ComboTipo" min="-2" pref="240" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="nombre12" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtRaza" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="ComboRaza" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="nombre9" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtNombrePet" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="ComboNombrePet" min="-2" pref="212" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="nombre11" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtSexo" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="ComboSexo" max="32767" attributes="0"/>
+                                  <Component id="ComboSexo" pref="169" max="32767" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="nombre13" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="ComboFecha" min="-2" pref="179" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="nombre14" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="ComboPrioridad" min="-2" pref="174" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="nombre15" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="ComboDoctor" min="-2" pref="196" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="nombre16" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="ComboEspecialidad" max="32767" attributes="0"/>
-                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="txtFecha" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="ComboFecha" min="-2" pref="179" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="txtPrioridad" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                              <Component id="ComboPrioridad" min="-2" pref="101" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="txtPrioridad1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="ComboPrioridad1" min="-2" pref="174" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="Btt_Programar" min="-2" pref="464" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="Btt_CitasProgramadas" min="-2" pref="320" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="114" max="32767" attributes="0"/>
@@ -360,81 +364,81 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="TituloMascotas1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_InfPersonal" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="TituloCitas" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="nombre3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtNombres" min="-2" max="-2" attributes="0"/>
                                   <Component id="ComboNombre" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="nombre4" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtApellidos" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="ComboApellidos" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="nombre5" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtCedula" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="ComboCedula" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="ComboTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="nombre6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtTelefono" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="ComboEmail" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="nombre7" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="ComboDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="nombre8" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txtInfMascita" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="nombre9" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtNombrePet" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="ComboNombrePet" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ComboSexo" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="nombre11" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtSexo" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="ComboRaza" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="nombre12" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtRaza" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="ComboTipo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="nombre10" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="nombre13" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                              <Component id="ComboFecha" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="ComboPrioridad" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="nombre14" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="txtInfCita" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="ComboEspecialidad" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="nombre16" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtEspecialidad" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="ComboDoctor" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="nombre15" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtDoctor" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="44" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="txtFecha" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ComboFecha" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPrioridad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ComboPrioridad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txtPrioridad1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ComboPrioridad1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="48" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="Btt_Programar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="Btt_CitasProgramadas" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -445,7 +449,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="TituloMascotas1">
+            <Component class="javax.swing.JLabel" name="TituloCitas">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Swis721 Blk BT" size="24" style="0"/>
@@ -481,7 +485,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel2">
+            <Component class="javax.swing.JLabel" name="txt_InfPersonal">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="70" green="b7" red="97" type="rgb"/>
@@ -495,7 +499,7 @@
                 <Property name="text" type="java.lang.String" value="Informaci&#xf3;n Personal"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="nombre3">
+            <Component class="javax.swing.JLabel" name="txtNombres">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
@@ -525,7 +529,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="nombre4">
+            <Component class="javax.swing.JLabel" name="txtApellidos">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
@@ -555,7 +559,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="nombre5">
+            <Component class="javax.swing.JLabel" name="txtCedula">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
@@ -585,7 +589,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="nombre6">
+            <Component class="javax.swing.JLabel" name="txtTelefono">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
@@ -618,7 +622,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="nombre7">
+            <Component class="javax.swing.JLabel" name="txtEmail">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
@@ -648,7 +652,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="nombre8">
+            <Component class="javax.swing.JLabel" name="txtDireccion">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
@@ -659,7 +663,7 @@
                 <Property name="text" type="java.lang.String" value="Direcci&#xf3;n"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="txtInfMascita">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="70" green="b7" red="97" type="rgb"/>
@@ -673,7 +677,7 @@
                 <Property name="text" type="java.lang.String" value="Informaci&#xf3;n de la Mascota"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="nombre9">
+            <Component class="javax.swing.JLabel" name="txtNombrePet">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
@@ -706,7 +710,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="nombre10">
+            <Component class="javax.swing.JLabel" name="txtTipo">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
@@ -719,7 +723,6 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="ComboTipo">
               <Properties>
-                <Property name="editable" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semilight" size="14" style="0"/>
                 </Property>
@@ -738,7 +741,6 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="ComboSexo">
               <Properties>
-                <Property name="editable" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semilight" size="14" style="0"/>
                 </Property>
@@ -755,7 +757,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="nombre11">
+            <Component class="javax.swing.JLabel" name="txtSexo">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
@@ -785,7 +787,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="nombre12">
+            <Component class="javax.swing.JLabel" name="txtRaza">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
@@ -827,7 +829,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btt_ProgramarActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel4">
+            <Component class="javax.swing.JLabel" name="txtInfCita">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="70" green="b7" red="97" type="rgb"/>
@@ -841,7 +843,7 @@
                 <Property name="text" type="java.lang.String" value="Informaci&#xf3;n de la Cita"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="nombre13">
+            <Component class="javax.swing.JLabel" name="txtFecha">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
@@ -874,7 +876,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="nombre14">
+            <Component class="javax.swing.JLabel" name="txtPrioridad">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
@@ -882,12 +884,11 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="d" green="34" red="1b" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Prioridad"/>
+                <Property name="text" type="java.lang.String" value="Hora"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="ComboPrioridad">
               <Properties>
-                <Property name="editable" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semilight" size="14" style="0"/>
                 </Property>
@@ -909,7 +910,6 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="ComboDoctor">
               <Properties>
-                <Property name="editable" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semilight" size="14" style="0"/>
                 </Property>
@@ -926,7 +926,7 @@
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JLabel" name="nombre15">
+            <Component class="javax.swing.JLabel" name="txtDoctor">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
@@ -937,7 +937,7 @@
                 <Property name="text" type="java.lang.String" value="Doctor"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="nombre16">
+            <Component class="javax.swing.JLabel" name="txtEspecialidad">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
@@ -950,7 +950,6 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="ComboEspecialidad">
               <Properties>
-                <Property name="editable" type="boolean" value="true"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Yu Gothic UI Semilight" size="14" style="0"/>
                 </Property>
@@ -1001,6 +1000,38 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Btt_CitasProgramadasActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JComboBox" name="ComboPrioridad1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI Semilight" size="14" style="0"/>
+                </Property>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="4">
+                    <StringItem index="0" value="Item 1"/>
+                    <StringItem index="1" value="Item 2"/>
+                    <StringItem index="2" value="Item 3"/>
+                    <StringItem index="3" value="Item 4"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComboPrioridad1ActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="txtPrioridad1">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Yu Gothic UI Semibold" size="14" style="0"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="d" green="34" red="1b" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Prioridad"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelPet">
@@ -1039,12 +1070,12 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                       <Component id="TituloMascotas" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                      <EmptySpace pref="28" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jScrollBar2" max="32767" attributes="0"/>
-                          <Component id="jScrollPane1" pref="372" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" pref="470" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="108" max="32767" attributes="0"/>
+                      <EmptySpace pref="65" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
