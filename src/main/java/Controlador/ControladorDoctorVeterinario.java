@@ -21,6 +21,7 @@ public class ControladorDoctorVeterinario {
     private DoctorVeterinario DV;
     private BaseDatos baseDatos;
     private ArrayList<DoctorVeterinario> DoctoresVet;
+    private GeneradorContraseñas generadorContraseñas;
 
     public ControladorDoctorVeterinario(DoctorVeterinario DV, BaseDatos baseDatos) {
         this.DV = DV;
@@ -29,6 +30,8 @@ public class ControladorDoctorVeterinario {
     
     //Método que crea al DV en la base de datos
     public boolean doctorVeterinarioEsCreado() {
+        
+        String contraseña = generadorContraseñas.generarContraseñaTemporal();
         String sql = "INSERT INTO doctoresveterinarios (nombre, apellido, nDocumento, email, numeroTelefono, contraseña, especialización) "
                        + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -38,7 +41,7 @@ public class ControladorDoctorVeterinario {
                 pstmt.setString(3, DV.getnDocumento());
                 pstmt.setString(4, DV.getEmail());
                 pstmt.setString(5, DV.getNumeroTelefono());
-                pstmt.setString(6, DV.getContraseña());
+                pstmt.setString(6, contraseña);
                 pstmt.setString(7, DV.getEspecializacion());
 
                 int filasAfectadas = pstmt.executeUpdate();

@@ -78,19 +78,19 @@ public boolean crearCita(Cita cita) {
     }
 }
 
-// Verificar si el doctor tiene una cita en la misma hora
-private boolean verificarDisponibilidadDoctor(int idDoctor, LocalDateTime fecha) {
-    String sql = "SELECT COUNT(*) FROM citas WHERE idDoctor = ? AND fecha = ?";
-    try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
-        pstmt.setInt(1, idDoctor);
-        pstmt.setTimestamp(2, Timestamp.valueOf(fecha));
-        ResultSet rs = pstmt.executeQuery();
-        return rs.next() && rs.getInt(1) == 0; // Si es 0, está disponible
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
+    // Verificar si el doctor tiene una cita en la misma hora
+    private boolean verificarDisponibilidadDoctor(int idDoctor, LocalDateTime fecha) {
+        String sql = "SELECT COUNT(*) FROM citas WHERE idDoctor = ? AND fecha = ?";
+        try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
+            pstmt.setInt(1, idDoctor);
+            pstmt.setTimestamp(2, Timestamp.valueOf(fecha));
+            ResultSet rs = pstmt.executeQuery();
+            return rs.next() && rs.getInt(1) == 0; // Si es 0, está disponible
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
-}
 
     // Validar que dueño, mascota y doctor existan
     private boolean validarRelaciones(Cita cita) {
