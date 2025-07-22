@@ -4,7 +4,7 @@
  */
 package Modelo;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -12,74 +12,90 @@ import java.time.LocalDate;
  */
 public class Cita {
     //Atributos
-    private String ID;
-    private String idDueño;
-    private String idMascota;
-    private String idDoctor;
-    private LocalDate fecha;
-    private int nivelPrioridad;
+    private int ID;
+    private DoctorVeterinario doctor;
+    private Dueño dueño;
+    private Mascota mascota;
+    private LocalDateTime fecha;
+    private Prioridad nivelPrioridad;
 
+    public enum Prioridad {
+        ALTA, MEDIA, BAJA;
+        
+        // Convertir desde String (útil para lectura de BD)
+        public static Prioridad fromString(String value) {
+            return valueOf(value.toUpperCase());
+        }
+    }
+    
+    
     //Constructor
 
-    public Cita(String ID, String idDueño, String idMascota, String idDoctor, LocalDate fecha, int nivelPrioridad) {
+    public Cita() {
+    }
+    
+    
+    public Cita(int ID, DoctorVeterinario doctor, Dueño dueño, Mascota mascota, LocalDateTime fecha, Prioridad nivelPrioridad) {
         this.ID = ID;
-        this.idDueño = idDueño;
-        this.idMascota = idMascota;
-        this.idDoctor = idDoctor;
+        this.doctor = doctor;
+        this.dueño = dueño;
+        this.mascota = mascota;
         this.fecha = fecha;
         this.nivelPrioridad = nivelPrioridad;
     }
 
+
+
     //Getters
    
-    public LocalDate getFecha() {
+    public LocalDateTime getFecha() {
         return fecha;
     }
 
-    public int getNivelPrioridad() {
+    public Prioridad getNivelPrioridad() {
         return nivelPrioridad;
     }
 
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
-    public String getIdDueño() {
-        return idDueño;
+    public DoctorVeterinario getDoctor() {
+        return doctor;
     }
 
-    public String getIdMascota() {
-        return idMascota;
+    public Dueño getDueño() {
+        return dueño;
     }
 
-    public String getIdDoctor() {
-        return idDoctor;
+    public Mascota getMascota() {
+        return mascota;
     }
 
     
     //Setters
 
-    public void setID(String ID) {
+    public void setID(int ID) {
         this.ID = ID;
     }
 
-    public void setIdDueño(String idDueño) {
-        this.idDueño = idDueño;
+    public void setDoctor(DoctorVeterinario doctor) {
+        this.doctor = doctor;
     }
 
-    public void setIdMascota(String idMascota) {
-        this.idMascota = idMascota;
+    public void setDueño(Dueño dueño) {
+        this.dueño = dueño;
     }
 
-    public void setIdDoctor(String idDoctor) {
-        this.idDoctor = idDoctor;
+    public void setMascota(Mascota mascota) {
+        this.mascota = mascota;
     }
 
-    public void setNivelPrioridad(int nivelPrioridad) {
+    public void setNivelPrioridad(Prioridad nivelPrioridad) {
         this.nivelPrioridad = nivelPrioridad;
     }
     
-    public void setFecha(LocalDate fecha) {
+    public void setFecha(LocalDateTime fecha) {
         this.fecha = fecha;
     }
 
