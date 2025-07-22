@@ -63,7 +63,7 @@ public class LoginAdmin {
 
     
         public boolean verificarCredencialesAdmin(String nDocumento, String contraseñaIngresada) {
-        String sql = "SELECT `contraseña` FROM `administradores` WHERE `nDocumento` = ? and `contraseña` = ?";
+        String sql = "SELECT * FROM `administradores` WHERE `nDocumento` = ? AND `contraseña` = ?";
 
         try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
             pstmt.setString(1, nDocumento);

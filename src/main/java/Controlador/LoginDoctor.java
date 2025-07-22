@@ -22,7 +22,7 @@ public class LoginDoctor {
     
     //Verifica las credenciales del doctor
         public boolean verificarCredencialesDoctor(String nDocumento, String contraseñaIngresada) {
-        String sql = "SELECT `contraseña` FROM `doctoresveterinarios` WHERE `nDocumento` = ? and `contraseña` = ?";
+        String sql = "SELECT * FROM `administradores` WHERE `nDocumento` = ? AND `contraseña` = ?";
 
         try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
             pstmt.setString(1, nDocumento);
