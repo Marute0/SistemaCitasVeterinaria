@@ -29,7 +29,7 @@ public class ControladorDoctorVeterinario {
     }
     
     //Método que crea al DV en la base de datos
-    public boolean doctorVeterinarioEsCreado() {
+    public String doctorVeterinarioEsCreado() {
         
         String contraseña = generadorContraseñas.generarContraseñaTemporal();
         String sql = "INSERT INTO doctoresveterinarios (nombre, apellido, nDocumento, email, numeroTelefono, contraseña, especialización) "
@@ -45,13 +45,16 @@ public class ControladorDoctorVeterinario {
                 pstmt.setString(7, DV.getEspecializacion());
 
                 int filasAfectadas = pstmt.executeUpdate();
-                return filasAfectadas > 0;
-
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return false;
-            }
+        if (filasAfectadas > 0) {
+            return contraseña;  // Retorna la contraseña generada
+        } else {
+            return null;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return null;
     }
+}
     
 
     //Método que lee a los doctores en la base de datos y los lleva a un array 
