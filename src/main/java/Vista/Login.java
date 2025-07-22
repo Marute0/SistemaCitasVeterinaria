@@ -6,6 +6,7 @@ import Controlador.LoginAdmin;
 import Controlador.LoginDoctor;
 import Modelo.Administrador;
 import Modelo.BaseDatos;
+import Vista.MenuAdministrador;
 import Vista.MenuDoctor;
 import javax.swing.JOptionPane;
 
