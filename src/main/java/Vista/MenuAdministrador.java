@@ -64,22 +64,28 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         panelPet = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        panelDoc = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
         panelPassword = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
+        panelDoc = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        BloqueNombre = new javax.swing.JTextField();
+        BloqueCedula = new javax.swing.JTextField();
+        nombre = new javax.swing.JLabel();
+        apellido = new javax.swing.JLabel();
+        email = new javax.swing.JLabel();
+        cedula = new javax.swing.JLabel();
+        telefono = new javax.swing.JLabel();
+        especialidad = new javax.swing.JLabel();
+        BloqueEspecialidad = new javax.swing.JTextField();
+        BloqueApellidos = new javax.swing.JTextField();
+        BloqueEmail = new javax.swing.JTextField();
+        BloqueTelefono = new javax.swing.JTextField();
+        Btt_Busqueda = new javax.swing.JButton();
+        Btt_Nuevo = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(247, 254, 239));
-        setMinimumSize(new java.awt.Dimension(970, 700));
-        setPreferredSize(new java.awt.Dimension(970, 700));
+        setMinimumSize(new java.awt.Dimension(1180, 700));
 
         menu.setBackground(new java.awt.Color(96, 131, 52));
         menu.setMinimumSize(new java.awt.Dimension(200, 700));
@@ -207,78 +213,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
         contenedores.addTab("Mascotas", panelPet);
 
-        panelDoc.setBackground(new java.awt.Color(247, 254, 239));
-
-        jLabel2.setBackground(new java.awt.Color(96, 131, 52));
-        jLabel2.setFont(new java.awt.Font("Swis721 Blk BT", 0, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(96, 131, 52));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/estetoscopio.png"))); // NOI18N
-        jLabel2.setText(" INFORMACIÓN DE DOCTORES");
-
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField2");
-
-        jTextField3.setText("jTextField3");
-
-        jTextField4.setText("jTextField4");
-
-        jTextField5.setText("jTextField5");
-
-        jTextField6.setText("jTextField6");
-
-        jLabel7.setText("Ingresar nombre");
-
-        javax.swing.GroupLayout panelDocLayout = new javax.swing.GroupLayout(panelDoc);
-        panelDoc.setLayout(panelDocLayout);
-        panelDocLayout.setHorizontalGroup(
-            panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDocLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelDocLayout.createSequentialGroup()
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(panelDocLayout.createSequentialGroup()
-                                .addGap(124, 124, 124)
-                                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panelDocLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jLabel7)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(137, 137, 137)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(500, Short.MAX_VALUE))
-        );
-        panelDocLayout.setVerticalGroup(
-            panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDocLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel2)
-                .addGap(68, 68, 68)
-                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(30, 30, 30)
-                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(375, Short.MAX_VALUE))
-        );
-
-        contenedores.addTab("Doctores", panelDoc);
-
         panelPassword.setBackground(new java.awt.Color(247, 254, 239));
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
@@ -304,6 +238,194 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
         contenedores.addTab("Contraseña", panelPassword);
 
+        panelDoc.setBackground(new java.awt.Color(247, 254, 239));
+
+        jLabel2.setBackground(new java.awt.Color(96, 131, 52));
+        jLabel2.setFont(new java.awt.Font("Swis721 Blk BT", 0, 24)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(96, 131, 52));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/estetoscopio.png"))); // NOI18N
+        jLabel2.setText(" INFORMACIÓN DE DOCTORES");
+
+        BloqueNombre.setText("*");
+        BloqueNombre.setMinimumSize(new java.awt.Dimension(300, 30));
+        BloqueNombre.setPreferredSize(new java.awt.Dimension(300, 30));
+        BloqueNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BloqueNombreActionPerformed(evt);
+            }
+        });
+
+        BloqueCedula.setText("*");
+        BloqueCedula.setMinimumSize(new java.awt.Dimension(300, 30));
+        BloqueCedula.setPreferredSize(new java.awt.Dimension(300, 30));
+        BloqueCedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BloqueCedulaActionPerformed(evt);
+            }
+        });
+
+        nombre.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        nombre.setForeground(new java.awt.Color(27, 52, 13));
+        nombre.setText("Nombres");
+
+        apellido.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        apellido.setForeground(new java.awt.Color(27, 52, 13));
+        apellido.setText("Apellidos");
+
+        email.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        email.setForeground(new java.awt.Color(27, 52, 13));
+        email.setText("Email");
+
+        cedula.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        cedula.setForeground(new java.awt.Color(27, 52, 13));
+        cedula.setText("Cedula");
+
+        telefono.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        telefono.setForeground(new java.awt.Color(27, 52, 13));
+        telefono.setText("Teléfono");
+
+        especialidad.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        especialidad.setForeground(new java.awt.Color(27, 52, 13));
+        especialidad.setText("Especialidad");
+
+        BloqueEspecialidad.setText("*");
+        BloqueEspecialidad.setMinimumSize(new java.awt.Dimension(300, 30));
+        BloqueEspecialidad.setPreferredSize(new java.awt.Dimension(300, 30));
+        BloqueEspecialidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BloqueEspecialidadActionPerformed(evt);
+            }
+        });
+
+        BloqueApellidos.setText("*");
+        BloqueApellidos.setMinimumSize(new java.awt.Dimension(300, 30));
+        BloqueApellidos.setPreferredSize(new java.awt.Dimension(300, 30));
+        BloqueApellidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BloqueApellidosActionPerformed(evt);
+            }
+        });
+
+        BloqueEmail.setText("*");
+        BloqueEmail.setMinimumSize(new java.awt.Dimension(300, 30));
+        BloqueEmail.setPreferredSize(new java.awt.Dimension(300, 30));
+        BloqueEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BloqueEmailActionPerformed(evt);
+            }
+        });
+
+        BloqueTelefono.setText("*");
+        BloqueTelefono.setMinimumSize(new java.awt.Dimension(300, 30));
+        BloqueTelefono.setPreferredSize(new java.awt.Dimension(300, 30));
+        BloqueTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BloqueTelefonoActionPerformed(evt);
+            }
+        });
+
+        Btt_Busqueda.setLabel("Buscar");
+        Btt_Busqueda.setMaximumSize(new java.awt.Dimension(100, 50));
+        Btt_Busqueda.setMinimumSize(new java.awt.Dimension(100, 50));
+        Btt_Busqueda.setPreferredSize(new java.awt.Dimension(100, 50));
+
+        Btt_Nuevo.setLabel("Nuevo Doctor");
+        Btt_Nuevo.setMaximumSize(new java.awt.Dimension(100, 50));
+        Btt_Nuevo.setMinimumSize(new java.awt.Dimension(75, 20));
+        Btt_Nuevo.setPreferredSize(new java.awt.Dimension(100, 50));
+        Btt_Nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btt_NuevoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelDocLayout = new javax.swing.GroupLayout(panelDoc);
+        panelDoc.setLayout(panelDocLayout);
+        panelDocLayout.setHorizontalGroup(
+            panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDocLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelDocLayout.createSequentialGroup()
+                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelDocLayout.createSequentialGroup()
+                        .addGap(62, 62, 62)
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nombre)
+                            .addComponent(apellido)
+                            .addComponent(cedula))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelDocLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(BloqueCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelDocLayout.createSequentialGroup()
+                                .addComponent(BloqueApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelDocLayout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(BloqueNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(45, 45, 45)
+                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(telefono)
+                    .addComponent(email)
+                    .addComponent(especialidad))
+                .addGap(21, 21, 21)
+                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BloqueEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BloqueTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BloqueEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Btt_Nuevo, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                    .addComponent(Btt_Busqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(68, 68, 68))
+        );
+        panelDocLayout.setVerticalGroup(
+            panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDocLayout.createSequentialGroup()
+                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDocLayout.createSequentialGroup()
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel2)
+                        .addGap(33, 33, 33)
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BloqueNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombre))
+                        .addGap(29, 29, 29)
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BloqueApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(apellido))
+                        .addGap(29, 29, 29)
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cedula)
+                            .addComponent(BloqueCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelDocLayout.createSequentialGroup()
+                        .addGap(128, 128, 128)
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BloqueEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(email))
+                        .addGap(29, 29, 29)
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BloqueTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(telefono))
+                        .addGap(29, 29, 29)
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(especialidad)
+                            .addComponent(BloqueEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelDocLayout.createSequentialGroup()
+                        .addGap(142, 142, 142)
+                        .addComponent(Btt_Busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Btt_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(389, Short.MAX_VALUE))
+        );
+
+        Btt_Nuevo.getAccessibleContext().setAccessibleName("Nuevo Doctor");
+
+        contenedores.addTab("Doctores", panelDoc);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -317,9 +439,9 @@ public class MenuAdministrador extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(contenedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(contenedores, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -350,6 +472,34 @@ public class MenuAdministrador extends javax.swing.JFrame {
         animate.selectDoctores(ButtonCita, ButtonPet, ButtonDoc, ButtonPassword, ButtonLogout);
         contenedores.setSelectedComponent(panelDoc);
     }//GEN-LAST:event_ButtonDocActionPerformed
+
+    private void BloqueCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueCedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BloqueCedulaActionPerformed
+
+    private void BloqueNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BloqueNombreActionPerformed
+
+    private void BloqueEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueEspecialidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BloqueEspecialidadActionPerformed
+
+    private void BloqueApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueApellidosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BloqueApellidosActionPerformed
+
+    private void BloqueEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BloqueEmailActionPerformed
+
+    private void BloqueTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BloqueTelefonoActionPerformed
+
+    private void Btt_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_NuevoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Btt_NuevoActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus <<<<<<<<<<<<<<look and feel */
@@ -385,28 +535,35 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField BloqueApellidos;
+    private javax.swing.JTextField BloqueCedula;
+    private javax.swing.JTextField BloqueEmail;
+    private javax.swing.JTextField BloqueEspecialidad;
+    private javax.swing.JTextField BloqueNombre;
+    private javax.swing.JTextField BloqueTelefono;
+    private javax.swing.JButton Btt_Busqueda;
+    private javax.swing.JButton Btt_Nuevo;
     private javax.swing.JButton ButtonCita;
     private javax.swing.JButton ButtonDoc;
     private javax.swing.JButton ButtonLogout;
     private javax.swing.JButton ButtonPassword;
     private javax.swing.JButton ButtonPet;
+    private javax.swing.JLabel apellido;
+    private javax.swing.JLabel cedula;
     private javax.swing.JTabbedPane contenedores;
+    private javax.swing.JLabel email;
+    private javax.swing.JLabel especialidad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JPanel menu;
+    private javax.swing.JLabel nombre;
     private javax.swing.JPanel panelCitas;
     private javax.swing.JPanel panelDoc;
     private javax.swing.JPanel panelPassword;
     private javax.swing.JPanel panelPet;
+    private javax.swing.JLabel telefono;
     // End of variables declaration//GEN-END:variables
 }
