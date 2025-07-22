@@ -23,18 +23,27 @@ public class ControladorDoctorVeterinario {
     private ArrayList<DoctorVeterinario> DoctoresVet;
     private GeneradorContraseñas generadorContraseñas;
 
-    public ControladorDoctorVeterinario(DoctorVeterinario DV, BaseDatos baseDatos) {
+    public ControladorDoctorVeterinario() {
+    }
+
+    public ControladorDoctorVeterinario(DoctorVeterinario DV) {
         this.DV = DV;
-        this.baseDatos = baseDatos;
     }
     
-    //Método que crea al DV en la base de datos
-    public String doctorVeterinarioEsCreado() {
-        
+    public ControladorDoctorVeterinario(DoctorVeterinario DV, BaseDatos baseDatos, GeneradorContraseñas generadorContraseñas) {
+        this.DV = DV;
+        this.baseDatos = baseDatos;
+        this.generadorContraseñas = generadorContraseñas;
+    }
+    
+   //Método que crea al DV en la base de datos
+    public String doctorVeterinarioEsCreado(DoctorVeterinario DV) {
+        this.baseDatos = new BaseDatos();
+        this.generadorContraseñas = new GeneradorContraseñas();
         String contraseña = generadorContraseñas.generarContraseñaTemporal();
-        String sql = "INSERT INTO doctoresveterinarios (nombre, apellido, nDocumento, email, numeroTelefono, contraseña, especialización) "
-                       + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+        String sql = "INSERT INTO `doctoresveterinarios`(`nombre`, `apellido`, `nDocumeno`, `email`, `numeroTelefono`, `contraseña`, `especialización`) "
+                + "VALUES (?,?,?,?,?,?,?)";
+ 
             try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
                 pstmt.setString(1, DV.getNombre());
                 pstmt.setString(2, DV.getApellido());
