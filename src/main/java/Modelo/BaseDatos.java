@@ -80,11 +80,12 @@ public class BaseDatos {
     }
     
     // Método para verificar si la conexión está activa
-    public boolean isConnected() {
-        try {
-            return connection != null && !connection.isClosed();
-        } catch (SQLException e) {
-            return false;
+        public Connection getConnection() throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            // (Re)inicializa tu conexión aquí, p.ej. con DriverManager.getConnection(...)
+            connection = DriverManager.getConnection(url, user, pass);
         }
+        return connection;
     }
+
 }
