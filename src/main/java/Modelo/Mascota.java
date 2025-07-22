@@ -12,13 +12,19 @@ public class Mascota {
     private int ID;
     private String nombre;
     private int edad;
-    private String tipo;
+    private Tipo tipo;
     private String raza;
-    private String sexo;
+    private Sexo sexo;
     private float peso;
     private int idDueño;
 
-    public Mascota(int ID, String nombre, int edad, String tipo, String raza, String sexo, float peso, int idDueño) {
+    //Métodos constructores
+
+    public Mascota() {
+    }
+    
+    
+    public Mascota(int ID, String nombre, int edad, Tipo tipo, String raza, Sexo sexo, float peso, int idDueño) {
         this.ID = ID;
         this.nombre = nombre;
         this.edad = edad;
@@ -30,7 +36,7 @@ public class Mascota {
     }
 
 
-
+    //Getters
     public String getNombre() {
         return nombre;
     }
@@ -43,7 +49,7 @@ public class Mascota {
         return edad;
     }
 
-    public String getTipo() {
+    public Tipo getTipo() {
         return tipo;
     }
 
@@ -51,7 +57,7 @@ public class Mascota {
         return raza;
     }
 
-    public String getSexo() {
+    public Sexo getSexo() {
         return sexo;
     }
 
@@ -61,6 +67,36 @@ public class Mascota {
 
     public int getIdDueño() {
         return idDueño;
+    }
+
+    
+    //Setters
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setRaza(String raza) {
+        this.raza = raza;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
+    }
+
+    public void setPeso(float peso) {
+        this.peso = peso;
     }
 
     public void setIdDueño(int idDueño) {
@@ -79,6 +115,35 @@ public class Mascota {
                sexo + "," + 
                peso; 
     }
+    
+    //Inicialización de enums
+        public enum Tipo {
+        PERRO, GATO, AVE, ROEDOR, OTRO;
+        
+        public static Tipo fromString(String value) {
+            try {
+                return Tipo.valueOf(value.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.err.println("Valor de tipo no válido: " + value);
+                return OTRO; // Valor por defecto
+            }
+        }
+    }
+    
+    public enum Sexo {
+        FEMENINO, MASCULINO;
+        
+        public static Sexo fromString(String value) {
+            try {
+                return Sexo.valueOf(value.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.err.println("Valor de sexo no válido: " + value);
+                return FEMENINO; // Valor por defecto
+            }
+        }
+    }
+    
+    
 
 }
     

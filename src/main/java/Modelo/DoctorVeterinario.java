@@ -16,6 +16,13 @@ public class DoctorVeterinario extends Persona{
 
      //Constructor
 
+    public DoctorVeterinario() {
+    }
+    
+    public DoctorVeterinario(int ID, String nombre, String apellido) {
+        super(ID, nombre, apellido);
+    }
+
     public DoctorVeterinario(int ID, String nombre, String apellido, String nDocumento, String email, String numeroTelefono, String contraseña, String especializacion) {
         super(ID, nombre, apellido, nDocumento, email, numeroTelefono);
         this.contraseña = contraseña;
@@ -50,6 +57,14 @@ public class DoctorVeterinario extends Persona{
                getEmail() + "," + 
                getNumeroTelefono() + "," + 
                especializacion + ",";
+    }
+
+    //Método abstracto para la obtención del nombre
+    @Override
+    public String nombreCompleto() {
+    
+        return "Dr. " + getNombre() + " " + getApellido();
+    
     }
 
 }

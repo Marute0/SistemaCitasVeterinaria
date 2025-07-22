@@ -10,20 +10,27 @@ package Modelo;
  */
 public class Dueño extends Persona{
     private String direccion;
-
+    
     //método constructor
 
+    public Dueño() {
+    }
+    
+      // Nuevo constructor “sólo nombre/apellido”
+    public Dueño(int ID,String nombre, String apellido) {
+      super(ID,nombre, apellido);
+    }
+    
+    public Dueño(int ID, String nombre, String apellido, String nDocumento, String email, String numeroTelefono) {
+        super(ID, nombre, apellido, nDocumento, email, numeroTelefono);
+    }
+    
     public Dueño(int ID, String nombre, String apellido, String nDocumento, String email, String numeroTelefono, String direccion) {
         super(ID, nombre, apellido, nDocumento, email, numeroTelefono);
         this.direccion = direccion;
     }
-
-
     
     //getters and setters
-    
-    
-    
     public String getDirección() {
         return direccion;
     }
@@ -31,7 +38,6 @@ public class Dueño extends Persona{
     public void setDirección(String dirección) {
         this.direccion = dirección;
     }
-    
     
     @Override
     public String mostrarInformación(){
@@ -41,6 +47,13 @@ public class Dueño extends Persona{
                getEmail() + "," + 
                getNumeroTelefono(); 
     }
+
+    //Método para obtener el nombre completo
+    @Override
+    public String nombreCompleto() {
+        return "Dr. " + getNombre() + " " + getApellido();
+    }
+    
     
 }
 
