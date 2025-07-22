@@ -11,11 +11,9 @@ package Modelo;
 public class Mascota {
     private int ID;
     private String nombre;
-    private int edad;
     private Tipo tipo;
     private String raza;
     private Sexo sexo;
-    private float peso;
     private int idDueño;
 
     //Métodos constructores
@@ -24,14 +22,12 @@ public class Mascota {
     }
     
     
-    public Mascota(int ID, String nombre, int edad, Tipo tipo, String raza, Sexo sexo, float peso, int idDueño) {
+    public Mascota(int ID, String nombre, Tipo tipo, String raza, Sexo sexo, int idDueño) {
         this.ID = ID;
         this.nombre = nombre;
-        this.edad = edad;
         this.tipo = tipo;
         this.raza = raza;
         this.sexo = sexo;
-        this.peso = peso;
         this.idDueño = idDueño;
     }
 
@@ -45,9 +41,6 @@ public class Mascota {
         return ID;
     }
 
-    public int getEdad() {
-        return edad;
-    }
 
     public Tipo getTipo() {
         return tipo;
@@ -61,9 +54,6 @@ public class Mascota {
         return sexo;
     }
 
-    public float getPeso() {
-        return peso;
-    }
 
     public int getIdDueño() {
         return idDueño;
@@ -79,9 +69,6 @@ public class Mascota {
         this.nombre = nombre;
     }
 
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
 
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
@@ -95,9 +82,6 @@ public class Mascota {
         this.sexo = sexo;
     }
 
-    public void setPeso(float peso) {
-        this.peso = peso;
-    }
 
     public void setIdDueño(int idDueño) {
         this.idDueño = idDueño;
@@ -109,11 +93,9 @@ public class Mascota {
     public String toString(){
         return nombre + "," + 
                ID + "," + 
-               edad + "," + 
                tipo + "," + 
                raza + "," + 
-               sexo + "," + 
-               peso; 
+               sexo;
     }
     
     //Inicialización de enums
@@ -131,14 +113,14 @@ public class Mascota {
     }
     
     public enum Sexo {
-        FEMENINO, MASCULINO;
+        HEMBRA, MACHO;
         
         public static Sexo fromString(String value) {
             try {
                 return Sexo.valueOf(value.toUpperCase());
             } catch (IllegalArgumentException e) {
                 System.err.println("Valor de sexo no válido: " + value);
-                return FEMENINO; // Valor por defecto
+                return HEMBRA; // Valor por defecto
             }
         }
     }

@@ -34,16 +34,14 @@ public class ControladorMascota {
         if (!validarSexo(M.getSexo().name())) return false;
         
         String sql = "INSERT INTO `mascotas`(`nombre`, `edad`, `tipo`, `raza`, `sexo`, `peso`, `ID_dueño`) "
-                + "VALUES (?,?,?,?,?,?,?)";
+                + "VALUES (?,?,?,?,?,?,?) ORDER BY nombre";
 
             try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
                 pstmt.setString(1, M.getNombre());
-                pstmt.setInt(2, M.getEdad());
-                pstmt.setString(3, M.getTipo().name());
-                pstmt.setString(4, M.getRaza());
-                pstmt.setString(5, M.getSexo().name());
-                pstmt.setFloat(6, M.getPeso());
-                pstmt.setInt(7, M.getIdDueño());
+                pstmt.setString(2, M.getTipo().name());
+                pstmt.setString(3, M.getRaza());
+                pstmt.setString(4, M.getSexo().name());
+                pstmt.setInt(5, M.getIdDueño());
 
                 int filasAfectadas = pstmt.executeUpdate();
                 return filasAfectadas > 0;
@@ -70,11 +68,9 @@ public class ControladorMascota {
                 Mascota mascota = new Mascota(
                     rs.getInt("ID"),
                     rs.getString("nombre"),
-                    rs.getInt("edad"),
                     tipo,  // ENUM 
                     rs.getString("raza"),
                     sexo,   // ENUM 
-                    rs.getFloat("peso"),
                     rs.getInt("ID_dueño")
                 );
                 mascotas.add(mascota);
@@ -96,7 +92,7 @@ public class ControladorMascota {
     }
 
     private boolean validarSexo(String sexo) {
-        return Arrays.asList("FEMENINO", "MASCULINO").contains(sexo);
+        return Arrays.asList("HEMBRA", "MACHO").contains(sexo);
     }
     
     //Elimina la mascota y a las citas asociadas a la misma debido al cascade de la base de datos
