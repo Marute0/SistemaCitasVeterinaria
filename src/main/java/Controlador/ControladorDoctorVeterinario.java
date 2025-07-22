@@ -19,11 +19,18 @@ public class ControladorDoctorVeterinario {
     private ArrayList<DoctorVeterinario> DoctoresVet;
     private GeneradorContraseñas generadorContraseñas;
 
+    
+    //Constructores 
     public ControladorDoctorVeterinario() {
     }
 
     public ControladorDoctorVeterinario(DoctorVeterinario DV) {
         this.DV = DV;
+    }
+
+    public ControladorDoctorVeterinario(DoctorVeterinario DV, BaseDatos baseDatos) {
+        this.DV = DV;
+        this.baseDatos = baseDatos;
     }
     
     public ControladorDoctorVeterinario(DoctorVeterinario DV, BaseDatos baseDatos, GeneradorContraseñas generadorContraseñas) {
@@ -65,7 +72,7 @@ public class ControladorDoctorVeterinario {
     //Método que lee a los doctores en la base de datos y los lleva a un array 
     public ControladorDoctorVeterinario (BaseDatos basedatos) {
         
-        String select = "SELECT * FROM `doctoresveterinarios` ORDER BY nombre, apellido;";
+        String select = "SELECT * FROM `doctoresveterinarios` ORDER BY `nombre`, `apellido`;";
         try {
             ResultSet rs = basedatos.getStatement().executeQuery(select);
             while (rs.next()) {

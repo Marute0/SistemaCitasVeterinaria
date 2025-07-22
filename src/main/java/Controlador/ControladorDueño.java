@@ -21,6 +21,10 @@ public class ControladorDueño {
     private BaseDatos baseDatos;
     private ArrayList<Dueño> Dueños;
 
+    public ControladorDueño() {
+
+    }
+    
     public ControladorDueño(Dueño Dñ, BaseDatos baseDatos, ArrayList<Dueño> Dueños) {
         this.Dñ = Dñ;
         this.baseDatos = baseDatos;
@@ -29,9 +33,12 @@ public class ControladorDueño {
     
     
         //Método que crea al DV en la base de datos
-    public boolean dueñoEsCreado() {
-        String sql = "INSERT INTO doctoresveterinarios (nombre, apellido, nDocumento, email, numeroTelefono, direccion) "
-                       + "VALUES (?, ?, ?, ?, ?, ?)";
+    public boolean dueñoEsCreado(Dueño Dñ) {
+        this.baseDatos = new BaseDatos();
+        this.Dñ = new Dueño();
+        
+        String sql = "INSERT INTO `dueños`(`nombre`, `apellido`, `nDocumeno`, `email`, `numeroTelefono`, `direccion`) "
+                + "VALUES (?,?,?,?,?,?)";
 
             try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
                 pstmt.setString(1, Dñ.getNombre());
@@ -73,10 +80,11 @@ public class ControladorDueño {
         }
     }
     
+
     
     //Elimina al dueño y a las citas y mascotas asociadas a la misma debido al cascade de la base de datos
     public boolean eliminarDueño(int idDueño) throws SQLException {
-        String sql = "DELETE FROM `dueños` WHERE ID = ?";
+        String sql = "DELETE FROM `dueños` WHERE `ID` = ?";
         try (Connection conn = baseDatos.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idDueño);

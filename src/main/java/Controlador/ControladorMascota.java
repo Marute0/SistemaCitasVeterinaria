@@ -28,31 +28,47 @@ public class ControladorMascota {
     }
         
    //crea la mascota
-    public boolean mascotaEsCreada() {
-         // Validar valores ENUM
-        if (!validarTipo(M.getTipo().name())) return false;
-        if (!validarSexo(M.getSexo().name())) return false;
+    public boolean crearMascota(Mascota M, String nDocumentoDueño) {
         
-        String sql = "INSERT INTO `mascotas`(`nombre`, `edad`, `tipo`, `raza`, `sexo`, `peso`, `ID_dueño`) "
-                + "VALUES (?,?,?,?,?,?,?) ORDER BY nombre";
+        int idDueño = obtenerIdDueñoPorDocumento(nDocumentoDueño);  // Busca el ID del dueño
 
-            try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
-                pstmt.setString(1, M.getNombre());
-                pstmt.setString(2, M.getTipo().name());
-                pstmt.setString(3, M.getRaza());
-                pstmt.setString(4, M.getSexo().name());
-                pstmt.setInt(5, M.getIdDueño());
+        if (idDueño == -1) {
+            System.out.println("No se encontró el dueño con el documento proporcionado.");
+            return false;  // Si no se encuentra el dueño, no se crea la mascota
+        }
 
-                int filasAfectadas = pstmt.executeUpdate();
-                return filasAfectadas > 0;
+        // Insertar la mascota con el ID del dueño
+        String sql = "INSERT INTO `mascotas` (`nombre`, `edad`, `tipo`, `raza`, `sexo`, `peso`, `idDueño`) "
+                     + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
+            pstmt.setString(1, M.getNombre());
+            pstmt.setString(2, M.getTipo().name());
+            pstmt.setString(3, M.getRaza());
+            pstmt.setString(4, M.getSexo().name());
+            pstmt.setInt(5, idDueño);  // Asociamos el ID del dueño existente
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return false;
-            }
+            int filasAfectadas = pstmt.executeUpdate();
+            return filasAfectadas > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
     
-
+        public int obtenerIdDueñoPorDocumento(String nDocumento) {
+        String sql = "SELECT ID FROM `dueños` WHERE `nDocumento` = ?";
+        try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
+            pstmt.setString(1, nDocumento);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("ID");  // Devuelve el ID del dueño encontrado
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;  // Si no se encuentra, retorna -1
+    }
     
     //Lee las mascotas en la base de datos, util para las tablas!
     public ControladorMascota(BaseDatos basedatos) {
@@ -98,7 +114,7 @@ public class ControladorMascota {
     //Elimina la mascota y a las citas asociadas a la misma debido al cascade de la base de datos
     
     public boolean eliminarMascota(int idMascota) throws SQLException {
-        String sql = "DELETE FROM `mascotas` WHERE ID = ?";
+        String sql = "DELETE FROM `mascotas` WHERE `ID` = ?";
         try (Connection conn = baseDatos.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idMascota);
