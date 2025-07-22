@@ -130,7 +130,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         Btt_Busqueda = new javax.swing.JButton();
         Btt_Nuevo = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        BaseDoctores = new javax.swing.JTable();
+        TablaDoctores = new javax.swing.JTable();
         jScrollBar1 = new javax.swing.JScrollBar();
         panelPassword = new javax.swing.JPanel();
         TituloContraseña = new javax.swing.JLabel();
@@ -735,9 +735,9 @@ public class MenuAdministrador extends javax.swing.JFrame {
             }
         });
 
-        BaseDoctores.setBackground(new java.awt.Color(247, 248, 246));
-        BaseDoctores.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 12)); // NOI18N
-        BaseDoctores.setModel(new javax.swing.table.DefaultTableModel(
+        TablaDoctores.setBackground(new java.awt.Color(247, 248, 246));
+        TablaDoctores.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 12)); // NOI18N
+        TablaDoctores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -748,7 +748,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(BaseDoctores);
+        jScrollPane2.setViewportView(TablaDoctores);
 
         jScrollBar1.setBackground(new java.awt.Color(203, 221, 181));
 
@@ -1079,9 +1079,8 @@ public class MenuAdministrador extends javax.swing.JFrame {
     // 3. Crear el objeto DoctorVeterinario sin contraseña (esta se genera luego)
     DoctorVeterinario nuevoDoctor = new DoctorVeterinario(0,nombre, apellido, nDocumento, email, telefono,"", especializacion);
     // 4. Crear el controlador con la base de datos y el doctor
-    ControladorDoctorVeterinario controlador = new ControladorDoctorVeterinario(nuevoDoctor, baseDatos);
-    // 5. Insertar en base de datos y obtener la contraseña generada
-    String contraseñaGenerada = controlador.doctorVeterinarioEsCreado();
+   ControladorDoctorVeterinario controlador = new ControladorDoctorVeterinario();
+    String contraseñaGenerada = controlador.doctorVeterinarioEsCreado(nuevoDoctor);
     // 6. Mostrar mensaje de éxito o error
     if (contraseñaGenerada != null) {
         JOptionPane.showMessageDialog(this, "Doctor creado con éxito.\nContraseña temporal: " + contraseñaGenerada, 
@@ -1170,7 +1169,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JTable BaseDoctores;
     private javax.swing.JTextField BloqueApellidos;
     private javax.swing.JTextField BloqueCedula;
     private javax.swing.JTextField BloqueEmail;
@@ -1205,6 +1203,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private javax.swing.JPasswordField ConfirmPassword;
     private javax.swing.JPasswordField NewPassword;
     private javax.swing.JPasswordField OldPassword;
+    public javax.swing.JTable TablaDoctores;
     private javax.swing.JLabel TituloCitas;
     private javax.swing.JLabel TituloContraseña;
     private javax.swing.JLabel TituloDoc;
