@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -73,6 +74,40 @@ public class ControladorDoctorVeterinario {
             e.printStackTrace();
         }
     }
+    
+    public List<DoctorVeterinario> obtenerDoctoresPorEspecialidad(String especialidad) {
+        List<DoctorVeterinario> doctores = new ArrayList<>();
+
+        String sql = "SELECT * FROM `doctoresveterinarios` WHERE `especialización` = ?";
+
+        try (Connection conn = baseDatos.getConnection(); 
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, especialidad);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                DoctorVeterinario doctor = new DoctorVeterinario(
+                    rs.getInt("ID"),
+                    rs.getString("nombre"),
+                    rs.getString("apellido"),
+                    rs.getString("nDocumento"),
+                    rs.getString("email"),
+                    rs.getString("numeroTelefono"),
+                    rs.getString("contraseña"),
+                    rs.getString("especialización")
+                );
+                doctores.add(doctor);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return doctores;
+    }
+    
+    
     
     //Array de los doctores
     public ArrayList<DoctorVeterinario> getDoctorVeterinarios(){

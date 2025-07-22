@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -46,30 +47,50 @@ public class ControladorCita {
 
 
     // Crear nueva cita
-    public boolean crearCita(Cita cita) {
-        // Validar que las relaciones existan
-        if (!validarRelaciones(cita)) {
-            System.out.println("Error: Relaciones inválidas");
-            return false;
-        }
-
-        String sql = "INSERT INTO `citas`(`idDueño`, `idMascota`, `idDoctor`, `fecha`, `nivelPrioridad`) "
-                + "VALUES (?,?,?,?,?);";
-
-        try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
-            pstmt.setInt(1, cita.getDueño().getID());
-            pstmt.setInt(2, cita.getMascota().getID());
-            pstmt.setInt(3, cita.getDoctor().getID());
-            pstmt.setTimestamp(4, Timestamp.valueOf(cita.getFecha()));
-            pstmt.setString(5, cita.getNivelPrioridad().name());
-
-            return pstmt.executeUpdate() > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
+public boolean crearCita(Cita cita) {
+    // Validar que las relaciones existan
+    if (!validarRelaciones(cita)) {
+        System.out.println("Error: Relaciones inválidas");
+        return false;
     }
+
+    // Verificar que el doctor no esté ocupado en esa hora
+    if (!verificarDisponibilidadDoctor(cita.getDoctor().getID(), cita.getFecha())) {
+        System.out.println("Error: El doctor ya tiene una cita a esa hora.");
+        return false;
+    }
+
+    String sql = "INSERT INTO `citas`(`idDueño`, `idMascota`, `idDoctor`, `fecha`, `nivelPrioridad`) "
+            + "VALUES (?,?,?,?,?);";
+
+    try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
+        pstmt.setInt(1, cita.getDueño().getID());
+        pstmt.setInt(2, cita.getMascota().getID());
+        pstmt.setInt(3, cita.getDoctor().getID());
+        pstmt.setTimestamp(4, Timestamp.valueOf(cita.getFecha()));
+        pstmt.setString(5, cita.getNivelPrioridad().name());
+
+        return pstmt.executeUpdate() > 0;
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
+// Verificar si el doctor tiene una cita en la misma hora
+private boolean verificarDisponibilidadDoctor(int idDoctor, LocalDateTime fecha) {
+    String sql = "SELECT COUNT(*) FROM citas WHERE idDoctor = ? AND fecha = ?";
+    try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
+        pstmt.setInt(1, idDoctor);
+        pstmt.setTimestamp(2, Timestamp.valueOf(fecha));
+        ResultSet rs = pstmt.executeQuery();
+        return rs.next() && rs.getInt(1) == 0; // Si es 0, está disponible
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
 
     // Validar que dueño, mascota y doctor existan
     private boolean validarRelaciones(Cita cita) {
