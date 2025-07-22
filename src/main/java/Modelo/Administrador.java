@@ -37,6 +37,12 @@ public class Administrador extends Persona{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+        @Override
+    public String nombreCompleto() {
+    
+        return getNombre() + " " + getApellido();
+    
+    }
   
         
         
