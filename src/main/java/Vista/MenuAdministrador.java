@@ -1,17 +1,27 @@
 package Vista;
 
 import Controlador.ControladorDoctorVeterinario;
+import Modelo.BaseDatos;
 import Modelo.DoctorVeterinario;
 import javax.swing.JOptionPane;
 
 public class MenuAdministrador extends javax.swing.JFrame {
  
     Animacion animate = new Animacion();
+
+    private ControladorDoctorVeterinario controladorDoctor;
+    private BaseDatos baseDatos;
     
     public MenuAdministrador() {
         initComponents();
         configurarPaneles();
         mostrarPanelInicial();
+        
+        try{
+            this.baseDatos = new BaseDatos();
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Error al inicializar:" + e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
+        }
     }
     private void configurarPaneles() {
         // Añadir al JTabbedPane
@@ -1052,31 +1062,35 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_BloqueTelefonoActionPerformed
 
     private void Btt_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_NuevoActionPerformed
-        String nombre = BloqueNombre.getText();
-        String apellido = BloqueApellidos.getText();
-        String documento = BloqueCedula.getText();
-        String email = BloqueEmail.getText();
-        String telefono = BloqueTelefono.getText();
-        String contraseñaGenerada = generarContraseñaAutomatica(10);
-        String especializacion = BloqueEspecialidad.getText();
-        
-        DoctorVeterinario nuevoDoctor = new DoctorVeterinario(
-            nombre,
-            apellido,
-            documento,
-            email,
-            telefono,
-            especializacion
-        );
-        ControladorDoctorVeterinario controlador = new ControladorDoctorVeterinario(nuevoDoctor, baseDatos);
+    // 1. Obtener los datos del formulario
+    String nombre = BloqueNombre.getText().trim();
+    String apellido = BloqueApellidos.getText().trim();
+    String nDocumento = BloqueCedula.getText().trim();
+    String email = BloqueEmail.getText().trim();
+    String telefono = BloqueTelefono.getText().trim();
+    String especializacion = BloqueEspecialidad.getText().trim();
 
-        boolean creado = controlador.doctorVeterinarioEsCreado();
-        if (creado) {
-            JOptionPane.showMessageDialog(null, "Doctor creado exitosamente.");
-            limpiarCampos();
-        } else {
-            JOptionPane.showMessageDialog(null, "Error al crear el doctor.");
-        }
+    // 2. Validar que no estén vacíos
+    if (nombre.isEmpty() || apellido.isEmpty() || nDocumento.isEmpty() || 
+        email.isEmpty() || telefono.isEmpty() || especializacion.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+    // 3. Crear el objeto DoctorVeterinario sin contraseña (esta se genera luego)
+    DoctorVeterinario nuevoDoctor = new DoctorVeterinario(0,nombre, apellido, nDocumento, email, telefono,"", especializacion);
+    // 4. Crear el controlador con la base de datos y el doctor
+    ControladorDoctorVeterinario controlador = new ControladorDoctorVeterinario(nuevoDoctor, baseDatos);
+    // 5. Insertar en base de datos y obtener la contraseña generada
+    String contraseñaGenerada = controlador.doctorVeterinarioEsCreado();
+    // 6. Mostrar mensaje de éxito o error
+    if (contraseñaGenerada != null) {
+        JOptionPane.showMessageDialog(this, "Doctor creado con éxito.\nContraseña temporal: " + contraseñaGenerada, 
+                                      "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        limpiarCampos();  // Método opcional para limpiar después
+    } else {
+        JOptionPane.showMessageDialog(this, "No se pudo crear el doctor. Verifica la conexión o los datos.", 
+                                      "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_Btt_NuevoActionPerformed
 
     private void Btt_EnviarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_EnviarContraseñaActionPerformed
