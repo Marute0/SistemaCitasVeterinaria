@@ -318,8 +318,13 @@ switch (tipoo) {
                   if (doctor != null) {
             // Guardamos los datos en la sesión
             SesionDoctor.id = doctor.getID();
-            SesionDoctor.nombreCompleto = "Dr. " + doctor.getNombre() + " " + doctor.getApellido();
             SesionDoctor.correo = doctor.getEmail();
+            SesionDoctor.nombre = doctor.getNombre();
+            SesionDoctor.apellido = doctor.getApellido();
+            SesionDoctor.documento = doctor.getnDocumento();
+            SesionDoctor.telefono = doctor.getNumeroTelefono();
+            SesionDoctor.especialidad = doctor.getEspecializacion();
+            
         }
                 JOptionPane.showMessageDialog(this, "Inicio de sesión como Doctor Veterinario, exitoso");
                 new MenuDoctor().setVisible(true); // Abre JFrame del doctor
