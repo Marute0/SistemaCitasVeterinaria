@@ -164,4 +164,38 @@ public List<DoctorVeterinario> obtenerTodosLosDoctores() {
             return false;
         }
     }  
+    public DoctorVeterinario obtenerDoctorPorDocumento(String documento) {
+    String sql = "SELECT * FROM `doctoresveterinarios` WHERE `nDocumento` = ?";
+    try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
+        pstmt.setString(1, documento);
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            DoctorVeterinario doctor = new DoctorVeterinario();
+            doctor.setID(rs.getInt("ID"));
+            doctor.setNombre(rs.getString("nombre"));
+            doctor.setApellido(rs.getString("apellido"));
+            doctor.setnDocumento(rs.getString("nDocumento"));
+            doctor.setEmail(rs.getString("email"));
+            doctor.setNumeroTelefono(rs.getString("numeroTelefono"));
+            doctor.setContraseña(rs.getString("contraseña"));
+            doctor.setEspecializacion(rs.getString("especialización"));
+            return doctor;
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return null;
+}
+   public boolean verificarContraseñaActual(int id, String contraseña) {
+    String sql = "SELECT * FROM `doctoresveterinarios` WHERE `ID` = ? AND `contraseña` = ?";
+    try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
+        pstmt.setInt(1, id);
+        pstmt.setString(2, contraseña);
+        ResultSet rs = pstmt.executeQuery();
+        return rs.next();  // true si encontró una coincidencia
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}   
 }
