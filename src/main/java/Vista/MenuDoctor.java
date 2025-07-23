@@ -6,7 +6,9 @@ import Modelo.DoctorVeterinario;
 import Modelo.SesionDoctor;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 public class MenuDoctor extends javax.swing.JFrame {
  
@@ -15,6 +17,7 @@ public class MenuDoctor extends javax.swing.JFrame {
     private ControladorDoctorVeterinario controladorDoctor;
     private BaseDatos baseDatos;
     private DoctorVeterinario DV;
+    private TableRowSorter<DefaultTableModel> sorter;
 
     
     public MenuDoctor() {
@@ -34,9 +37,7 @@ public class MenuDoctor extends javax.swing.JFrame {
         controladorDoctor = new ControladorDoctorVeterinario(DV, baseDatos);
         int cantidad = controladorDoctor.contarCitasPorDoctor(idDoctor);
         totalCitas.setText("" + cantidad);
-        System.out.println("ID doctor recibido: " + idDoctor);
-List<Object[]> citas = controladorDoctor.obtenerCitasPorDoctor(idDoctor);
-System.out.println("Total de citas encontradas: " + citas.size());
+         List<Object[]> citas = controladorDoctor.obtenerCitasPorDoctor(idDoctor);
          llenarTablaCitas(idDoctor);
      
     }
@@ -73,9 +74,10 @@ System.out.println("Total de citas encontradas: " + citas.size());
 
     List<Object[]> citas = controladorDoctor.obtenerCitasPorDoctor(idDoctor);
     for (Object[] fila : citas) {
-        System.out.println("Fila: " + java.util.Arrays.toString(fila));
         modelo.addRow(fila);
     }
+    sorter = new TableRowSorter<>(modelo);
+    TablaCitas.setRowSorter(sorter);
 }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -92,11 +94,11 @@ System.out.println("Total de citas encontradas: " + citas.size());
         TituloCitas = new javax.swing.JLabel();
         txtInfMascita = new javax.swing.JLabel();
         txtInfCita = new javax.swing.JLabel();
-        Btt_CitasProgramadas = new javax.swing.JButton();
+        Bbloq = new javax.swing.JButton();
         totalCitas = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jTextField1 = new javax.swing.JTextField();
+        Buscador = new javax.swing.JTextField();
         jScrollBar2 = new javax.swing.JScrollBar();
         jScrollPane3 = new javax.swing.JScrollPane();
         TablaCitas = new javax.swing.JTable();
@@ -153,7 +155,7 @@ System.out.println("Total de citas encontradas: " + citas.size());
                 ButtonCitaActionPerformed(evt);
             }
         });
-        menu.add(ButtonCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 240, 60));
+        menu.add(ButtonCita, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 240, 60));
 
         ButtonDoc.setBackground(new java.awt.Color(168, 202, 126));
         ButtonDoc.setFont(new java.awt.Font("Artifakt Element Black", 2, 18)); // NOI18N
@@ -166,7 +168,7 @@ System.out.println("Total de citas encontradas: " + citas.size());
                 ButtonDocActionPerformed(evt);
             }
         });
-        menu.add(ButtonDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 240, 60));
+        menu.add(ButtonDoc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 240, 60));
 
         ButtonPassword.setBackground(new java.awt.Color(168, 202, 126));
         ButtonPassword.setFont(new java.awt.Font("Artifakt Element Black", 2, 18)); // NOI18N
@@ -200,6 +202,7 @@ System.out.println("Total de citas encontradas: " + citas.size());
         contenedores.setPreferredSize(new java.awt.Dimension(1180, 700));
 
         panelCitas.setBackground(new java.awt.Color(247, 254, 239));
+        panelCitas.setForeground(new java.awt.Color(96, 131, 52));
 
         TituloCitas.setFont(new java.awt.Font("Swis721 Blk BT", 0, 48)); // NOI18N
         TituloCitas.setForeground(new java.awt.Color(96, 131, 52));
@@ -216,28 +219,31 @@ System.out.println("Total de citas encontradas: " + citas.size());
         txtInfCita.setForeground(new java.awt.Color(151, 183, 112));
         txtInfCita.setText("Información de la citas");
 
-        Btt_CitasProgramadas.setBackground(new java.awt.Color(151, 183, 112));
-        Btt_CitasProgramadas.setFont(new java.awt.Font("Swis721 Blk BT", 0, 15)); // NOI18N
-        Btt_CitasProgramadas.setForeground(new java.awt.Color(247, 254, 239));
-        Btt_CitasProgramadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/busqueda-de-lupa.png"))); // NOI18N
-        Btt_CitasProgramadas.setText("Buscar cita");
-        Btt_CitasProgramadas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Btt_CitasProgramadas.setMaximumSize(new java.awt.Dimension(100, 50));
-        Btt_CitasProgramadas.setMinimumSize(new java.awt.Dimension(100, 50));
-        Btt_CitasProgramadas.setPreferredSize(new java.awt.Dimension(100, 50));
-        Btt_CitasProgramadas.addActionListener(new java.awt.event.ActionListener() {
+        Bbloq.setBackground(new java.awt.Color(151, 183, 112));
+        Bbloq.setFont(new java.awt.Font("Swis721 Blk BT", 0, 15)); // NOI18N
+        Bbloq.setForeground(new java.awt.Color(247, 254, 239));
+        Bbloq.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/busqueda-de-lupa.png"))); // NOI18N
+        Bbloq.setText("  Buscador por fechas");
+        Bbloq.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        Bbloq.setMaximumSize(new java.awt.Dimension(100, 50));
+        Bbloq.setMinimumSize(new java.awt.Dimension(100, 50));
+        Bbloq.setPreferredSize(new java.awt.Dimension(100, 50));
+        Bbloq.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Btt_CitasProgramadasActionPerformed(evt);
+                BbloqActionPerformed(evt);
             }
         });
 
         totalCitas.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 48)); // NOI18N
         totalCitas.setForeground(new java.awt.Color(96, 131, 52));
 
-        jTextField1.setText("jTextField1");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        jSeparator1.setForeground(new java.awt.Color(96, 131, 52));
+
+        jSeparator2.setForeground(new java.awt.Color(96, 131, 52));
+
+        Buscador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                BuscadorActionPerformed(evt);
             }
         });
 
@@ -281,61 +287,65 @@ System.out.println("Total de citas encontradas: " + citas.size());
         panelCitasLayout.setHorizontalGroup(
             panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCitasLayout.createSequentialGroup()
-                .addGap(444, 444, 444)
-                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(458, 458, 458)
+                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(TituloCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtInfCita, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 183, Short.MAX_VALUE)
+                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCitasLayout.createSequentialGroup()
+                        .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtInfMascita, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(totalCitas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(93, 93, 93))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCitasLayout.createSequentialGroup()
+                        .addComponent(totalCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(140, 140, 140))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCitasLayout.createSequentialGroup()
+                        .addComponent(txtInfMascita, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(119, 119, 119))))
             .addGroup(panelCitasLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addComponent(jTextField1)
+                        .addComponent(Buscador, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(Btt_CitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(82, 82, 82))
+                        .addComponent(Bbloq, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1077, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(49, Short.MAX_VALUE))))
+                        .addGap(26, 26, 26))))
         );
         panelCitasLayout.setVerticalGroup(
             panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCitasLayout.createSequentialGroup()
                 .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addGap(12, 12, 12)
                         .addComponent(TituloCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)
-                        .addComponent(txtInfCita))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtInfCita)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                        .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Bbloq, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Buscador))
+                        .addGap(33, 33, 33))
                     .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtInfMascita)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(totalCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(Btt_CitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1))
-                .addGap(33, 33, 33)
-                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(124, 124, 124))
+                    .addComponent(jScrollBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         contenedores.addTab("Citas", panelCitas);
@@ -755,13 +765,29 @@ String actual = new String(contraA.getPassword());
     }
     }//GEN-LAST:event_VerOldClaveActionPerformed
 
-    private void Btt_CitasProgramadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_CitasProgramadasActionPerformed
-  
-    }//GEN-LAST:event_Btt_CitasProgramadasActionPerformed
+    private void BbloqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BbloqActionPerformed
+Bbloq.setEnabled(false);  
+    }//GEN-LAST:event_BbloqActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void BuscadorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscadorActionPerformed
+ String texto = Buscador.getText().trim();
+    
+    // Verificar que es una fecha válida (opcional pero recomendable)
+    if (!texto.matches("\\d{4}-\\d{2}-\\d{2}") && !texto.isEmpty()) {
+        sorter.setRowFilter(null); 
+        JOptionPane.showMessageDialog(null, "Formato de fecha inválido. Por favor usa el formato AAAA-MM-DD (Ej: 2025-07-24)", "Fecha no válida", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    if (texto.isEmpty()) {
+        sorter.setRowFilter(null); 
+    } else {
+        
+        sorter.setRowFilter(RowFilter.regexFilter("^" + texto, 0));
+    }
+
+
+    }//GEN-LAST:event_BuscadorActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
@@ -770,13 +796,14 @@ String actual = new String(contraA.getPassword());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Bbloq;
     private javax.swing.JTextField BloqueApellidos;
     private javax.swing.JTextField BloqueCedula;
     private javax.swing.JTextField BloqueEmail;
     private javax.swing.JTextField BloqueEspecialidad;
     private javax.swing.JTextField BloqueNombre;
     private javax.swing.JTextField BloqueTelefono;
-    private javax.swing.JButton Btt_CitasProgramadas;
+    private javax.swing.JTextField Buscador;
     private javax.swing.JButton ButtonCita;
     private javax.swing.JButton ButtonDoc;
     private javax.swing.JButton ButtonLogout;
@@ -802,7 +829,6 @@ String actual = new String(contraA.getPassword());
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel menu;
     private javax.swing.JLabel nombre;
     private javax.swing.JPanel panelCitas;
