@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Ususario
@@ -269,4 +270,67 @@ public class ControladorCita {
     }
     
     
+public List<Cita> obtenerCitasFiltradas() {
+    return (List<Cita>) obtenerCitasFiltradas(null, null, null); // Llama al otro método con filtros nulos
+}
+    
+ public DefaultTableModel obtenerCitasFiltradas(String cedulaDueno, String doctor, String fecha) {
+    DefaultTableModel modelo = new DefaultTableModel();
+    modelo.setColumnIdentifiers(new Object[]{
+        "Fecha", "Hora", "Nivel de Prioridad", "ID Mascota", "Mascota", "Especie", "ID Dueño", "Dueño"
+    });
+
+    String sql = "SELECT c.fecha, c.hora, c.prioridad, m.idMascota, m.nombre AS nombreMascota, m.tipo AS especie, " +
+                 "d.idDueno, CONCAT(d.nombre, ' ', d.apellido) AS nombreDueno " +
+                 "FROM citas c " +
+                 "JOIN mascotas m ON c.idMascota = m.idMascota " +
+                 "JOIN duenos d ON m.idDueno = d.idDueno " +
+                 "JOIN doctorveterinario dv ON c.idDoctor = dv.idDoctor " +
+                 "WHERE 1=1 ";
+
+    if (!cedulaDueno.isEmpty()) {
+        sql += "AND d.documento = ? ";
+    }
+    if (!doctor.isEmpty()) {
+        sql += "AND dv.nombre = ? ";
+    }
+    if (!fecha.isEmpty()) {
+        sql += "AND c.fecha = ? ";
+    }
+
+    try (Connection conn = baseDatos.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+
+        int index = 1;
+        if (!cedulaDueno.isEmpty()) {
+            ps.setString(index++, cedulaDueno);
+        }
+        if (!doctor.isEmpty()) {
+            ps.setString(index++, doctor);
+        }
+        if (!fecha.isEmpty()) {
+            ps.setString(index++, fecha);
+        }
+
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            modelo.addRow(new Object[]{
+                rs.getString("fecha"),
+                rs.getString("hora"),
+                rs.getString("prioridad"),
+                rs.getInt("idMascota"),
+                rs.getString("nombreMascota"),
+                rs.getString("especie"),
+                rs.getInt("idDueno"),
+                rs.getString("nombreDueno")
+            });
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return modelo;
+}  
+ 
 }

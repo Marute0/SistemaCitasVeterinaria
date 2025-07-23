@@ -1279,9 +1279,23 @@ private void cargarComboSexoMascota() {
     }//GEN-LAST:event_Btt_ProgramarActionPerformed
 
     private void Btt_CitasProgramadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_CitasProgramadasActionPerformed
-        CitasProgramadas newframe = new CitasProgramadas();
-        newframe.setVisible(true);
-        this.dispose();
+   // Obtener valores de los campos
+    String cedula = BloqCedula.getText().trim();
+    String doctor = ComboDoctor.getSelectedItem().toString().trim();
+    String fecha = BloqFecha.getText().trim(); // debe estar en formato yyyy-MM-dd
+
+    // Llamar al controlador para obtener la tabla filtrada
+    DefaultTableModel modelo = controladorCita.obtenerCitasFiltradas(cedula, doctor, fecha);
+
+    if (modelo.getRowCount() == 0) {
+        JOptionPane.showMessageDialog(this, "No se encontraron citas con esos filtros.", "Sin resultados", JOptionPane.INFORMATION_MESSAGE);
+        return;
+    }
+
+    // Crear y mostrar la nueva ventana con la tabla
+    CitasProgramadas ventana = new CitasProgramadas();
+    ventana.setVisible(true);
+    this.dispose();
     }//GEN-LAST:event_Btt_CitasProgramadasActionPerformed
 
     private void ComboPrioridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPrioridadActionPerformed
