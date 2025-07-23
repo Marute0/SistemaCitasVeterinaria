@@ -363,7 +363,7 @@ private void cargarNombresDoctoresEnComboBox() {
 
         txtFecha.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtFecha.setForeground(new java.awt.Color(27, 52, 13));
-        txtFecha.setText("Fecha (DD-MM-AAAA)");
+        txtFecha.setText("Fecha (AAAA-MM-DD)");
 
         txtPrioridad.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtPrioridad.setForeground(new java.awt.Color(27, 52, 13));
@@ -1198,19 +1198,19 @@ private void cargarNombresDoctoresEnComboBox() {
         String sexo = ComboSexo.getSelectedItem().toString();
         String raza = BloqRaza.getText();
          
-        String doctor = ComboDoctor.getSelectedItem().toString();
-        String prioridad = ComboPrioridad.getSelectedItem().toString();
         String fecha = BloqFecha.getText();
         String hora = ComboHora.getSelectedItem().toString();
         String fechaCompleta = fecha + "T" + hora;
         LocalDateTime fechaCita = LocalDateTime.parse(fechaCompleta);
-        
-            // 2. Verificar si el dueño existe
+        DoctorVeterinario doctorSeleccionado = (DoctorVeterinario) ComboDoctor.getSelectedItem();
+        Cita.Prioridad prioridad = (Cita.Prioridad) ComboPrioridad.getSelectedItem();
+            
+// 2. Verificar si el dueño existe
     int idDueño = controladorMascota.obtenerIdDueñoPorDocumento(cedulaDueño);
     Dueño dueño;
 
     if (idDueño == -1) {
-        dueño = new Dueño(nombreDueño, apellidoDueño, cedulaDueño, email, telefono, direccion);
+        dueño = new Dueño(0, nombreDueño, apellidoDueño, cedulaDueño, emailDueño, telefonoDueño, direccionDueño);
         controladorDueño.dueñoEsCreado(dueño);
         idDueño = controladorMascota.obtenerIdDueñoPorDocumento(cedulaDueño);
         dueño.setID(idDueño);
@@ -1224,7 +1224,7 @@ private void cargarNombresDoctoresEnComboBox() {
     ArrayList<Mascota> mascotasExistentes = controladorMascota.obtenerMascotas();
     Mascota mascota = null;
     for (Mascota m : mascotasExistentes) {
-        if (m.getNombre().equalsIgnoreCase(nombreMascota) && m.getID_dueño() == idDueño) {
+        if (m.getNombre().equalsIgnoreCase(nombreMascota) && m.getIdDueño() == idDueño) {
             mascota = m;
             break;
         }
@@ -1236,7 +1236,7 @@ private void cargarNombresDoctoresEnComboBox() {
 
         // Buscar ID de la mascota creada
         for (Mascota m : controladorMascota.obtenerMascotas()) {
-            if (m.getNombre().equalsIgnoreCase(nombreMascota) && m.getID_dueño() == idDueño) {
+            if (m.getNombre().equalsIgnoreCase(nombreMascota) && m.getIdDueño() == idDueño) {
                 mascota = m;
                 break;
             }
@@ -1246,7 +1246,7 @@ private void cargarNombresDoctoresEnComboBox() {
     Cita cita = new Cita();
     cita.setDueño(dueño);
     cita.setMascota(mascota);
-    cita.setDoctor(doctor);
+    cita.setDoctor(doctorSeleccionado);
     cita.setFecha(fechaCita);
     cita.setNivelPrioridad(prioridad);
 
