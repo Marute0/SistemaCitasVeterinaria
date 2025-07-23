@@ -31,6 +31,7 @@ public class Dueño extends Persona{
     }
     
     //getters and setters
+    
     public String getDirección() {
         return direccion;
     }

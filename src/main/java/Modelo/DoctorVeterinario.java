@@ -57,4 +57,9 @@ public class DoctorVeterinario extends Persona{
         return "Dr. " + getNombre() + " " + getApellido();
     
     }
+    
+    @Override
+    public String toString() {
+    return nombreCompleto();
+}
 }

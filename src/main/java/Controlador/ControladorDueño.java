@@ -89,4 +89,16 @@ public class ControladorDueño {
         }
     }
     
+    public boolean dueñoExiste(String cedula) {
+    String sql = "SELECT * FROM dueños WHERE nDocumento = ?";
+    try (PreparedStatement stmt = baseDatos.getPreparedStatement(sql)) {
+        stmt.setString(1, cedula);
+        ResultSet rs = stmt.executeQuery();
+        return rs.next(); // true si hay resultados
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+    
 }

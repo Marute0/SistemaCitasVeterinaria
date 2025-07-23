@@ -38,8 +38,8 @@ public class ControladorMascota {
         }
 
         // Insertar la mascota con el ID del dueño
-        String sql = "INSERT INTO `mascotas` (`nombre`, `edad`, `tipo`, `raza`, `sexo`, `peso`, `idDueño`) "
-                     + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO `mascotas` (`nombre`, `tipo`, `raza`, `sexo`, `idDueño`) "
+                     + "VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
             pstmt.setString(1, M.getNombre());
             pstmt.setString(2, M.getTipo().name());
@@ -129,6 +129,20 @@ public class ControladorMascota {
         }
     }
 
+public boolean mascotaExiste(String nombreMascota, String cedulaDueño) {
+    int idDueño = obtenerIdDueñoPorDocumento(cedulaDueño);
+    if (idDueño == -1) return false;
 
+    String sql = "SELECT * FROM mascotas WHERE nombre = ? AND idDueño = ?";
+    try (PreparedStatement stmt = baseDatos.getPreparedStatement(sql)) {
+        stmt.setString(1, nombreMascota);
+        stmt.setInt(2, idDueño);
+        ResultSet rs = stmt.executeQuery();
+        return rs.next();
+    } catch (SQLException e) {
+        e.printStackTrace();
+        return false;
+    }
+}
     
 }

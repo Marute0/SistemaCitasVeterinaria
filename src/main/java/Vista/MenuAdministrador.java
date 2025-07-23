@@ -1,8 +1,16 @@
 package Vista;
 
+import Controlador.ControladorCita;
 import Controlador.ControladorDoctorVeterinario;
+import Controlador.ControladorDueño;
+import Controlador.ControladorMascota;
 import Modelo.BaseDatos;
+import Modelo.Cita;
 import Modelo.DoctorVeterinario;
+import Modelo.Dueño;
+import Modelo.Mascota;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -13,6 +21,9 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
     private ControladorDoctorVeterinario controladorDoctor;
     private BaseDatos baseDatos;
+    ControladorDueño controladorDueño = new ControladorDueño();
+    ControladorMascota controladorMascota = new ControladorMascota(null, new BaseDatos());
+    ControladorCita controladorCita = new ControladorCita(new BaseDatos());
     
     public MenuAdministrador() {
         initComponents();
@@ -22,6 +33,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         TablaDoctores.setModel(modeloTabla);
         ControladorDoctorVeterinario controlador = new ControladorDoctorVeterinario();
         llenarTabla(controlador.obtenerTodosLosDoctores());
+        cargarNombresDoctoresEnComboBox();
         
         try{
             this.baseDatos = new BaseDatos();
@@ -82,6 +94,17 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         });
     }
 }
+private void cargarNombresDoctoresEnComboBox() {
+    ControladorDoctorVeterinario controlador = new ControladorDoctorVeterinario();
+    List<DoctorVeterinario> listaDoctores = controlador.obtenerTodosLosDoctores();
+
+    ComboDoctor.removeAllItems(); // Limpia las opciones actuales
+
+    for (DoctorVeterinario doctor : listaDoctores) {
+        String nombreCompleto = doctor.nombreCompleto(); // Usa el método que tienes en tu clase
+        ComboDoctor.addItem(nombreCompleto); // Agrega solo el texto
+    }
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -113,15 +136,12 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         Btt_Programar = new javax.swing.JButton();
         txtInfCita = new javax.swing.JLabel();
         txtFecha = new javax.swing.JLabel();
-        ComboFecha = new javax.swing.JComboBox<>();
         txtPrioridad = new javax.swing.JLabel();
-        ComboPrioridad = new javax.swing.JComboBox<>();
+        ComboHora = new javax.swing.JComboBox<>();
         ComboDoctor = new javax.swing.JComboBox<>();
         txtDoctor = new javax.swing.JLabel();
-        txtEspecialidad = new javax.swing.JLabel();
-        ComboEspecialidad = new javax.swing.JComboBox<>();
         Btt_CitasProgramadas = new javax.swing.JButton();
-        ComboPrioridad1 = new javax.swing.JComboBox<>();
+        ComboPrioridad = new javax.swing.JComboBox<>();
         txtPrioridad1 = new javax.swing.JLabel();
         BloqDireccion = new javax.swing.JTextField();
         BloqEmail = new javax.swing.JTextField();
@@ -131,6 +151,7 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         BloqApellidos = new javax.swing.JTextField();
         BloqNombre = new javax.swing.JTextField();
         BloqCedula = new javax.swing.JTextField();
+        BloqFecha = new javax.swing.JTextField();
         panelPet = new javax.swing.JPanel();
         TituloMascotas = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -344,24 +365,15 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         txtFecha.setForeground(new java.awt.Color(27, 52, 13));
         txtFecha.setText("Fecha (DD-MM-AAAA)");
 
-        ComboFecha.setEditable(true);
-        ComboFecha.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboFecha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        ComboFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboFechaActionPerformed(evt);
-            }
-        });
-
         txtPrioridad.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtPrioridad.setForeground(new java.awt.Color(27, 52, 13));
         txtPrioridad.setText("Hora");
 
-        ComboPrioridad.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboPrioridad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        ComboPrioridad.addActionListener(new java.awt.event.ActionListener() {
+        ComboHora.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        ComboHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "8:00", "9:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "" }));
+        ComboHora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboPrioridadActionPerformed(evt);
+                ComboHoraActionPerformed(evt);
             }
         });
 
@@ -371,13 +383,6 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         txtDoctor.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtDoctor.setForeground(new java.awt.Color(27, 52, 13));
         txtDoctor.setText("Doctor");
-
-        txtEspecialidad.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtEspecialidad.setForeground(new java.awt.Color(27, 52, 13));
-        txtEspecialidad.setText("Especialidad");
-
-        ComboEspecialidad.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         Btt_CitasProgramadas.setBackground(new java.awt.Color(151, 183, 112));
         Btt_CitasProgramadas.setFont(new java.awt.Font("Swis721 Blk BT", 0, 15)); // NOI18N
@@ -394,11 +399,11 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
             }
         });
 
-        ComboPrioridad1.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboPrioridad1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Alta", "Media", "Baja" }));
-        ComboPrioridad1.addActionListener(new java.awt.event.ActionListener() {
+        ComboPrioridad.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        ComboPrioridad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Alta", "Media", "Baja" }));
+        ComboPrioridad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboPrioridad1ActionPerformed(evt);
+                ComboPrioridadActionPerformed(evt);
             }
         });
 
@@ -461,6 +466,11 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         BloqCedula.setMinimumSize(new java.awt.Dimension(64, 25));
         BloqCedula.setPreferredSize(new java.awt.Dimension(64, 25));
 
+        BloqFecha.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        BloqFecha.setMaximumSize(new java.awt.Dimension(2147483647, 25));
+        BloqFecha.setMinimumSize(new java.awt.Dimension(64, 25));
+        BloqFecha.setPreferredSize(new java.awt.Dimension(64, 25));
+
         javax.swing.GroupLayout panelCitasLayout = new javax.swing.GroupLayout(panelCitas);
         panelCitas.setLayout(panelCitasLayout);
         panelCitasLayout.setHorizontalGroup(
@@ -470,15 +480,6 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
                 .addComponent(TituloCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
                 .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtInfCita, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addComponent(txtEspecialidad)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ComboEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDoctor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ComboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(panelCitasLayout.createSequentialGroup()
                             .addComponent(txtNombres)
@@ -508,43 +509,54 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
                                     .addComponent(txtEmail)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(BloqEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGap(74, 74, 74)))
-                    .addComponent(txtInfMascita, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelCitasLayout.createSequentialGroup()
-                            .addComponent(txtTipo)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(ComboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtRaza)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(BloqRaza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelCitasLayout.createSequentialGroup()
-                            .addComponent(txtNombrePet)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(BloqMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtSexo)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(ComboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(393, 393, Short.MAX_VALUE)))
                     .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addComponent(txtFecha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ComboFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPrioridad)
-                        .addGap(9, 9, 9)
-                        .addComponent(ComboPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtPrioridad1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ComboPrioridad1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addComponent(Btt_Programar, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Btt_CitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txt_InfPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(319, 319, Short.MAX_VALUE))
+                        .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtInfMascita, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelCitasLayout.createSequentialGroup()
+                                .addComponent(Btt_Programar, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(Btt_CitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_InfPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtInfCita, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelCitasLayout.createSequentialGroup()
+                                    .addComponent(txtTipo)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(ComboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtRaza)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(BloqRaza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelCitasLayout.createSequentialGroup()
+                                    .addComponent(txtNombrePet)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(BloqMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(txtSexo)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(ComboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panelCitasLayout.createSequentialGroup()
+                                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelCitasLayout.createSequentialGroup()
+                                        .addComponent(txtFecha)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(BloqFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panelCitasLayout.createSequentialGroup()
+                                        .addComponent(txtDoctor)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(ComboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelCitasLayout.createSequentialGroup()
+                                        .addComponent(txtPrioridad1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(ComboPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panelCitasLayout.createSequentialGroup()
+                                        .addComponent(txtPrioridad)
+                                        .addGap(9, 9, 9)
+                                        .addComponent(ComboHora, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(335, Short.MAX_VALUE))))
         );
         panelCitasLayout.setVerticalGroup(
             panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -591,18 +603,16 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
                 .addComponent(txtInfCita)
                 .addGap(18, 18, 18)
                 .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ComboEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEspecialidad)
                     .addComponent(ComboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDoctor))
+                    .addComponent(txtDoctor)
+                    .addComponent(txtPrioridad1)
+                    .addComponent(ComboPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(23, 23, 23)
                 .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFecha)
-                    .addComponent(ComboFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPrioridad)
-                    .addComponent(ComboPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPrioridad1)
-                    .addComponent(ComboPrioridad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ComboHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BloqFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Btt_Programar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1132,7 +1142,7 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         JOptionPane.showMessageDialog(this, "No se pudo crear el doctor. Verifica la conexión o los datos.", 
                                       "Error", JOptionPane.ERROR_MESSAGE);
     }
-
+    cargarNombresDoctoresEnComboBox();
     }//GEN-LAST:event_Btt_NuevoActionPerformed
 
     private void Btt_EnviarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_EnviarContraseñaActionPerformed
@@ -1171,13 +1181,9 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
     }
     }//GEN-LAST:event_VerOldClaveActionPerformed
 
-    private void ComboFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboFechaActionPerformed
+    private void ComboHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboHoraActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ComboFechaActionPerformed
-
-    private void ComboPrioridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPrioridadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboPrioridadActionPerformed
+    }//GEN-LAST:event_ComboHoraActionPerformed
 
     private void Btt_ProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_ProgramarActionPerformed
         String nombreDueño = BloqNombre.getText();
@@ -1191,8 +1197,66 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         String tipo = ComboTipo.getSelectedItem().toString();
         String sexo = ComboSexo.getSelectedItem().toString();
         String raza = BloqRaza.getText();
+         
+        String doctor = ComboDoctor.getSelectedItem().toString();
+        String prioridad = ComboPrioridad.getSelectedItem().toString();
+        String fecha = BloqFecha.getText();
+        String hora = ComboHora.getSelectedItem().toString();
+        String fechaCompleta = fecha + "T" + hora;
+        LocalDateTime fechaCita = LocalDateTime.parse(fechaCompleta);
         
-        
+            // 2. Verificar si el dueño existe
+    int idDueño = controladorMascota.obtenerIdDueñoPorDocumento(cedulaDueño);
+    Dueño dueño;
+
+    if (idDueño == -1) {
+        dueño = new Dueño(nombreDueño, apellidoDueño, cedulaDueño, email, telefono, direccion);
+        controladorDueño.dueñoEsCreado(dueño);
+        idDueño = controladorMascota.obtenerIdDueñoPorDocumento(cedulaDueño);
+        dueño.setID(idDueño);
+    } else {
+        dueño = new Dueño(); 
+        dueño.setID(idDueño); 
+        // Opcional: puedes cargar más info del dueño si la necesitas
+    }
+
+    // 3. Verificar si la mascota ya existe (según nombre + dueño)
+    ArrayList<Mascota> mascotasExistentes = controladorMascota.obtenerMascotas();
+    Mascota mascota = null;
+    for (Mascota m : mascotasExistentes) {
+        if (m.getNombre().equalsIgnoreCase(nombreMascota) && m.getID_dueño() == idDueño) {
+            mascota = m;
+            break;
+        }
+    }
+
+    if (mascota == null) {
+        mascota = new Mascota(0,nombreMascota, Mascota.Tipo.valueOf(tipo), raza, Mascota.Sexo.valueOf(sexo), idDueño);
+        controladorMascota.crearMascota(mascota, cedulaDueño);
+
+        // Buscar ID de la mascota creada
+        for (Mascota m : controladorMascota.obtenerMascotas()) {
+            if (m.getNombre().equalsIgnoreCase(nombreMascota) && m.getID_dueño() == idDueño) {
+                mascota = m;
+                break;
+            }
+        }
+    }
+    // 4. Crear la cita
+    Cita cita = new Cita();
+    cita.setDueño(dueño);
+    cita.setMascota(mascota);
+    cita.setDoctor(doctor);
+    cita.setFecha(fechaCita);
+    cita.setNivelPrioridad(prioridad);
+
+    boolean exito = controladorCita.crearCita(cita);
+
+    if (exito) {
+        JOptionPane.showMessageDialog(this, "¡Cita programada con éxito!");
+    } else {
+        JOptionPane.showMessageDialog(this, "Error al programar la cita. Verifica disponibilidad del doctor.");
+    }
     }//GEN-LAST:event_Btt_ProgramarActionPerformed
 
     private void Btt_CitasProgramadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_CitasProgramadasActionPerformed
@@ -1201,9 +1265,9 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         this.dispose();
     }//GEN-LAST:event_Btt_CitasProgramadasActionPerformed
 
-    private void ComboPrioridad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPrioridad1ActionPerformed
+    private void ComboPrioridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPrioridadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ComboPrioridad1ActionPerformed
+    }//GEN-LAST:event_ComboPrioridadActionPerformed
 
     private void Btt_BusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_BusquedaActionPerformed
     ControladorDoctorVeterinario ctrl = new ControladorDoctorVeterinario();
@@ -1249,6 +1313,7 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
     private javax.swing.JTextField BloqCedula;
     private javax.swing.JTextField BloqDireccion;
     private javax.swing.JTextField BloqEmail;
+    private javax.swing.JTextField BloqFecha;
     private javax.swing.JTextField BloqMascota;
     private javax.swing.JTextField BloqNombre;
     private javax.swing.JTextField BloqRaza;
@@ -1270,10 +1335,8 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
     private javax.swing.JButton ButtonPassword;
     private javax.swing.JButton ButtonPet;
     private javax.swing.JComboBox<String> ComboDoctor;
-    private javax.swing.JComboBox<String> ComboEspecialidad;
-    private javax.swing.JComboBox<String> ComboFecha;
+    private javax.swing.JComboBox<String> ComboHora;
     private javax.swing.JComboBox<String> ComboPrioridad;
-    private javax.swing.JComboBox<String> ComboPrioridad1;
     private javax.swing.JComboBox<String> ComboSexo;
     private javax.swing.JComboBox<String> ComboTipo;
     private javax.swing.JPasswordField ConfirmPassword;
@@ -1310,7 +1373,6 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
     private javax.swing.JLabel txtDireccion;
     private javax.swing.JLabel txtDoctor;
     private javax.swing.JLabel txtEmail;
-    private javax.swing.JLabel txtEspecialidad;
     private javax.swing.JLabel txtFecha;
     private javax.swing.JLabel txtInfCita;
     private javax.swing.JLabel txtInfMascita;
