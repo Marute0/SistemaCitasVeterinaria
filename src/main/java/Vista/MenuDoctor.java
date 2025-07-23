@@ -3,6 +3,7 @@ package Vista;
 import Controlador.ControladorDoctorVeterinario;
 import Modelo.BaseDatos;
 import Modelo.DoctorVeterinario;
+import Modelo.SesionDoctor;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -13,6 +14,7 @@ public class MenuDoctor extends javax.swing.JFrame {
 
     private ControladorDoctorVeterinario controladorDoctor;
     private BaseDatos baseDatos;
+    private DoctorVeterinario DV;
     
     public MenuDoctor() {
         initComponents();
@@ -155,12 +157,12 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         panelPassword = new javax.swing.JPanel();
         TituloContraseña = new javax.swing.JLabel();
         txt_contraseñaActual = new javax.swing.JLabel();
-        NewPassword = new javax.swing.JPasswordField();
+        contraN = new javax.swing.JPasswordField();
         txt_contraseñaNueva = new javax.swing.JLabel();
-        OldPassword = new javax.swing.JPasswordField();
+        contraA = new javax.swing.JPasswordField();
         txt_confirmarContraseña = new javax.swing.JLabel();
-        ConfirmPassword = new javax.swing.JPasswordField();
-        Btt_EnviarContraseña = new javax.swing.JButton();
+        contraNN = new javax.swing.JPasswordField();
+        CambiarC = new javax.swing.JButton();
         VerConfirmarClave = new javax.swing.JCheckBox();
         VerNewClave = new javax.swing.JCheckBox();
         VerOldClave = new javax.swing.JCheckBox();
@@ -881,41 +883,41 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         txt_contraseñaActual.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         txt_contraseñaActual.setText("Ingrese contraseña actual:");
 
-        NewPassword.setBackground(new java.awt.Color(203, 221, 181));
-        NewPassword.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        NewPassword.addActionListener(new java.awt.event.ActionListener() {
+        contraN.setBackground(new java.awt.Color(203, 221, 181));
+        contraN.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        contraN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NewPasswordActionPerformed(evt);
+                contraNActionPerformed(evt);
             }
         });
 
         txt_contraseñaNueva.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         txt_contraseñaNueva.setText("Ingrese contraseña nueva:");
 
-        OldPassword.setBackground(new java.awt.Color(203, 221, 181));
-        OldPassword.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        OldPassword.addActionListener(new java.awt.event.ActionListener() {
+        contraA.setBackground(new java.awt.Color(203, 221, 181));
+        contraA.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        contraA.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OldPasswordActionPerformed(evt);
+                contraAActionPerformed(evt);
             }
         });
 
         txt_confirmarContraseña.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
         txt_confirmarContraseña.setText("Confirmar la contraseña nueva:");
 
-        ConfirmPassword.setBackground(new java.awt.Color(203, 221, 181));
-        ConfirmPassword.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        contraNN.setBackground(new java.awt.Color(203, 221, 181));
+        contraNN.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
 
-        Btt_EnviarContraseña.setBackground(new java.awt.Color(151, 183, 112));
-        Btt_EnviarContraseña.setFont(new java.awt.Font("Swis721 Blk BT", 0, 14)); // NOI18N
-        Btt_EnviarContraseña.setForeground(new java.awt.Color(247, 254, 239));
-        Btt_EnviarContraseña.setText("Enviar");
-        Btt_EnviarContraseña.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Btt_EnviarContraseña.setMinimumSize(new java.awt.Dimension(70, 30));
-        Btt_EnviarContraseña.setPreferredSize(new java.awt.Dimension(70, 30));
-        Btt_EnviarContraseña.addActionListener(new java.awt.event.ActionListener() {
+        CambiarC.setBackground(new java.awt.Color(151, 183, 112));
+        CambiarC.setFont(new java.awt.Font("Swis721 Blk BT", 0, 14)); // NOI18N
+        CambiarC.setForeground(new java.awt.Color(247, 254, 239));
+        CambiarC.setText("Cambiar");
+        CambiarC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        CambiarC.setMinimumSize(new java.awt.Dimension(70, 30));
+        CambiarC.setPreferredSize(new java.awt.Dimension(70, 30));
+        CambiarC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Btt_EnviarContraseñaActionPerformed(evt);
+                CambiarCActionPerformed(evt);
             }
         });
 
@@ -970,19 +972,19 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
                                         .addGap(14, 14, 14)
                                         .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(VerNewClave, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(NewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(contraN, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txt_confirmarContraseña)
                                         .addGroup(panelPasswordLayout.createSequentialGroup()
                                             .addGap(14, 14, 14)
                                             .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(VerConfirmarClave, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(ConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                                .addComponent(contraNN, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                                 .addGroup(panelPasswordLayout.createSequentialGroup()
                                     .addGap(75, 75, 75)
-                                    .addComponent(Btt_EnviarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(CambiarC, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(OldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(contraA, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(VerOldClave, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(715, Short.MAX_VALUE))
         );
@@ -994,23 +996,23 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
                 .addGap(56, 56, 56)
                 .addComponent(txt_contraseñaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(OldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contraA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(VerOldClave)
                 .addGap(18, 18, 18)
                 .addComponent(txt_contraseñaNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(NewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contraN, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(VerNewClave)
                 .addGap(18, 18, 18)
                 .addComponent(txt_confirmarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(ConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contraNN, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(VerConfirmarClave)
                 .addGap(45, 45, 45)
-                .addComponent(Btt_EnviarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(CambiarC, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(78, Short.MAX_VALUE))
         );
 
@@ -1114,39 +1116,64 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
 
     }//GEN-LAST:event_Btt_NuevoActionPerformed
 
-    private void Btt_EnviarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_EnviarContraseñaActionPerformed
+    private void CambiarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CambiarCActionPerformed
+String actual = new String(contraA.getPassword());        
+    String nueva = new String(contraN.getPassword());
+    String verificada = new String(contraNN.getPassword());
+    this.controladorDoctor = new ControladorDoctorVeterinario(DV,baseDatos);
+    int idDoctor = SesionDoctor.id;
 
-    }//GEN-LAST:event_Btt_EnviarContraseñaActionPerformed
+    //primero rectifiquemos que todos los camapos esten llenos
+    if (actual.isEmpty() || nueva.isEmpty() || verificada.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor complete los campos vacios.");
+        return;
+    }
+     if (!controladorDoctor.verificarContraseñaActual(idDoctor, actual)) {
+       JOptionPane.showMessageDialog(this, "La contraseña actual es incorrecta.");
+        return;
+     }   
+     if (!nueva.equals(verificada)) {
+    JOptionPane.showMessageDialog(this, "La nueva contraseña y su verificación no coinciden.");
+    return;
+}
+    if (controladorDoctor.actualizarContraseña(idDoctor, nueva)) {
+    JOptionPane.showMessageDialog(this, "Contraseña actualizada con éxito.");
+    // limpiar campos
+    } else {
+    JOptionPane.showMessageDialog(this, "Error al actualizar la contraseña.");
+   }  
+    
+    }//GEN-LAST:event_CambiarCActionPerformed
 
-    private void NewPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewPasswordActionPerformed
+    private void contraNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contraNActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_NewPasswordActionPerformed
+    }//GEN-LAST:event_contraNActionPerformed
 
-    private void OldPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OldPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_OldPasswordActionPerformed
+    private void contraAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contraAActionPerformed
+    
+    }//GEN-LAST:event_contraAActionPerformed
 
     private void VerConfirmarClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerConfirmarClaveActionPerformed
         if (VerConfirmarClave.isSelected()) {
-        ConfirmPassword.setEchoChar((char) 0);
+        contraNN.setEchoChar((char) 0);
     } else {
-        ConfirmPassword.setEchoChar('•');
+        contraNN.setEchoChar('•');
     }
     }//GEN-LAST:event_VerConfirmarClaveActionPerformed
 
     private void VerNewClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerNewClaveActionPerformed
               if (VerNewClave.isSelected()) {
-        NewPassword.setEchoChar((char) 0); // Mostrar texto
+        contraN.setEchoChar((char) 0); // Mostrar texto
     } else {
-        NewPassword.setEchoChar('•'); // Ocultar con puntos
+        contraN.setEchoChar('•'); // Ocultar con puntos
     }
     }//GEN-LAST:event_VerNewClaveActionPerformed
 
     private void VerOldClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VerOldClaveActionPerformed
            if (VerOldClave.isSelected()) {
-        OldPassword.setEchoChar((char) 0);
+        contraA.setEchoChar((char) 0);
     } else {
-        OldPassword.setEchoChar('•');
+        contraA.setEchoChar('•');
     }
     }//GEN-LAST:event_VerOldClaveActionPerformed
 
@@ -1240,13 +1267,13 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
     private javax.swing.JTextField BloqueTelefono;
     private javax.swing.JButton Btt_Busqueda;
     private javax.swing.JButton Btt_CitasProgramadas;
-    private javax.swing.JButton Btt_EnviarContraseña;
     private javax.swing.JButton Btt_Nuevo;
     private javax.swing.JButton Btt_Programar;
     private javax.swing.JButton ButtonCita;
     private javax.swing.JButton ButtonDoc;
     private javax.swing.JButton ButtonLogout;
     private javax.swing.JButton ButtonPassword;
+    private javax.swing.JButton CambiarC;
     private javax.swing.JComboBox<String> ComboDoctor;
     private javax.swing.JComboBox<String> ComboEspecialidad;
     private javax.swing.JComboBox<String> ComboFecha;
@@ -1254,9 +1281,6 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
     private javax.swing.JComboBox<String> ComboPrioridad1;
     private javax.swing.JComboBox<String> ComboSexo;
     private javax.swing.JComboBox<String> ComboTipo;
-    private javax.swing.JPasswordField ConfirmPassword;
-    private javax.swing.JPasswordField NewPassword;
-    private javax.swing.JPasswordField OldPassword;
     public javax.swing.JTable TablaDoctores;
     private javax.swing.JLabel TituloCitas;
     private javax.swing.JLabel TituloContraseña;
@@ -1268,6 +1292,9 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
     private javax.swing.JLabel apellido;
     private javax.swing.JLabel cedula;
     public javax.swing.JTabbedPane contenedores;
+    private javax.swing.JPasswordField contraA;
+    private javax.swing.JPasswordField contraN;
+    private javax.swing.JPasswordField contraNN;
     private javax.swing.JLabel email;
     private javax.swing.JLabel especialidad;
     private javax.swing.JLabel jLabel1;
