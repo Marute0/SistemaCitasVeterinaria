@@ -738,7 +738,7 @@ private void cargarNombresDoctoresEnComboBox() {
         });
 
         BloqueEmail.setToolTipText("");
-        BloqueEmail.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        BloqueEmail.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         BloqueEmail.setMinimumSize(new java.awt.Dimension(300, 30));
         BloqueEmail.setPreferredSize(new java.awt.Dimension(300, 30));
         BloqueEmail.addActionListener(new java.awt.event.ActionListener() {
