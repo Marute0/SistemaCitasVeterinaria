@@ -36,7 +36,7 @@ public class ControladorDueño {
         this.baseDatos = new BaseDatos();
         this.Dñ = new Dueño();
         
-        String sql = "INSERT INTO `dueños`(`nombre`, `apellido`, `nDocumeno`, `email`, `numeroTelefono`, `direccion`) "
+        String sql = "INSERT INTO `duenos`(`nombre`, `apellido`, `nDocumento`, `email`, `numeroTelefono`, `direccion`) "
                 + "VALUES (?,?,?,?,?,?)";
 
             try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
@@ -58,7 +58,7 @@ public class ControladorDueño {
     //Método que lee a los dueños en la base de datos y los lleva a un array 
     public ControladorDueño (BaseDatos basedatos) {
         
-        String select = "SELECT * FROM `dueños` ORDER BY nombre, apellido";
+        String select = "SELECT * FROM `duenos` ORDER BY `nombre`, `apellido`";
         try {
             ResultSet rs = basedatos.getStatement().executeQuery(select);
             while (rs.next()) {
@@ -78,7 +78,7 @@ public class ControladorDueño {
     }
     //Elimina al dueño y a las citas y mascotas asociadas a la misma debido al cascade de la base de datos
     public boolean eliminarDueño(int idDueño) throws SQLException {
-        String sql = "DELETE FROM `dueños` WHERE `ID` = ?";
+        String sql = "DELETE FROM `duenos` WHERE `ID` = ?";
         try (Connection conn = baseDatos.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, idDueño);
@@ -90,7 +90,7 @@ public class ControladorDueño {
     }
     
     public boolean dueñoExiste(String cedula) {
-    String sql = "SELECT * FROM dueños WHERE nDocumento = ?";
+    String sql = "SELECT * FROM `duenos` WHERE `nDocumento` = ?";
     try (PreparedStatement stmt = baseDatos.getPreparedStatement(sql)) {
         stmt.setString(1, cedula);
         ResultSet rs = stmt.executeQuery();

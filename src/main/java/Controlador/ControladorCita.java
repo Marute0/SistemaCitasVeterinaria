@@ -50,25 +50,11 @@ public class ControladorCita {
 
     // Crear nueva cita
     public boolean crearCita(Cita cita) {
-        //Validar relaciones
-        if (!validarRelaciones(cita)) {
-            System.out.println("Error: Relaciones inválidas");
-            return false;
-        }
 
         // No agendar Sábados ni Domingos
         DayOfWeek dow = cita.getFecha().getDayOfWeek();
         if (dow == DayOfWeek.SATURDAY || dow == DayOfWeek.SUNDAY) {
             System.out.println("Error: No se pueden agendar citas en fin de semana.");
-            return false;
-        }
-
-        // Respetar horario laboral (p.ej. 7:00–20:00)
-        LocalTime lt = cita.getFecha().toLocalTime();
-        LocalTime apertura = LocalTime.of(7, 0);
-        LocalTime cierre   = LocalTime.of(20, 0);
-        if (lt.isBefore(apertura) || lt.isAfter(cierre)) {
-            System.out.println("Error: Fuera de horario laboral (7:00–20:00).");
             return false;
         }
 
@@ -78,7 +64,7 @@ public class ControladorCita {
             return false;
         }
 
-        String sql = "INSERT INTO `citas` (`idDueño`, `idMascota`, `idDoctor`, `fecha`, `nivelPrioridad`) "
+        String sql = "INSERT INTO `citas` (`idDueno`, `idMascota`, `idDoctor`, `fecha`, `nivelPrioridad`) "
                 + "VALUES (?,?,?,?,?);";
 
         try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
@@ -110,13 +96,6 @@ public class ControladorCita {
         }
     }
 
-    // Validar que dueño, mascota y doctor existan
-    private boolean validarRelaciones(Cita cita) {
-        return existeRegistro("`dueños`", cita.getDueño().getID())
-                && existeRegistro("`mascotas`", cita.getMascota().getID())
-                && existeRegistro("`doctoresveterinarios`", cita.getDoctor().getID());
-    }
-
     private boolean existeRegistro(String tabla, int id) {
         String sql = "SELECT COUNT(*) FROM " + "`" + tabla + "`" + " WHERE `ID` = ?";
         try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
@@ -135,11 +114,11 @@ public class ControladorCita {
         List<Cita> citas = new ArrayList<>();
         String sql = 
             "SELECT c.*, " +
-            "       d.nombre AS nombre_dueño, d.apellido AS apellido_dueño, " +
+            "       d.nombre AS nombre_dueno, d.apellido AS apellido_dueno, " +
             "       m.nombre AS nombre_mascota, m.tipo AS tipo_mascota, m.raza AS raza_mascota, " +
             "       doc.nombre AS nombre_doctor, doc.apellido AS apellido_doctor " +
             "FROM `citas` c " +
-            " JOIN `dueños` d       ON c.idDueño   = d.ID " +
+            " JOIN `duenos` d       ON c.idDueno   = d.ID " +
             " JOIN `mascotas` m     ON c.idMascota = m.ID " +
             " JOIN `doctoresveterinarios` doc ON c.idDoctor = doc.ID"+
             "ORDER BY d.nombre ASC, d.apellido ASC";
@@ -164,11 +143,11 @@ public class ControladorCita {
     public List<Cita> obtenerCitasOrdenadasPorDoctor() {
         String sql =
           "SELECT c.*, " +
-          "       d.nombre   AS nombre_dueño,   d.apellido   AS apellido_dueño, " +
+          "       d.nombre   AS nombre_dueno,   d.apellido   AS apellido_dueno, " +
           "       m.nombre   AS nombre_mascota, m.tipo       AS tipo_mascota, m.raza AS raza_mascota, " +
           "       doc.nombre AS nombre_doctor,  doc.apellido AS apellido_doctor " +
           "  FROM `citas` c " +
-          "  JOIN `dueños` d   ON c.idDueño   = d.ID " +
+          "  JOIN `duenos` d   ON c.idDueno   = d.ID " +
           "  JOIN `mascotas` m ON c.idMascota = m.ID " +
           "  JOIN `doctoresveterinarios` doc ON c.idDoctor = doc.ID " +
           " ORDER BY doc.apellido ASC, doc.nombre ASC";
@@ -192,11 +171,11 @@ public class ControladorCita {
     public List<Cita> obtenerCitasOrdenadasPorDueño() {
         String sql =
           "SELECT c.*, " +
-          "       d.nombre   AS nombre_dueño,   d.apellido   AS apellido_dueño, " +
+          "       d.nombre   AS nombre_dueno,   d.apellido   AS apellido_dueno, " +
           "       m.nombre   AS nombre_mascota, m.tipo       AS tipo_mascota, m.raza AS raza_mascota, " +
           "       doc.nombre AS nombre_doctor,  doc.apellido AS apellido_doctor " +
           "  FROM `citas` c " +
-          "  JOIN `dueños` d   ON c.idDueño   = d.ID " +
+          "  JOIN `duenos` d   ON c.idDueno   = d.ID " +
           "  JOIN `mascotas` m ON c.idMascota = m.ID " +
           "  JOIN `doctoresveterinarios` doc ON c.idDoctor = doc.ID " +
           " ORDER BY d.apellido ASC, d.nombre ASC";
@@ -219,11 +198,11 @@ public class ControladorCita {
     public List<Cita> obtenerCitasProximasSemana() {
         String sql
                 = "SELECT c.*, "
-                + "       d.nombre   AS nombre_dueño,   d.apellido   AS apellido_dueño, "
+                + "       d.nombre   AS nombre_dueno,   d.apellido   AS apellido_dueno, "
                 + "       m.nombre   AS nombre_mascota, m.tipo       AS tipo_mascota, m.raza AS raza_mascota, "
                 + "       doc.nombre AS nombre_doctor,  doc.apellido AS apellido_doctor "
                 + "  FROM `citas` c "
-                + "  JOIN `dueños` d   ON c.idDueño   = d.ID "
+                + "  JOIN `duenos` d   ON c.idDueno   = d.ID "
                 + "  JOIN `mascotas` m ON c.idMascota = m.ID "
                 + "  JOIN `doctoresveterinarios` doc ON c.idDoctor = doc.ID "
                 + " WHERE c.fecha BETWEEN NOW() AND DATE_ADD(NOW(), INTERVAL 7 DAY) "
@@ -252,9 +231,9 @@ public class ControladorCita {
 
         // Mapeo del dueño
         Dueño d = new Dueño();
-        d.setID(rs.getInt("idDueño") );
-        d.setNombre( rs.getString("nombre_dueño") );
-        d.setApellido( rs.getString("apellido_dueño") );
+        d.setID(rs.getInt("idDueno") );
+        d.setNombre( rs.getString("nombre_dueno") );
+        d.setApellido( rs.getString("apellido_dueno") );
         cita.setDueño(d);
 
         // Mapeo de la mascota

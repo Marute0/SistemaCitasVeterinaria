@@ -218,10 +218,10 @@ public List<DoctorVeterinario> obtenerTodosLosDoctores() {
     List<Object[]> citas = new ArrayList<>();
     String sql = "SELECT c.`fechaCita`, c.`horaSlot`, c.`nivelPrioridad`, " +
              "c.`idMascota`, m.`nombre` AS nombreMascota, m.`tipo` AS especie, " +
-             "c.`idDueño`, d.`nombre` AS nombreDueño " +
+             "c.`idDueno`, d.`nombre` AS nombreDueno " +
              "FROM `citas` c " +
              "JOIN `mascotas` m ON c.`idMascota` = m.`ID` " +
-             "JOIN `dueños` d ON c.`idDueño` = d.`ID` " +
+             "JOIN `duenos` d ON c.`idDueno` = d.`ID` " +
              "WHERE c.`idDoctor` = ? " +
              "ORDER BY c.`fechaCita`, c.`horaSlot`";
 
@@ -236,8 +236,8 @@ public List<DoctorVeterinario> obtenerTodosLosDoctores() {
             fila[3] = rs.getInt("idMascota");
             fila[4] = rs.getString("nombreMascota");
             fila[5] = rs.getString("especie");
-            fila[6] = rs.getInt("idDueño");
-            fila[7] = rs.getString("nombreDueño");
+            fila[6] = rs.getInt("idDueno");
+            fila[7] = rs.getString("nombreDueno");
             citas.add(fila);
         }
     } catch (SQLException e) {
