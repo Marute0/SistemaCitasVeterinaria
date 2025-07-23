@@ -23,6 +23,12 @@ public class MenuDoctor extends javax.swing.JFrame {
     public MenuDoctor() {
         initComponents();
         int idDoctor = SesionDoctor.id;
+        String correo = SesionDoctor.correo;
+        String nombre = SesionDoctor.nombre;
+        String apellido = SesionDoctor.apellido;
+        String documento = SesionDoctor.documento;
+        String telefono = SesionDoctor.telefono;
+        String especialidad = SesionDoctor.especialidad;
              
         configurarPaneles();
         mostrarPanelInicial();
@@ -34,12 +40,21 @@ public class MenuDoctor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al inicializar:" + e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }
 
+        //metodo q cuenta citas del doctor y las visualiza
         controladorDoctor = new ControladorDoctorVeterinario(DV, baseDatos);
         int cantidad = controladorDoctor.contarCitasPorDoctor(idDoctor);
         totalCitas.setText("" + cantidad);
          List<Object[]> citas = controladorDoctor.obtenerCitasPorDoctor(idDoctor);
          llenarTablaCitas(idDoctor);
      
+        // visualizacion de los datos del doctor
+        Nombres.setText(nombre);
+        Apellidos.setText(apellido);
+        Cedula.setText(documento);
+        Telefono.setText(telefono);
+        Email.setText(correo);
+        Especialidad.setText(especialidad);
+        
     }
     private void configurarPaneles() {
         // Añadir al JTabbedPane
@@ -102,20 +117,6 @@ public class MenuDoctor extends javax.swing.JFrame {
         jScrollBar2 = new javax.swing.JScrollBar();
         jScrollPane3 = new javax.swing.JScrollPane();
         TablaCitas = new javax.swing.JTable();
-        panelDoc = new javax.swing.JPanel();
-        TituloDoc = new javax.swing.JLabel();
-        BloqueNombre = new javax.swing.JTextField();
-        BloqueCedula = new javax.swing.JTextField();
-        nombre = new javax.swing.JLabel();
-        apellido = new javax.swing.JLabel();
-        email = new javax.swing.JLabel();
-        cedula = new javax.swing.JLabel();
-        telefono = new javax.swing.JLabel();
-        especialidad = new javax.swing.JLabel();
-        BloqueEspecialidad = new javax.swing.JTextField();
-        BloqueApellidos = new javax.swing.JTextField();
-        BloqueEmail = new javax.swing.JTextField();
-        BloqueTelefono = new javax.swing.JTextField();
         panelPassword = new javax.swing.JPanel();
         TituloContraseña = new javax.swing.JLabel();
         txt_contraseñaActual = new javax.swing.JLabel();
@@ -128,6 +129,23 @@ public class MenuDoctor extends javax.swing.JFrame {
         VerConfirmarClave = new javax.swing.JCheckBox();
         VerNewClave = new javax.swing.JCheckBox();
         VerOldClave = new javax.swing.JCheckBox();
+        panelDoc = new javax.swing.JPanel();
+        TituloDoc = new javax.swing.JLabel();
+        apellido = new javax.swing.JLabel();
+        telefono = new javax.swing.JLabel();
+        especialidad = new javax.swing.JLabel();
+        Apellidos = new javax.swing.JLabel();
+        Especialidad = new javax.swing.JLabel();
+        Telefono = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        nombre = new javax.swing.JLabel();
+        Nombres = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        cedula = new javax.swing.JLabel();
+        Cedula = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        email = new javax.swing.JLabel();
+        Email = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(247, 254, 239));
@@ -250,7 +268,7 @@ public class MenuDoctor extends javax.swing.JFrame {
         jScrollBar2.setBackground(new java.awt.Color(151, 183, 112));
 
         TablaCitas.setBackground(new java.awt.Color(203, 221, 181));
-        TablaCitas.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 12)); // NOI18N
+        TablaCitas.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 12)); // NOI18N
         TablaCitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -350,160 +368,6 @@ public class MenuDoctor extends javax.swing.JFrame {
 
         contenedores.addTab("Citas", panelCitas);
 
-        panelDoc.setBackground(new java.awt.Color(247, 254, 239));
-
-        TituloDoc.setBackground(new java.awt.Color(96, 131, 52));
-        TituloDoc.setFont(new java.awt.Font("Swis721 Blk BT", 0, 24)); // NOI18N
-        TituloDoc.setForeground(new java.awt.Color(96, 131, 52));
-        TituloDoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/estetoscopio.png"))); // NOI18N
-        TituloDoc.setText(" INFORMACIÓN DE DOCTORES");
-
-        BloqueNombre.setMinimumSize(new java.awt.Dimension(300, 30));
-        BloqueNombre.setPreferredSize(new java.awt.Dimension(300, 30));
-        BloqueNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BloqueNombreActionPerformed(evt);
-            }
-        });
-
-        BloqueCedula.setMinimumSize(new java.awt.Dimension(300, 30));
-        BloqueCedula.setPreferredSize(new java.awt.Dimension(300, 30));
-        BloqueCedula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BloqueCedulaActionPerformed(evt);
-            }
-        });
-
-        nombre.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
-        nombre.setForeground(new java.awt.Color(27, 52, 13));
-        nombre.setText("Nombres");
-
-        apellido.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
-        apellido.setForeground(new java.awt.Color(27, 52, 13));
-        apellido.setText("Apellidos");
-
-        email.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
-        email.setForeground(new java.awt.Color(27, 52, 13));
-        email.setText("Email");
-
-        cedula.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
-        cedula.setForeground(new java.awt.Color(27, 52, 13));
-        cedula.setText("Cedula");
-
-        telefono.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
-        telefono.setForeground(new java.awt.Color(27, 52, 13));
-        telefono.setText("Teléfono");
-
-        especialidad.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
-        especialidad.setForeground(new java.awt.Color(27, 52, 13));
-        especialidad.setText("Especialidad");
-
-        BloqueEspecialidad.setMinimumSize(new java.awt.Dimension(300, 30));
-        BloqueEspecialidad.setPreferredSize(new java.awt.Dimension(300, 30));
-        BloqueEspecialidad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BloqueEspecialidadActionPerformed(evt);
-            }
-        });
-
-        BloqueApellidos.setMinimumSize(new java.awt.Dimension(300, 30));
-        BloqueApellidos.setPreferredSize(new java.awt.Dimension(300, 30));
-        BloqueApellidos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BloqueApellidosActionPerformed(evt);
-            }
-        });
-
-        BloqueEmail.setToolTipText("");
-        BloqueEmail.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        BloqueEmail.setMinimumSize(new java.awt.Dimension(300, 30));
-        BloqueEmail.setPreferredSize(new java.awt.Dimension(300, 30));
-        BloqueEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BloqueEmailActionPerformed(evt);
-            }
-        });
-
-        BloqueTelefono.setMinimumSize(new java.awt.Dimension(300, 30));
-        BloqueTelefono.setPreferredSize(new java.awt.Dimension(300, 30));
-        BloqueTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BloqueTelefonoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelDocLayout = new javax.swing.GroupLayout(panelDoc);
-        panelDoc.setLayout(panelDocLayout);
-        panelDocLayout.setHorizontalGroup(
-            panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDocLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(TituloDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 655, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDocLayout.createSequentialGroup()
-                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelDocLayout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nombre)
-                            .addComponent(apellido)
-                            .addComponent(cedula))
-                        .addGap(18, 18, 18)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BloqueApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BloqueCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelDocLayout.createSequentialGroup()
-                        .addGap(147, 147, 147)
-                        .addComponent(BloqueNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)
-                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(telefono)
-                    .addComponent(email)
-                    .addComponent(especialidad))
-                .addGap(21, 21, 21)
-                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BloqueEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BloqueTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BloqueEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43))
-        );
-        panelDocLayout.setVerticalGroup(
-            panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelDocLayout.createSequentialGroup()
-                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelDocLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(TituloDoc)
-                        .addGap(33, 33, 33)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BloqueNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nombre))
-                        .addGap(29, 29, 29)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BloqueApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(apellido))
-                        .addGap(29, 29, 29)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cedula)
-                            .addComponent(BloqueCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelDocLayout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BloqueEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(email))
-                        .addGap(29, 29, 29)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BloqueTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(telefono))
-                        .addGap(29, 29, 29)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(especialidad)
-                            .addComponent(BloqueEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(389, Short.MAX_VALUE))
-        );
-
-        contenedores.addTab("Inf Personal", panelDoc);
-
         panelPassword.setBackground(new java.awt.Color(247, 254, 239));
 
         TituloContraseña.setFont(new java.awt.Font("Swis721 Blk BT", 0, 24)); // NOI18N
@@ -512,6 +376,7 @@ public class MenuDoctor extends javax.swing.JFrame {
         TituloContraseña.setText(" CAMBIAR CONTRASEÑA");
 
         txt_contraseñaActual.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        txt_contraseñaActual.setForeground(new java.awt.Color(96, 131, 52));
         txt_contraseñaActual.setText("Ingrese contraseña actual:");
 
         contraN.setBackground(new java.awt.Color(203, 221, 181));
@@ -523,6 +388,7 @@ public class MenuDoctor extends javax.swing.JFrame {
         });
 
         txt_contraseñaNueva.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        txt_contraseñaNueva.setForeground(new java.awt.Color(96, 131, 52));
         txt_contraseñaNueva.setText("Ingrese contraseña nueva:");
 
         contraA.setBackground(new java.awt.Color(203, 221, 181));
@@ -534,13 +400,14 @@ public class MenuDoctor extends javax.swing.JFrame {
         });
 
         txt_confirmarContraseña.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        txt_confirmarContraseña.setForeground(new java.awt.Color(96, 131, 52));
         txt_confirmarContraseña.setText("Confirmar la contraseña nueva:");
 
         contraNN.setBackground(new java.awt.Color(203, 221, 181));
         contraNN.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
 
         CambiarC.setBackground(new java.awt.Color(151, 183, 112));
-        CambiarC.setFont(new java.awt.Font("Swis721 Blk BT", 0, 14)); // NOI18N
+        CambiarC.setFont(new java.awt.Font("Swis721 Blk BT", 0, 16)); // NOI18N
         CambiarC.setForeground(new java.awt.Color(247, 254, 239));
         CambiarC.setText("Cambiar");
         CambiarC.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -586,32 +453,31 @@ public class MenuDoctor extends javax.swing.JFrame {
             .addGroup(panelPasswordLayout.createSequentialGroup()
                 .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPasswordLayout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addComponent(TituloContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPasswordLayout.createSequentialGroup()
-                            .addGap(60, 60, 60)
-                            .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(contraA, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
-                                .addComponent(VerOldClave, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txt_contraseñaActual)
-                                .addComponent(contraN)
-                                .addComponent(txt_contraseñaNueva)
-                                .addComponent(VerNewClave, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txt_confirmarContraseña)
-                                .addComponent(VerConfirmarClave, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(contraNN)))
-                        .addGroup(panelPasswordLayout.createSequentialGroup()
-                            .addGap(135, 135, 135)
-                            .addComponent(CambiarC, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(715, Short.MAX_VALUE))
+                        .addGap(106, 106, 106)
+                        .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(contraA)
+                            .addComponent(VerOldClave, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_contraseñaActual)
+                            .addComponent(contraN)
+                            .addComponent(txt_contraseñaNueva)
+                            .addComponent(VerNewClave, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_confirmarContraseña)
+                            .addComponent(VerConfirmarClave, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(contraNN, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelPasswordLayout.createSequentialGroup()
+                        .addGap(191, 191, 191)
+                        .addComponent(CambiarC, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelPasswordLayout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addComponent(TituloContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(678, Short.MAX_VALUE))
         );
         panelPasswordLayout.setVerticalGroup(
             panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPasswordLayout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(TituloContraseña)
-                .addGap(56, 56, 56)
+                .addGap(37, 37, 37)
                 .addComponent(txt_contraseñaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contraA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -629,12 +495,202 @@ public class MenuDoctor extends javax.swing.JFrame {
                 .addComponent(contraNN, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(VerConfirmarClave)
-                .addGap(45, 45, 45)
-                .addComponent(CambiarC, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addComponent(CambiarC, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         contenedores.addTab("Contraseña", panelPassword);
+
+        panelDoc.setBackground(new java.awt.Color(247, 254, 239));
+
+        TituloDoc.setBackground(new java.awt.Color(96, 131, 52));
+        TituloDoc.setFont(new java.awt.Font("Swis721 Blk BT", 0, 24)); // NOI18N
+        TituloDoc.setForeground(new java.awt.Color(96, 131, 52));
+        TituloDoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/estetoscopio.png"))); // NOI18N
+        TituloDoc.setText(" INFORMACIÓN PERSONAL");
+
+        apellido.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        apellido.setForeground(new java.awt.Color(27, 52, 13));
+        apellido.setText("Apellidos:");
+
+        telefono.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        telefono.setForeground(new java.awt.Color(27, 52, 13));
+        telefono.setText("Teléfono:");
+
+        especialidad.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        especialidad.setForeground(new java.awt.Color(27, 52, 13));
+        especialidad.setText("Especialidad:");
+
+        Apellidos.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
+        Apellidos.setForeground(new java.awt.Color(27, 52, 13));
+        Apellidos.setText("Ar");
+
+        Especialidad.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
+        Especialidad.setForeground(new java.awt.Color(27, 52, 13));
+        Especialidad.setText("Oto");
+
+        Telefono.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
+        Telefono.setForeground(new java.awt.Color(27, 52, 13));
+        Telefono.setText("313");
+
+        jPanel1.setBackground(new java.awt.Color(203, 221, 181));
+
+        nombre.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        nombre.setForeground(new java.awt.Color(27, 52, 13));
+        nombre.setText("Nombres:");
+
+        Nombres.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
+        Nombres.setForeground(new java.awt.Color(27, 52, 13));
+        Nombres.setText("Ra");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(nombre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Nombres, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(596, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombre)
+                    .addComponent(Nombres, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(203, 221, 181));
+
+        cedula.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        cedula.setForeground(new java.awt.Color(27, 52, 13));
+        cedula.setText("Cédula:");
+
+        Cedula.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
+        Cedula.setForeground(new java.awt.Color(27, 52, 13));
+        Cedula.setText("1090");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cedula)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cedula, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(Cedula))
+                .addContainerGap())
+        );
+
+        jPanel4.setBackground(new java.awt.Color(203, 221, 181));
+
+        email.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 16)); // NOI18N
+        email.setForeground(new java.awt.Color(27, 52, 13));
+        email.setText("Email:");
+
+        Email.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 16)); // NOI18N
+        Email.setForeground(new java.awt.Color(27, 52, 13));
+        Email.setText("@");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(email)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(599, Short.MAX_VALUE))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(email, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(Email, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout panelDocLayout = new javax.swing.GroupLayout(panelDoc);
+        panelDoc.setLayout(panelDocLayout);
+        panelDocLayout.setHorizontalGroup(
+            panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDocLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDocLayout.createSequentialGroup()
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelDocLayout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(especialidad)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelDocLayout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(telefono)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelDocLayout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addComponent(apellido)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Apellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelDocLayout.createSequentialGroup()
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap(62, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDocLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(TituloDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 422, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(346, 346, 346))
+        );
+        panelDocLayout.setVerticalGroup(
+            panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelDocLayout.createSequentialGroup()
+                .addGap(45, 45, 45)
+                .addComponent(TituloDoc)
+                .addGap(88, 88, 88)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(apellido)
+                    .addComponent(Apellidos))
+                .addGap(16, 16, 16)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(especialidad)
+                    .addComponent(Especialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(173, Short.MAX_VALUE))
+        );
+
+        contenedores.addTab("Inf Personal", panelDoc);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -666,6 +722,7 @@ public class MenuDoctor extends javax.swing.JFrame {
     private void ButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLogoutActionPerformed
         animate.selectSalir(ButtonCita, ButtonDoc, ButtonPassword, ButtonLogout);
         this.dispose();
+        new Login().setVisible(true);
     }//GEN-LAST:event_ButtonLogoutActionPerformed
 
     private void ButtonCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCitaActionPerformed
@@ -677,30 +734,6 @@ public class MenuDoctor extends javax.swing.JFrame {
         animate.selectDoctores(ButtonCita, ButtonDoc, ButtonPassword, ButtonLogout);
         contenedores.setSelectedComponent(panelDoc);
     }//GEN-LAST:event_ButtonDocActionPerformed
-
-    private void BloqueCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueCedulaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BloqueCedulaActionPerformed
-
-    private void BloqueNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BloqueNombreActionPerformed
-
-    private void BloqueEspecialidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueEspecialidadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BloqueEspecialidadActionPerformed
-
-    private void BloqueApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueApellidosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BloqueApellidosActionPerformed
-
-    private void BloqueEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BloqueEmailActionPerformed
-
-    private void BloqueTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqueTelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BloqueTelefonoActionPerformed
 
     private void CambiarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CambiarCActionPerformed
 String actual = new String(contraA.getPassword());        
@@ -796,20 +829,20 @@ Bbloq.setEnabled(false);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Apellidos;
     private javax.swing.JButton Bbloq;
-    private javax.swing.JTextField BloqueApellidos;
-    private javax.swing.JTextField BloqueCedula;
-    private javax.swing.JTextField BloqueEmail;
-    private javax.swing.JTextField BloqueEspecialidad;
-    private javax.swing.JTextField BloqueNombre;
-    private javax.swing.JTextField BloqueTelefono;
     private javax.swing.JTextField Buscador;
     private javax.swing.JButton ButtonCita;
     private javax.swing.JButton ButtonDoc;
     private javax.swing.JButton ButtonLogout;
     private javax.swing.JButton ButtonPassword;
     private javax.swing.JButton CambiarC;
+    private javax.swing.JLabel Cedula;
+    private javax.swing.JLabel Email;
+    private javax.swing.JLabel Especialidad;
+    private javax.swing.JLabel Nombres;
     public javax.swing.JTable TablaCitas;
+    private javax.swing.JLabel Telefono;
     private javax.swing.JLabel TituloCitas;
     private javax.swing.JLabel TituloContraseña;
     private javax.swing.JLabel TituloDoc;
@@ -825,6 +858,9 @@ Bbloq.setEnabled(false);
     private javax.swing.JLabel email;
     private javax.swing.JLabel especialidad;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollBar jScrollBar2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
@@ -832,7 +868,7 @@ Bbloq.setEnabled(false);
     private javax.swing.JPanel menu;
     private javax.swing.JLabel nombre;
     private javax.swing.JPanel panelCitas;
-    public javax.swing.JPanel panelDoc;
+    private javax.swing.JPanel panelDoc;
     private javax.swing.JPanel panelPassword;
     private javax.swing.JLabel telefono;
     private javax.swing.JLabel totalCitas;
