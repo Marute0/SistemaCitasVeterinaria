@@ -1,14 +1,5 @@
 package Modelo;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author Ususario
- */
 public class DoctorVeterinario extends Persona{
     //Atributos
     private String contraseña;
@@ -29,7 +20,7 @@ public class DoctorVeterinario extends Persona{
         this.especializacion = especializacion;
     }
 
-    //Getters anda setters
+    //Getters and setters
     
     public String getContraseña() {
         return contraseña;
@@ -66,5 +57,4 @@ public class DoctorVeterinario extends Persona{
         return "Dr. " + getNombre() + " " + getApellido();
     
     }
-
 }

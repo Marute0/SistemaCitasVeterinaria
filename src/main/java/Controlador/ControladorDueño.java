@@ -29,8 +29,7 @@ public class ControladorDueño {
         this.Dñ = Dñ;
         this.baseDatos = baseDatos;
         this.Dueños = Dueños;
-    }
-    
+    }    
     
         //Método que crea al DV en la base de datos
     public boolean dueñoEsCreado(Dueño Dñ) {
@@ -56,8 +55,6 @@ public class ControladorDueño {
                 return false;
             }
     }
-    
-
     //Método que lee a los dueños en la base de datos y los lleva a un array 
     public ControladorDueño (BaseDatos basedatos) {
         
@@ -79,9 +76,6 @@ public class ControladorDueño {
             e.printStackTrace();
         }
     }
-    
-
-    
     //Elimina al dueño y a las citas y mascotas asociadas a la misma debido al cascade de la base de datos
     public boolean eliminarDueño(int idDueño) throws SQLException {
         String sql = "DELETE FROM `dueños` WHERE `ID` = ?";

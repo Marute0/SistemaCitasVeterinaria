@@ -71,32 +71,36 @@ public class ControladorMascota {
     }
     
     //Lee las mascotas en la base de datos, util para las tablas!
-    public ControladorMascota(BaseDatos basedatos) {
-        String select = "SELECT * FROM `mascotas`;";
-        
-        
-        try {
-            ResultSet rs = basedatos.getStatement().executeQuery(select);
-            while (rs.next()) {
-                Mascota.Tipo tipo = Mascota.Tipo.fromString(rs.getString("tipo"));
-                Mascota.Sexo sexo = Mascota.Sexo.fromString(rs.getString("Sexo"));                
-                
-                Mascota mascota = new Mascota(
-                    rs.getInt("ID"),
-                    rs.getString("nombre"),
-                    tipo,  // ENUM 
-                    rs.getString("raza"),
-                    sexo,   // ENUM 
-                    rs.getInt("ID_dueño")
-                );
-                mascotas.add(mascota);
-            }
-        } catch (SQLException e) {
-            System.err.println("Error cargando mascotas: " + e.getMessage());
-            // Manejo de error más robusto
+    public ArrayList<Mascota> obtenerMascotas() {
+    ArrayList<Mascota> lista = new ArrayList<>();
+    this.baseDatos = new BaseDatos();
+    
+    String sql = "SELECT * FROM mascotas ORDER BY nombre";
+
+    try (PreparedStatement stmt = baseDatos.getPreparedStatement(sql);
+         ResultSet rs = stmt.executeQuery()) {
+
+        while (rs.next()) {
+            Mascota.Tipo tipo = Mascota.Tipo.fromString(rs.getString("tipo"));
+            Mascota.Sexo sexo = Mascota.Sexo.fromString(rs.getString("sexo"));
+
+            Mascota mascota = new Mascota(
+                rs.getInt("ID"),
+                rs.getString("nombre"),
+                tipo,
+                rs.getString("raza"),
+                sexo,
+                rs.getInt("ID_dueño")
+            );
+            lista.add(mascota);
+        }
+
+    } catch (SQLException e) {
+        System.err.println("Error cargando mascotas: " + e.getMessage());
     }
 
-    }
+    return lista;
+}
     
     public ArrayList<Mascota> getMascotas() {
         return mascotas;

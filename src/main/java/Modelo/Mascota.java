@@ -85,9 +85,7 @@ public class Mascota {
 
     public void setIdDueño(int idDueño) {
         this.idDueño = idDueño;
-    }
-
-  
+    } 
     
     @Override
     public String toString(){
@@ -98,6 +96,7 @@ public class Mascota {
                sexo;
     }
     
+
     //Inicialización de enums
         public enum Tipo {
         PERRO, GATO, AVE, ROEDOR, OTRO;

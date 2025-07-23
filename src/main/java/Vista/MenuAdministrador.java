@@ -3,7 +3,9 @@ package Vista;
 import Controlador.ControladorDoctorVeterinario;
 import Modelo.BaseDatos;
 import Modelo.DoctorVeterinario;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 public class MenuAdministrador extends javax.swing.JFrame {
  
@@ -16,6 +18,10 @@ public class MenuAdministrador extends javax.swing.JFrame {
         initComponents();
         configurarPaneles();
         mostrarPanelInicial();
+        DefaultTableModel modeloTabla = new DefaultTableModel(new Object[]{"ID", "Nombre", "Apellido", "Documento", "Email", "Teléfono", "Contraseña", "Especialidad"}, 0);
+        TablaDoctores.setModel(modeloTabla);
+        ControladorDoctorVeterinario controlador = new ControladorDoctorVeterinario();
+        llenarTabla(controlador.obtenerTodosLosDoctores());
         
         try{
             this.baseDatos = new BaseDatos();
@@ -59,6 +65,23 @@ public class MenuAdministrador extends javax.swing.JFrame {
     BloqueTelefono.setText("");
     BloqueEspecialidad.setText("");
 }
+private void llenarTabla(List<DoctorVeterinario> doctores) {
+    DefaultTableModel modelo = (DefaultTableModel) TablaDoctores.getModel();
+    modelo.setRowCount(0);  // Limpiar tabla
+
+    for (DoctorVeterinario dv : doctores) {
+        modelo.addRow(new Object[]{
+            dv.getID(),
+            dv.getNombre(),
+            dv.getApellido(),
+            dv.getnDocumento(),
+            dv.getEmail(),
+            dv.getNumeroTelefono(),
+            dv.getContraseña(),
+            dv.getEspecializacion()
+        });
+    }
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -73,27 +96,19 @@ public class MenuAdministrador extends javax.swing.JFrame {
         contenedores = new javax.swing.JTabbedPane();
         panelCitas = new javax.swing.JPanel();
         TituloCitas = new javax.swing.JLabel();
-        ComboNombre = new javax.swing.JComboBox<>();
         txt_InfPersonal = new javax.swing.JLabel();
         txtNombres = new javax.swing.JLabel();
-        ComboApellidos = new javax.swing.JComboBox<>();
         txtApellidos = new javax.swing.JLabel();
-        ComboCedula = new javax.swing.JComboBox<>();
         txtCedula = new javax.swing.JLabel();
-        ComboTelefono = new javax.swing.JComboBox<>();
         txtTelefono = new javax.swing.JLabel();
-        ComboEmail = new javax.swing.JComboBox<>();
         txtEmail = new javax.swing.JLabel();
-        ComboDireccion = new javax.swing.JComboBox<>();
         txtDireccion = new javax.swing.JLabel();
         txtInfMascita = new javax.swing.JLabel();
         txtNombrePet = new javax.swing.JLabel();
-        ComboNombrePet = new javax.swing.JComboBox<>();
         txtTipo = new javax.swing.JLabel();
         ComboTipo = new javax.swing.JComboBox<>();
         ComboSexo = new javax.swing.JComboBox<>();
         txtSexo = new javax.swing.JLabel();
-        ComboRaza = new javax.swing.JComboBox<>();
         txtRaza = new javax.swing.JLabel();
         Btt_Programar = new javax.swing.JButton();
         txtInfCita = new javax.swing.JLabel();
@@ -108,6 +123,14 @@ public class MenuAdministrador extends javax.swing.JFrame {
         Btt_CitasProgramadas = new javax.swing.JButton();
         ComboPrioridad1 = new javax.swing.JComboBox<>();
         txtPrioridad1 = new javax.swing.JLabel();
+        BloqDireccion = new javax.swing.JTextField();
+        BloqEmail = new javax.swing.JTextField();
+        BloqMascota = new javax.swing.JTextField();
+        BloqTelefono = new javax.swing.JTextField();
+        BloqRaza = new javax.swing.JTextField();
+        BloqApellidos = new javax.swing.JTextField();
+        BloqNombre = new javax.swing.JTextField();
+        BloqCedula = new javax.swing.JTextField();
         panelPet = new javax.swing.JPanel();
         TituloMascotas = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -237,15 +260,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
         TituloCitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cita.png"))); // NOI18N
         TituloCitas.setText(" CITAS");
 
-        ComboNombre.setEditable(true);
-        ComboNombre.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboNombre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        ComboNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboNombreActionPerformed(evt);
-            }
-        });
-
         txt_InfPersonal.setBackground(new java.awt.Color(151, 183, 112));
         txt_InfPersonal.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         txt_InfPersonal.setForeground(new java.awt.Color(151, 183, 112));
@@ -255,46 +269,21 @@ public class MenuAdministrador extends javax.swing.JFrame {
         txtNombres.setForeground(new java.awt.Color(27, 52, 13));
         txtNombres.setText("Nombres");
 
-        ComboApellidos.setEditable(true);
-        ComboApellidos.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboApellidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         txtApellidos.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtApellidos.setForeground(new java.awt.Color(27, 52, 13));
         txtApellidos.setText("Apellidos");
-
-        ComboCedula.setEditable(true);
-        ComboCedula.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboCedula.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         txtCedula.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtCedula.setForeground(new java.awt.Color(27, 52, 13));
         txtCedula.setText("Cedula");
 
-        ComboTelefono.setEditable(true);
-        ComboTelefono.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboTelefono.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         txtTelefono.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtTelefono.setForeground(new java.awt.Color(27, 52, 13));
         txtTelefono.setText("Teléfono");
 
-        ComboEmail.setEditable(true);
-        ComboEmail.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboEmail.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        ComboEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboEmailActionPerformed(evt);
-            }
-        });
-
         txtEmail.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtEmail.setForeground(new java.awt.Color(27, 52, 13));
         txtEmail.setText("Email");
-
-        ComboDireccion.setEditable(true);
-        ComboDireccion.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboDireccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         txtDireccion.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtDireccion.setForeground(new java.awt.Color(27, 52, 13));
@@ -309,32 +298,24 @@ public class MenuAdministrador extends javax.swing.JFrame {
         txtNombrePet.setForeground(new java.awt.Color(27, 52, 13));
         txtNombrePet.setText("Nombre de la mascota");
 
-        ComboNombrePet.setEditable(true);
-        ComboNombrePet.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboNombrePet.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        ComboNombrePet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboNombrePetActionPerformed(evt);
-            }
-        });
-
         txtTipo.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtTipo.setForeground(new java.awt.Color(27, 52, 13));
         txtTipo.setText("Tipo");
 
         ComboTipo.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Perro", "Gato", "Ave", "Roedor", "Otro", "" }));
+        ComboTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboTipoActionPerformed(evt);
+            }
+        });
 
         ComboSexo.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Hembra", "Macho" }));
 
         txtSexo.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtSexo.setForeground(new java.awt.Color(27, 52, 13));
         txtSexo.setText("Sexo");
-
-        ComboRaza.setEditable(true);
-        ComboRaza.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboRaza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         txtRaza.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtRaza.setForeground(new java.awt.Color(27, 52, 13));
@@ -414,7 +395,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         });
 
         ComboPrioridad1.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboPrioridad1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboPrioridad1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Alta", "Media", "Baja" }));
         ComboPrioridad1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboPrioridad1ActionPerformed(evt);
@@ -424,6 +405,61 @@ public class MenuAdministrador extends javax.swing.JFrame {
         txtPrioridad1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtPrioridad1.setForeground(new java.awt.Color(27, 52, 13));
         txtPrioridad1.setText("Prioridad");
+
+        BloqDireccion.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        BloqDireccion.setMaximumSize(new java.awt.Dimension(2147483647, 25));
+        BloqDireccion.setMinimumSize(new java.awt.Dimension(64, 25));
+        BloqDireccion.setPreferredSize(new java.awt.Dimension(64, 25));
+
+        BloqEmail.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        BloqEmail.setMaximumSize(new java.awt.Dimension(2147483647, 25));
+        BloqEmail.setMinimumSize(new java.awt.Dimension(64, 25));
+        BloqEmail.setPreferredSize(new java.awt.Dimension(64, 25));
+
+        BloqMascota.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        BloqMascota.setMaximumSize(new java.awt.Dimension(2147483647, 25));
+        BloqMascota.setMinimumSize(new java.awt.Dimension(64, 25));
+        BloqMascota.setPreferredSize(new java.awt.Dimension(64, 25));
+
+        BloqTelefono.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        BloqTelefono.setMaximumSize(new java.awt.Dimension(2147483647, 25));
+        BloqTelefono.setMinimumSize(new java.awt.Dimension(64, 25));
+        BloqTelefono.setPreferredSize(new java.awt.Dimension(64, 25));
+        BloqTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BloqTelefonoActionPerformed(evt);
+            }
+        });
+
+        BloqRaza.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        BloqRaza.setMaximumSize(new java.awt.Dimension(2147483647, 25));
+        BloqRaza.setMinimumSize(new java.awt.Dimension(64, 25));
+        BloqRaza.setPreferredSize(new java.awt.Dimension(64, 25));
+
+        BloqApellidos.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        BloqApellidos.setMaximumSize(new java.awt.Dimension(2147483647, 25));
+        BloqApellidos.setMinimumSize(new java.awt.Dimension(64, 25));
+        BloqApellidos.setPreferredSize(new java.awt.Dimension(64, 25));
+        BloqApellidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BloqApellidosActionPerformed(evt);
+            }
+        });
+
+        BloqNombre.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        BloqNombre.setMaximumSize(new java.awt.Dimension(2147483647, 25));
+        BloqNombre.setMinimumSize(new java.awt.Dimension(64, 25));
+        BloqNombre.setPreferredSize(new java.awt.Dimension(64, 25));
+        BloqNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BloqNombreActionPerformed(evt);
+            }
+        });
+
+        BloqCedula.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
+        BloqCedula.setMaximumSize(new java.awt.Dimension(2147483647, 25));
+        BloqCedula.setMinimumSize(new java.awt.Dimension(64, 25));
+        BloqCedula.setPreferredSize(new java.awt.Dimension(64, 25));
 
         javax.swing.GroupLayout panelCitasLayout = new javax.swing.GroupLayout(panelCitas);
         panelCitas.setLayout(panelCitasLayout);
@@ -443,32 +479,36 @@ public class MenuAdministrador extends javax.swing.JFrame {
                         .addComponent(txtDoctor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ComboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txt_InfPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelCitasLayout.createSequentialGroup()
                             .addComponent(txtNombres)
-                            .addComponent(txtApellidos)
-                            .addComponent(txtCedula))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ComboNombre, 0, 308, Short.MAX_VALUE)
-                            .addComponent(ComboApellidos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ComboCedula, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelCitasLayout.createSequentialGroup()
-                                .addComponent(txtDireccion)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ComboDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(BloqNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(14, 14, 14)
+                            .addComponent(txtTelefono)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(BloqTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCitasLayout.createSequentialGroup()
+                            .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(panelCitasLayout.createSequentialGroup()
-                                    .addComponent(txtTelefono)
+                                    .addComponent(txtApellidos)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(ComboTelefono, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelCitasLayout.createSequentialGroup()
+                                    .addComponent(BloqApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(panelCitasLayout.createSequentialGroup()
+                                    .addComponent(txtCedula)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(BloqCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(panelCitasLayout.createSequentialGroup()
+                                    .addComponent(txtDireccion)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(BloqDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(panelCitasLayout.createSequentialGroup()
                                     .addComponent(txtEmail)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(ComboEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(BloqEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGap(74, 74, 74)))
                     .addComponent(txtInfMascita, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelCitasLayout.createSequentialGroup()
@@ -478,15 +518,15 @@ public class MenuAdministrador extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(txtRaza)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(ComboRaza, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(BloqRaza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelCitasLayout.createSequentialGroup()
                             .addComponent(txtNombrePet)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(ComboNombrePet, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(BloqMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(txtSexo)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(ComboSexo, 0, 169, Short.MAX_VALUE)))
+                            .addComponent(ComboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelCitasLayout.createSequentialGroup()
                         .addComponent(txtFecha)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -502,8 +542,9 @@ public class MenuAdministrador extends javax.swing.JFrame {
                     .addGroup(panelCitasLayout.createSequentialGroup()
                         .addComponent(Btt_Programar, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(Btt_CitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(114, Short.MAX_VALUE))
+                        .addComponent(Btt_CitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_InfPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(319, 319, Short.MAX_VALUE))
         );
         panelCitasLayout.setVerticalGroup(
             panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -512,47 +553,40 @@ public class MenuAdministrador extends javax.swing.JFrame {
                 .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txt_InfPersonal)
                     .addComponent(TituloCitas))
-                .addGap(10, 10, 10)
-                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombres)
-                            .addComponent(ComboNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtApellidos)
-                            .addComponent(ComboApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCedula)
-                            .addComponent(ComboCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ComboTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtTelefono))
-                        .addGap(18, 18, 18)
-                        .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ComboEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtEmail))
-                        .addGap(18, 18, 18)
-                        .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ComboDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDireccion))))
-                .addGap(30, 30, 30)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombres)
+                    .addComponent(BloqNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefono)
+                    .addComponent(BloqTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(22, 22, 22)
+                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtApellidos)
+                    .addComponent(BloqApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEmail)
+                    .addComponent(BloqEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDireccion)
+                    .addComponent(BloqDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCedula)
+                    .addComponent(BloqCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(28, 28, 28)
                 .addComponent(txtInfMascita)
                 .addGap(18, 18, 18)
                 .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNombrePet)
                     .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ComboNombrePet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNombrePet)
+                        .addComponent(BloqMascota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(ComboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtSexo)))
                 .addGap(30, 30, 30)
                 .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ComboRaza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtRaza)
                     .addComponent(ComboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTipo))
+                    .addComponent(txtTipo)
+                    .addComponent(BloqRaza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
                 .addComponent(txtInfCita)
                 .addGap(18, 18, 18)
@@ -569,7 +603,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
                     .addComponent(ComboPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtPrioridad1)
                     .addComponent(ComboPrioridad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGap(48, 48, 48)
                 .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Btt_Programar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Btt_CitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -720,6 +754,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
         Btt_Busqueda.setMaximumSize(new java.awt.Dimension(100, 50));
         Btt_Busqueda.setMinimumSize(new java.awt.Dimension(100, 50));
         Btt_Busqueda.setPreferredSize(new java.awt.Dimension(100, 50));
+        Btt_Busqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btt_BusquedaActionPerformed(evt);
+            }
+        });
 
         Btt_Nuevo.setBackground(new java.awt.Color(151, 183, 112));
         Btt_Nuevo.setFont(new java.awt.Font("Swis721 Blk BT", 0, 15)); // NOI18N
@@ -735,7 +774,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
             }
         });
 
-        TablaDoctores.setBackground(new java.awt.Color(247, 248, 246));
+        TablaDoctores.setBackground(new java.awt.Color(203, 221, 181));
         TablaDoctores.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 12)); // NOI18N
         TablaDoctores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -750,7 +789,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(TablaDoctores);
 
-        jScrollBar1.setBackground(new java.awt.Color(203, 221, 181));
+        jScrollBar1.setBackground(new java.awt.Color(151, 183, 112));
 
         javax.swing.GroupLayout panelDocLayout = new javax.swing.GroupLayout(panelDoc);
         panelDoc.setLayout(panelDocLayout);
@@ -804,39 +843,42 @@ public class MenuAdministrador extends javax.swing.JFrame {
             .addGroup(panelDocLayout.createSequentialGroup()
                 .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDocLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(TituloDoc)
-                        .addGap(33, 33, 33)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BloqueNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nombre))
-                        .addGap(29, 29, 29)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BloqueApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(apellido))
-                        .addGap(29, 29, 29)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cedula)
-                            .addComponent(BloqueCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelDocLayout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BloqueEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(email))
-                        .addGap(29, 29, 29)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BloqueTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(telefono))
-                        .addGap(29, 29, 29)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(especialidad)
-                            .addComponent(BloqueEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelDocLayout.createSequentialGroup()
-                        .addGap(142, 142, 142)
-                        .addComponent(Btt_Busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(139, Short.MAX_VALUE)
+                        .addComponent(Btt_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(Btt_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addComponent(Btt_Busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66))
+                    .addGroup(panelDocLayout.createSequentialGroup()
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelDocLayout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(TituloDoc)
+                                .addGap(33, 33, 33)
+                                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(BloqueNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(nombre))
+                                .addGap(29, 29, 29)
+                                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(BloqueApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(apellido))
+                                .addGap(29, 29, 29)
+                                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(cedula)
+                                    .addComponent(BloqueCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panelDocLayout.createSequentialGroup()
+                                .addGap(128, 128, 128)
+                                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(BloqueEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(email))
+                                .addGap(29, 29, 29)
+                                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(BloqueTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(telefono))
+                                .addGap(29, 29, 29)
+                                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(especialidad)
+                                    .addComponent(BloqueEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(12, 12, 12)))
                 .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
@@ -1090,6 +1132,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "No se pudo crear el doctor. Verifica la conexión o los datos.", 
                                       "Error", JOptionPane.ERROR_MESSAGE);
     }
+
     }//GEN-LAST:event_Btt_NuevoActionPerformed
 
     private void Btt_EnviarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_EnviarContraseñaActionPerformed
@@ -1128,18 +1171,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_VerOldClaveActionPerformed
 
-    private void ComboNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboNombreActionPerformed
-
-    private void ComboNombrePetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboNombrePetActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboNombrePetActionPerformed
-
-    private void ComboEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboEmailActionPerformed
-
     private void ComboFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboFechaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboFechaActionPerformed
@@ -1149,7 +1180,19 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_ComboPrioridadActionPerformed
 
     private void Btt_ProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_ProgramarActionPerformed
-        // TODO add your handling code here:
+        String nombreDueño = BloqNombre.getText();
+        String apellidoDueño = BloqApellidos.getText();
+        String cedulaDueño = BloqCedula.getText();
+        String telefonoDueño = BloqTelefono.getText();
+        String emailDueño = BloqEmail.getText();
+        String direccionDueño = BloqTelefono.getText();
+
+        String nombreMascota = BloqMascota.getText();
+        String tipo = ComboTipo.getSelectedItem().toString();
+        String sexo = ComboSexo.getSelectedItem().toString();
+        String raza = BloqRaza.getText();
+        
+        
     }//GEN-LAST:event_Btt_ProgramarActionPerformed
 
     private void Btt_CitasProgramadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_CitasProgramadasActionPerformed
@@ -1162,6 +1205,39 @@ public class MenuAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboPrioridad1ActionPerformed
 
+    private void Btt_BusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_BusquedaActionPerformed
+    ControladorDoctorVeterinario ctrl = new ControladorDoctorVeterinario();
+    String especialidad = BloqueEspecialidad.getText().trim();
+
+    List<DoctorVeterinario> lista;
+
+    if (especialidad.isEmpty()) {
+        // Si no hay filtro, cargar todos los doctores
+        lista = ctrl.obtenerTodosLosDoctores();
+    } else {
+        // Si hay texto, filtrar por especialidad
+        lista = ctrl.obtenerDoctoresPorEspecialidad(especialidad);
+    }
+
+    llenarTabla(lista); // Actualiza la tabla con los datos nuevos
+    }//GEN-LAST:event_Btt_BusquedaActionPerformed
+
+    private void BloqTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BloqTelefonoActionPerformed
+
+    private void ComboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboTipoActionPerformed
+
+    }//GEN-LAST:event_ComboTipoActionPerformed
+
+    private void BloqApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqApellidosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BloqApellidosActionPerformed
+
+    private void BloqNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BloqNombreActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             new MenuAdministrador().setVisible(true);
@@ -1169,6 +1245,14 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField BloqApellidos;
+    private javax.swing.JTextField BloqCedula;
+    private javax.swing.JTextField BloqDireccion;
+    private javax.swing.JTextField BloqEmail;
+    private javax.swing.JTextField BloqMascota;
+    private javax.swing.JTextField BloqNombre;
+    private javax.swing.JTextField BloqRaza;
+    private javax.swing.JTextField BloqTelefono;
     private javax.swing.JTextField BloqueApellidos;
     private javax.swing.JTextField BloqueCedula;
     private javax.swing.JTextField BloqueEmail;
@@ -1185,20 +1269,12 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton ButtonLogout;
     private javax.swing.JButton ButtonPassword;
     private javax.swing.JButton ButtonPet;
-    private javax.swing.JComboBox<String> ComboApellidos;
-    private javax.swing.JComboBox<String> ComboCedula;
-    private javax.swing.JComboBox<String> ComboDireccion;
     private javax.swing.JComboBox<String> ComboDoctor;
-    private javax.swing.JComboBox<String> ComboEmail;
     private javax.swing.JComboBox<String> ComboEspecialidad;
     private javax.swing.JComboBox<String> ComboFecha;
-    private javax.swing.JComboBox<String> ComboNombre;
-    private javax.swing.JComboBox<String> ComboNombrePet;
     private javax.swing.JComboBox<String> ComboPrioridad;
     private javax.swing.JComboBox<String> ComboPrioridad1;
-    private javax.swing.JComboBox<String> ComboRaza;
     private javax.swing.JComboBox<String> ComboSexo;
-    private javax.swing.JComboBox<String> ComboTelefono;
     private javax.swing.JComboBox<String> ComboTipo;
     private javax.swing.JPasswordField ConfirmPassword;
     private javax.swing.JPasswordField NewPassword;

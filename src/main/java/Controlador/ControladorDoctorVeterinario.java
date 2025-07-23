@@ -44,7 +44,7 @@ public class ControladorDoctorVeterinario {
         this.baseDatos = new BaseDatos();
         this.generadorContraseñas = new GeneradorContraseñas();
         String contraseña = generadorContraseñas.generarContraseñaTemporal();
-        String sql = "INSERT INTO `doctoresveterinarios`(`nombre`, `apellido`, `nDocumeno`, `email`, `numeroTelefono`, `contraseña`, `especialización`) "
+        String sql = "INSERT INTO `doctoresveterinarios`(`nombre`, `apellido`, `nDocumento`, `email`, `numeroTelefono`, `contraseña`, `especialización`) "
                 + "VALUES (?,?,?,?,?,?,?)";
  
             try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
@@ -70,13 +70,17 @@ public class ControladorDoctorVeterinario {
     
 
     //Método que lee a los doctores en la base de datos y los lleva a un array 
-    public ControladorDoctorVeterinario (BaseDatos basedatos) {
-        
-        String select = "SELECT * FROM `doctoresveterinarios` ORDER BY `nombre`, `apellido`;";
-        try {
-            ResultSet rs = basedatos.getStatement().executeQuery(select);
-            while (rs.next()) {
-                DoctorVeterinario DV = new DoctorVeterinario(
+public List<DoctorVeterinario> obtenerTodosLosDoctores() {
+    List<DoctorVeterinario> doctoresVet = new ArrayList<>();
+    this.baseDatos = new BaseDatos();
+    
+    String select = "SELECT * FROM `doctoresveterinarios` ORDER BY nombre, apellido;";
+    try (Connection conn = baseDatos.getConnection();
+         PreparedStatement ps = conn.prepareStatement(select);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            DoctorVeterinario DV = new DoctorVeterinario(
                 rs.getInt("ID"),
                 rs.getString("nombre"),
                 rs.getString("apellido"),
@@ -85,17 +89,20 @@ public class ControladorDoctorVeterinario {
                 rs.getString("numeroTelefono"),
                 rs.getString("contraseña"),
                 rs.getString("especialización")
-                );
-                DoctoresVet.add(DV);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            );
+            doctoresVet.add(DV);
         }
+    } catch (SQLException e) {
+        e.printStackTrace();
     }
-    
+
+    return doctoresVet;
+}
+
     public List<DoctorVeterinario> obtenerDoctoresPorEspecialidad(String especialidad) {
         List<DoctorVeterinario> doctores = new ArrayList<>();
-
+        this.baseDatos = new BaseDatos();
+        
         String sql = "SELECT * FROM `doctoresveterinarios` WHERE `especialización` = ?";
 
         try (Connection conn = baseDatos.getConnection(); 
@@ -156,8 +163,5 @@ public class ControladorDoctorVeterinario {
             e.printStackTrace();
             return false;
         }
-    }
-    
-    
-    
+    }  
 }
