@@ -201,7 +201,7 @@ public List<DoctorVeterinario> obtenerTodosLosDoctores() {
    public int contarCitasPorDoctor(int idDoctor) {
     int total = 0;
     try {
-        String sql = "SELECT COUNT(*) FROM `citas` WHERE `id_doctor` = ?";
+        String sql = "SELECT COUNT(*) FROM `citas` WHERE `idDoctor` = ?";
         PreparedStatement pstmt = baseDatos.getPreparedStatement(sql);
         pstmt.setInt(1, idDoctor);
         ResultSet rs = pstmt.executeQuery();
@@ -213,4 +213,38 @@ public List<DoctorVeterinario> obtenerTodosLosDoctores() {
     }
     return total;
 }
+   
+   public List<Object[]> obtenerCitasPorDoctor(int idDoctor) {
+    List<Object[]> citas = new ArrayList<>();
+    String sql = "SELECT c.`fechaCita`, c.`horaSlot`, c.`nivelPrioridad`, " +
+             "c.`idMascota`, m.`nombre` AS nombreMascota, m.`tipo` AS especie, " +
+             "c.`idDueño`, d.`nombre` AS nombreDueño " +
+             "FROM `citas` c " +
+             "JOIN `mascotas` m ON c.`idMascota` = m.`ID` " +
+             "JOIN `dueños` d ON c.`idDueño` = d.`ID` " +
+             "WHERE c.`idDoctor` = ? " +
+             "ORDER BY c.`fechaCita`, c.`horaSlot`";
+
+    try (PreparedStatement stmt = baseDatos.getPreparedStatement(sql)) {
+        stmt.setInt(1, idDoctor);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Object[] fila = new Object[8];
+            fila[0] = rs.getDate("fechaCita");
+            fila[1] = rs.getString("horaSlot");
+            fila[2] = rs.getString("nivelPrioridad");
+            fila[3] = rs.getInt("idMascota");
+            fila[4] = rs.getString("nombreMascota");
+            fila[5] = rs.getString("especie");
+            fila[6] = rs.getInt("idDueño");
+            fila[7] = rs.getString("nombreDueño");
+            citas.add(fila);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return citas;
+}
+
 }
