@@ -198,4 +198,19 @@ public List<DoctorVeterinario> obtenerTodosLosDoctores() {
         return false;
     }
 }   
+   public int contarCitasPorDoctor(int idDoctor) {
+    int total = 0;
+    try {
+        String sql = "SELECT COUNT(*) FROM `citas` WHERE `id_doctor` = ?";
+        PreparedStatement pstmt = baseDatos.getPreparedStatement(sql);
+        pstmt.setInt(1, idDoctor);
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+            total = rs.getInt(1);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return total;
+}
 }
