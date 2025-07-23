@@ -18,6 +18,8 @@ public class MenuDoctor extends javax.swing.JFrame {
     
     public MenuDoctor() {
         initComponents();
+        int idDoctor = SesionDoctor.id;
+             
         configurarPaneles();
         mostrarPanelInicial();
         DefaultTableModel modeloTabla = new DefaultTableModel(new Object[]{"ID", "Nombre", "Apellido", "Documento", "Email", "Teléfono", "Contraseña", "Especialidad"}, 0);
@@ -30,6 +32,9 @@ public class MenuDoctor extends javax.swing.JFrame {
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, "Error al inicializar:" + e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }
+        ControladorDoctorVeterinario controladorr = new ControladorDoctorVeterinario(DV, baseDatos);
+        int cantidad = controladorr.contarCitasPorDoctor(idDoctor);
+        totalCitas.setText("" + cantidad);
     }
     private void configurarPaneles() {
         // Añadir al JTabbedPane
@@ -95,46 +100,12 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         contenedores = new javax.swing.JTabbedPane();
         panelCitas = new javax.swing.JPanel();
         TituloCitas = new javax.swing.JLabel();
-        txt_InfPersonal = new javax.swing.JLabel();
-        txtNombres = new javax.swing.JLabel();
-        txtApellidos = new javax.swing.JLabel();
-        txtCedula = new javax.swing.JLabel();
-        txtTelefono = new javax.swing.JLabel();
-        txtEmail = new javax.swing.JLabel();
-        txtDireccion = new javax.swing.JLabel();
         txtInfMascita = new javax.swing.JLabel();
-        txtNombrePet = new javax.swing.JLabel();
-        txtTipo = new javax.swing.JLabel();
-        ComboTipo = new javax.swing.JComboBox<>();
-        ComboSexo = new javax.swing.JComboBox<>();
-        txtSexo = new javax.swing.JLabel();
-        txtRaza = new javax.swing.JLabel();
-        Btt_Programar = new javax.swing.JButton();
         txtInfCita = new javax.swing.JLabel();
-        txtFecha = new javax.swing.JLabel();
-        ComboFecha = new javax.swing.JComboBox<>();
-        txtPrioridad = new javax.swing.JLabel();
-        ComboPrioridad = new javax.swing.JComboBox<>();
-        ComboDoctor = new javax.swing.JComboBox<>();
-        txtDoctor = new javax.swing.JLabel();
-        txtEspecialidad = new javax.swing.JLabel();
-        ComboEspecialidad = new javax.swing.JComboBox<>();
         Btt_CitasProgramadas = new javax.swing.JButton();
-        ComboPrioridad1 = new javax.swing.JComboBox<>();
-        txtPrioridad1 = new javax.swing.JLabel();
-        BloqDireccion = new javax.swing.JTextField();
-        BloqEmail = new javax.swing.JTextField();
-        BloqMascota = new javax.swing.JTextField();
-        BloqTelefono = new javax.swing.JTextField();
-        BloqRaza = new javax.swing.JTextField();
-        BloqApellidos = new javax.swing.JTextField();
-        BloqNombre = new javax.swing.JTextField();
-        BloqCedula = new javax.swing.JTextField();
-        panelPet = new javax.swing.JPanel();
-        TituloMascotas = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jScrollBar2 = new javax.swing.JScrollBar();
+        totalCitas = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
         panelDoc = new javax.swing.JPanel();
         TituloDoc = new javax.swing.JLabel();
         BloqueNombre = new javax.swing.JTextField();
@@ -199,7 +170,7 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         ButtonDoc.setFont(new java.awt.Font("Artifakt Element Black", 2, 18)); // NOI18N
         ButtonDoc.setForeground(new java.awt.Color(247, 254, 239));
         ButtonDoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/doctor.png"))); // NOI18N
-        ButtonDoc.setText("Doctores");
+        ButtonDoc.setText("Información Personal");
         ButtonDoc.setBorder(null);
         ButtonDoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -241,129 +212,20 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
 
         panelCitas.setBackground(new java.awt.Color(247, 254, 239));
 
-        TituloCitas.setFont(new java.awt.Font("Swis721 Blk BT", 0, 24)); // NOI18N
+        TituloCitas.setFont(new java.awt.Font("Swis721 Blk BT", 0, 48)); // NOI18N
         TituloCitas.setForeground(new java.awt.Color(96, 131, 52));
         TituloCitas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/cita.png"))); // NOI18N
         TituloCitas.setText(" CITAS");
 
-        txt_InfPersonal.setBackground(new java.awt.Color(151, 183, 112));
-        txt_InfPersonal.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
-        txt_InfPersonal.setForeground(new java.awt.Color(151, 183, 112));
-        txt_InfPersonal.setText("Información Personal");
-
-        txtNombres.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtNombres.setForeground(new java.awt.Color(27, 52, 13));
-        txtNombres.setText("Nombres");
-
-        txtApellidos.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtApellidos.setForeground(new java.awt.Color(27, 52, 13));
-        txtApellidos.setText("Apellidos");
-
-        txtCedula.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtCedula.setForeground(new java.awt.Color(27, 52, 13));
-        txtCedula.setText("Cedula");
-
-        txtTelefono.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtTelefono.setForeground(new java.awt.Color(27, 52, 13));
-        txtTelefono.setText("Teléfono");
-
-        txtEmail.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtEmail.setForeground(new java.awt.Color(27, 52, 13));
-        txtEmail.setText("Email");
-
-        txtDireccion.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtDireccion.setForeground(new java.awt.Color(27, 52, 13));
-        txtDireccion.setText("Dirección");
-
         txtInfMascita.setBackground(new java.awt.Color(151, 183, 112));
-        txtInfMascita.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        txtInfMascita.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 36)); // NOI18N
         txtInfMascita.setForeground(new java.awt.Color(151, 183, 112));
-        txtInfMascita.setText("Información de la Mascota");
-
-        txtNombrePet.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtNombrePet.setForeground(new java.awt.Color(27, 52, 13));
-        txtNombrePet.setText("Nombre de la mascota");
-
-        txtTipo.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtTipo.setForeground(new java.awt.Color(27, 52, 13));
-        txtTipo.setText("Tipo");
-
-        ComboTipo.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Perro", "Gato", "Ave", "Roedor", "Otro", "" }));
-        ComboTipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboTipoActionPerformed(evt);
-            }
-        });
-
-        ComboSexo.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Hembra", "Macho" }));
-
-        txtSexo.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtSexo.setForeground(new java.awt.Color(27, 52, 13));
-        txtSexo.setText("Sexo");
-
-        txtRaza.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtRaza.setForeground(new java.awt.Color(27, 52, 13));
-        txtRaza.setText("Raza");
-
-        Btt_Programar.setBackground(new java.awt.Color(151, 183, 112));
-        Btt_Programar.setFont(new java.awt.Font("Swis721 Blk BT", 0, 15)); // NOI18N
-        Btt_Programar.setForeground(new java.awt.Color(247, 254, 239));
-        Btt_Programar.setText("Programar Cita");
-        Btt_Programar.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Btt_Programar.setMaximumSize(new java.awt.Dimension(100, 50));
-        Btt_Programar.setMinimumSize(new java.awt.Dimension(100, 50));
-        Btt_Programar.setPreferredSize(new java.awt.Dimension(100, 50));
-        Btt_Programar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Btt_ProgramarActionPerformed(evt);
-            }
-        });
+        txtInfMascita.setText("TOTAL");
 
         txtInfCita.setBackground(new java.awt.Color(151, 183, 112));
         txtInfCita.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
         txtInfCita.setForeground(new java.awt.Color(151, 183, 112));
-        txtInfCita.setText("Información de la Cita");
-
-        txtFecha.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtFecha.setForeground(new java.awt.Color(27, 52, 13));
-        txtFecha.setText("Fecha (DD-MM-AAAA)");
-
-        ComboFecha.setEditable(true);
-        ComboFecha.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboFecha.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        ComboFecha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboFechaActionPerformed(evt);
-            }
-        });
-
-        txtPrioridad.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtPrioridad.setForeground(new java.awt.Color(27, 52, 13));
-        txtPrioridad.setText("Hora");
-
-        ComboPrioridad.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboPrioridad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        ComboPrioridad.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboPrioridadActionPerformed(evt);
-            }
-        });
-
-        ComboDoctor.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboDoctor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        txtDoctor.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtDoctor.setForeground(new java.awt.Color(27, 52, 13));
-        txtDoctor.setText("Doctor");
-
-        txtEspecialidad.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtEspecialidad.setForeground(new java.awt.Color(27, 52, 13));
-        txtEspecialidad.setText("Especialidad");
-
-        ComboEspecialidad.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboEspecialidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        txtInfCita.setText("Información de la citas");
 
         Btt_CitasProgramadas.setBackground(new java.awt.Color(151, 183, 112));
         Btt_CitasProgramadas.setFont(new java.awt.Font("Swis721 Blk BT", 0, 15)); // NOI18N
@@ -380,274 +242,59 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
             }
         });
 
-        ComboPrioridad1.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboPrioridad1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Alta", "Media", "Baja" }));
-        ComboPrioridad1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboPrioridad1ActionPerformed(evt);
-            }
-        });
-
-        txtPrioridad1.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
-        txtPrioridad1.setForeground(new java.awt.Color(27, 52, 13));
-        txtPrioridad1.setText("Prioridad");
-
-        BloqDireccion.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        BloqDireccion.setMaximumSize(new java.awt.Dimension(2147483647, 25));
-        BloqDireccion.setMinimumSize(new java.awt.Dimension(64, 25));
-        BloqDireccion.setPreferredSize(new java.awt.Dimension(64, 25));
-
-        BloqEmail.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        BloqEmail.setMaximumSize(new java.awt.Dimension(2147483647, 25));
-        BloqEmail.setMinimumSize(new java.awt.Dimension(64, 25));
-        BloqEmail.setPreferredSize(new java.awt.Dimension(64, 25));
-
-        BloqMascota.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        BloqMascota.setMaximumSize(new java.awt.Dimension(2147483647, 25));
-        BloqMascota.setMinimumSize(new java.awt.Dimension(64, 25));
-        BloqMascota.setPreferredSize(new java.awt.Dimension(64, 25));
-
-        BloqTelefono.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        BloqTelefono.setMaximumSize(new java.awt.Dimension(2147483647, 25));
-        BloqTelefono.setMinimumSize(new java.awt.Dimension(64, 25));
-        BloqTelefono.setPreferredSize(new java.awt.Dimension(64, 25));
-        BloqTelefono.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BloqTelefonoActionPerformed(evt);
-            }
-        });
-
-        BloqRaza.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        BloqRaza.setMaximumSize(new java.awt.Dimension(2147483647, 25));
-        BloqRaza.setMinimumSize(new java.awt.Dimension(64, 25));
-        BloqRaza.setPreferredSize(new java.awt.Dimension(64, 25));
-
-        BloqApellidos.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        BloqApellidos.setMaximumSize(new java.awt.Dimension(2147483647, 25));
-        BloqApellidos.setMinimumSize(new java.awt.Dimension(64, 25));
-        BloqApellidos.setPreferredSize(new java.awt.Dimension(64, 25));
-        BloqApellidos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BloqApellidosActionPerformed(evt);
-            }
-        });
-
-        BloqNombre.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        BloqNombre.setMaximumSize(new java.awt.Dimension(2147483647, 25));
-        BloqNombre.setMinimumSize(new java.awt.Dimension(64, 25));
-        BloqNombre.setPreferredSize(new java.awt.Dimension(64, 25));
-        BloqNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BloqNombreActionPerformed(evt);
-            }
-        });
-
-        BloqCedula.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        BloqCedula.setMaximumSize(new java.awt.Dimension(2147483647, 25));
-        BloqCedula.setMinimumSize(new java.awt.Dimension(64, 25));
-        BloqCedula.setPreferredSize(new java.awt.Dimension(64, 25));
+        totalCitas.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 48)); // NOI18N
+        totalCitas.setForeground(new java.awt.Color(96, 131, 52));
 
         javax.swing.GroupLayout panelCitasLayout = new javax.swing.GroupLayout(panelCitas);
         panelCitas.setLayout(panelCitasLayout);
         panelCitasLayout.setHorizontalGroup(
             panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCitasLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(TituloCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(237, 237, 237)
+                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtInfCita, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TituloCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addComponent(txtEspecialidad)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ComboEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDoctor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ComboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(panelCitasLayout.createSequentialGroup()
-                            .addComponent(txtNombres)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(BloqNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(14, 14, 14)
-                            .addComponent(txtTelefono)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(BloqTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCitasLayout.createSequentialGroup()
-                            .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(panelCitasLayout.createSequentialGroup()
-                                    .addComponent(txtApellidos)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(BloqApellidos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGroup(panelCitasLayout.createSequentialGroup()
-                                    .addComponent(txtCedula)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(BloqCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(panelCitasLayout.createSequentialGroup()
-                                    .addComponent(txtDireccion)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(BloqDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(panelCitasLayout.createSequentialGroup()
-                                    .addComponent(txtEmail)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(BloqEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGap(74, 74, 74)))
-                    .addComponent(txtInfMascita, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelCitasLayout.createSequentialGroup()
-                            .addComponent(txtTipo)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(ComboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtRaza)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(BloqRaza, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelCitasLayout.createSequentialGroup()
-                            .addComponent(txtNombrePet)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(BloqMascota, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtSexo)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(ComboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addComponent(txtFecha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ComboFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPrioridad)
-                        .addGap(9, 9, 9)
-                        .addComponent(ComboPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtPrioridad1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ComboPrioridad1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addComponent(Btt_Programar, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(229, 229, 229)
                         .addComponent(Btt_CitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(txt_InfPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(319, 319, Short.MAX_VALUE))
+                    .addGroup(panelCitasLayout.createSequentialGroup()
+                        .addGap(221, 221, 221)
+                        .addComponent(txtInfMascita, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelCitasLayout.createSequentialGroup()
+                        .addGap(183, 183, 183)
+                        .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelCitasLayout.createSequentialGroup()
+                        .addGap(249, 249, 249)
+                        .addComponent(totalCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
         panelCitasLayout.setVerticalGroup(
             panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCitasLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_InfPersonal)
-                    .addComponent(TituloCitas))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombres)
-                    .addComponent(BloqNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTelefono)
-                    .addComponent(BloqTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtApellidos)
-                    .addComponent(BloqApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEmail)
-                    .addComponent(BloqEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDireccion)
-                    .addComponent(BloqDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCedula)
-                    .addComponent(BloqCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addComponent(txtInfMascita)
-                .addGap(18, 18, 18)
                 .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtNombrePet)
-                        .addComponent(BloqMascota, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ComboSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(txtSexo)))
-                .addGap(30, 30, 30)
-                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtRaza)
-                    .addComponent(ComboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTipo)
-                    .addComponent(BloqRaza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(42, 42, 42)
-                .addComponent(txtInfCita)
-                .addGap(18, 18, 18)
-                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ComboEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEspecialidad)
-                    .addComponent(ComboDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtDoctor))
-                .addGap(23, 23, 23)
-                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFecha)
-                    .addComponent(ComboFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPrioridad)
-                    .addComponent(ComboPrioridad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPrioridad1)
-                    .addComponent(ComboPrioridad1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
-                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Btt_Programar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Btt_CitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelCitasLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(TituloCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(txtInfCita))
+                    .addGroup(panelCitasLayout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtInfMascita)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(totalCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 390, Short.MAX_VALUE)
+                .addComponent(Btt_CitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
         );
 
         contenedores.addTab("Citas", panelCitas);
-
-        panelPet.setBackground(new java.awt.Color(247, 254, 239));
-
-        TituloMascotas.setFont(new java.awt.Font("Swis721 Blk BT", 0, 24)); // NOI18N
-        TituloMascotas.setForeground(new java.awt.Color(96, 131, 52));
-        TituloMascotas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/huella.png"))); // NOI18N
-        TituloMascotas.setText(" INFORMACION DE MASCOTAS");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        jScrollBar2.setBackground(new java.awt.Color(203, 221, 181));
-
-        javax.swing.GroupLayout panelPetLayout = new javax.swing.GroupLayout(panelPet);
-        panelPet.setLayout(panelPetLayout);
-        panelPetLayout.setHorizontalGroup(
-            panelPetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPetLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(TituloMascotas, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPetLayout.createSequentialGroup()
-                .addContainerGap(48, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1078, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
-        );
-        panelPetLayout.setVerticalGroup(
-            panelPetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPetLayout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addComponent(TituloMascotas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(panelPetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))
-                .addContainerGap(65, Short.MAX_VALUE))
-        );
-
-        contenedores.addTab("Mascotas", panelPet);
 
         panelDoc.setBackground(new java.awt.Color(247, 254, 239));
 
@@ -871,7 +518,7 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
                 .addGap(56, 56, 56))
         );
 
-        contenedores.addTab("Doctores", panelDoc);
+        contenedores.addTab("Inf Personal", panelDoc);
 
         panelPassword.setBackground(new java.awt.Color(247, 254, 239));
 
@@ -955,37 +602,24 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
             .addGroup(panelPasswordLayout.createSequentialGroup()
                 .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPasswordLayout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(txt_contraseñaActual))
-                    .addGroup(panelPasswordLayout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(TituloContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelPasswordLayout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelPasswordLayout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(txt_contraseñaNueva))
-                                    .addGroup(panelPasswordLayout.createSequentialGroup()
-                                        .addGap(14, 14, 14)
-                                        .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(VerNewClave, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(contraN, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txt_confirmarContraseña)
-                                        .addGroup(panelPasswordLayout.createSequentialGroup()
-                                            .addGap(14, 14, 14)
-                                            .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(VerConfirmarClave, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(contraNN, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGroup(panelPasswordLayout.createSequentialGroup()
-                                    .addGap(75, 75, 75)
-                                    .addComponent(CambiarC, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(contraA, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(VerOldClave, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPasswordLayout.createSequentialGroup()
+                            .addGap(60, 60, 60)
+                            .addGroup(panelPasswordLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(contraA, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                                .addComponent(VerOldClave, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_contraseñaActual)
+                                .addComponent(contraN)
+                                .addComponent(txt_contraseñaNueva)
+                                .addComponent(VerNewClave, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txt_confirmarContraseña)
+                                .addComponent(VerConfirmarClave, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(contraNN)))
+                        .addGroup(panelPasswordLayout.createSequentialGroup()
+                            .addGap(135, 135, 135)
+                            .addComponent(CambiarC, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(715, Short.MAX_VALUE))
         );
         panelPasswordLayout.setVerticalGroup(
@@ -995,25 +629,25 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
                 .addComponent(TituloContraseña)
                 .addGap(56, 56, 56)
                 .addComponent(txt_contraseñaActual, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contraA, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(VerOldClave)
-                .addGap(18, 18, 18)
+                .addGap(36, 36, 36)
                 .addComponent(txt_contraseñaNueva, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contraN, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(VerNewClave)
-                .addGap(18, 18, 18)
+                .addGap(36, 36, 36)
                 .addComponent(txt_confirmarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(contraNN, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(VerConfirmarClave)
                 .addGap(45, 45, 45)
                 .addComponent(CambiarC, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         contenedores.addTab("Contraseña", panelPassword);
@@ -1138,7 +772,9 @@ String actual = new String(contraA.getPassword());
 }
     if (controladorDoctor.actualizarContraseña(idDoctor, nueva)) {
     JOptionPane.showMessageDialog(this, "Contraseña actualizada con éxito.");
-    // limpiar campos
+    contraA.setText("");
+    contraN.setText("");
+    contraNN.setText("");
     } else {
     JOptionPane.showMessageDialog(this, "Error al actualizar la contraseña.");
    }  
@@ -1177,40 +813,6 @@ String actual = new String(contraA.getPassword());
     }
     }//GEN-LAST:event_VerOldClaveActionPerformed
 
-    private void ComboFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboFechaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboFechaActionPerformed
-
-    private void ComboPrioridadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPrioridadActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboPrioridadActionPerformed
-
-    private void Btt_ProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_ProgramarActionPerformed
-        String nombreDueño = BloqNombre.getText();
-        String apellidoDueño = BloqApellidos.getText();
-        String cedulaDueño = BloqCedula.getText();
-        String telefonoDueño = BloqTelefono.getText();
-        String emailDueño = BloqEmail.getText();
-        String direccionDueño = BloqTelefono.getText();
-
-        String nombreMascota = BloqMascota.getText();
-        String tipo = ComboTipo.getSelectedItem().toString();
-        String sexo = ComboSexo.getSelectedItem().toString();
-        String raza = BloqRaza.getText();
-        
-        
-    }//GEN-LAST:event_Btt_ProgramarActionPerformed
-
-    private void Btt_CitasProgramadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_CitasProgramadasActionPerformed
-        CitasProgramadas newframe = new CitasProgramadas();
-        newframe.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_Btt_CitasProgramadasActionPerformed
-
-    private void ComboPrioridad1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboPrioridad1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboPrioridad1ActionPerformed
-
     private void Btt_BusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_BusquedaActionPerformed
     ControladorDoctorVeterinario ctrl = new ControladorDoctorVeterinario();
     String especialidad = BloqueEspecialidad.getText().trim();
@@ -1228,21 +830,11 @@ String actual = new String(contraA.getPassword());
     llenarTabla(lista); // Actualiza la tabla con los datos nuevos
     }//GEN-LAST:event_Btt_BusquedaActionPerformed
 
-    private void BloqTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqTelefonoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BloqTelefonoActionPerformed
-
-    private void ComboTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboTipoActionPerformed
-
-    }//GEN-LAST:event_ComboTipoActionPerformed
-
-    private void BloqApellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqApellidosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BloqApellidosActionPerformed
-
-    private void BloqNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BloqNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BloqNombreActionPerformed
+    private void Btt_CitasProgramadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_CitasProgramadasActionPerformed
+        CitasProgramadas newframe = new CitasProgramadas();
+        newframe.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_Btt_CitasProgramadasActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
@@ -1251,14 +843,6 @@ String actual = new String(contraA.getPassword());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField BloqApellidos;
-    private javax.swing.JTextField BloqCedula;
-    private javax.swing.JTextField BloqDireccion;
-    private javax.swing.JTextField BloqEmail;
-    private javax.swing.JTextField BloqMascota;
-    private javax.swing.JTextField BloqNombre;
-    private javax.swing.JTextField BloqRaza;
-    private javax.swing.JTextField BloqTelefono;
     private javax.swing.JTextField BloqueApellidos;
     private javax.swing.JTextField BloqueCedula;
     private javax.swing.JTextField BloqueEmail;
@@ -1268,24 +852,15 @@ String actual = new String(contraA.getPassword());
     private javax.swing.JButton Btt_Busqueda;
     private javax.swing.JButton Btt_CitasProgramadas;
     private javax.swing.JButton Btt_Nuevo;
-    private javax.swing.JButton Btt_Programar;
     private javax.swing.JButton ButtonCita;
     private javax.swing.JButton ButtonDoc;
     private javax.swing.JButton ButtonLogout;
     private javax.swing.JButton ButtonPassword;
     private javax.swing.JButton CambiarC;
-    private javax.swing.JComboBox<String> ComboDoctor;
-    private javax.swing.JComboBox<String> ComboEspecialidad;
-    private javax.swing.JComboBox<String> ComboFecha;
-    private javax.swing.JComboBox<String> ComboPrioridad;
-    private javax.swing.JComboBox<String> ComboPrioridad1;
-    private javax.swing.JComboBox<String> ComboSexo;
-    private javax.swing.JComboBox<String> ComboTipo;
-    public javax.swing.JTable TablaDoctores;
+    private javax.swing.JTable TablaDoctores;
     private javax.swing.JLabel TituloCitas;
     private javax.swing.JLabel TituloContraseña;
     private javax.swing.JLabel TituloDoc;
-    private javax.swing.JLabel TituloMascotas;
     private javax.swing.JCheckBox VerConfirmarClave;
     private javax.swing.JCheckBox VerNewClave;
     private javax.swing.JCheckBox VerOldClave;
@@ -1299,35 +874,18 @@ String actual = new String(contraA.getPassword());
     private javax.swing.JLabel especialidad;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollBar jScrollBar1;
-    private javax.swing.JScrollBar jScrollBar2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JPanel menu;
     private javax.swing.JLabel nombre;
     private javax.swing.JPanel panelCitas;
     public javax.swing.JPanel panelDoc;
     private javax.swing.JPanel panelPassword;
-    private javax.swing.JPanel panelPet;
     private javax.swing.JLabel telefono;
-    private javax.swing.JLabel txtApellidos;
-    private javax.swing.JLabel txtCedula;
-    private javax.swing.JLabel txtDireccion;
-    private javax.swing.JLabel txtDoctor;
-    private javax.swing.JLabel txtEmail;
-    private javax.swing.JLabel txtEspecialidad;
-    private javax.swing.JLabel txtFecha;
+    private javax.swing.JLabel totalCitas;
     private javax.swing.JLabel txtInfCita;
     private javax.swing.JLabel txtInfMascita;
-    private javax.swing.JLabel txtNombrePet;
-    private javax.swing.JLabel txtNombres;
-    private javax.swing.JLabel txtPrioridad;
-    private javax.swing.JLabel txtPrioridad1;
-    private javax.swing.JLabel txtRaza;
-    private javax.swing.JLabel txtSexo;
-    private javax.swing.JLabel txtTelefono;
-    private javax.swing.JLabel txtTipo;
-    private javax.swing.JLabel txt_InfPersonal;
     private javax.swing.JLabel txt_confirmarContraseña;
     private javax.swing.JLabel txt_contraseñaActual;
     private javax.swing.JLabel txt_contraseñaNueva;
