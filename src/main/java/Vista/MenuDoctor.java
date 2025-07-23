@@ -15,6 +15,7 @@ public class MenuDoctor extends javax.swing.JFrame {
     private ControladorDoctorVeterinario controladorDoctor;
     private BaseDatos baseDatos;
     private DoctorVeterinario DV;
+
     
     public MenuDoctor() {
         initComponents();
@@ -22,19 +23,22 @@ public class MenuDoctor extends javax.swing.JFrame {
              
         configurarPaneles();
         mostrarPanelInicial();
-        DefaultTableModel modeloTabla = new DefaultTableModel(new Object[]{"ID", "Nombre", "Apellido", "Documento", "Email", "Teléfono", "Contraseña", "Especialidad"}, 0);
-        TablaDoctores.setModel(modeloTabla);
-        ControladorDoctorVeterinario controlador = new ControladorDoctorVeterinario();
-        llenarTabla(controlador.obtenerTodosLosDoctores());
+        
         
         try{
             this.baseDatos = new BaseDatos();
         } catch(Exception e){
             JOptionPane.showMessageDialog(this, "Error al inicializar:" + e.getMessage(),"Error",JOptionPane.ERROR_MESSAGE);
         }
-        ControladorDoctorVeterinario controladorr = new ControladorDoctorVeterinario(DV, baseDatos);
-        int cantidad = controladorr.contarCitasPorDoctor(idDoctor);
+
+        controladorDoctor = new ControladorDoctorVeterinario(DV, baseDatos);
+        int cantidad = controladorDoctor.contarCitasPorDoctor(idDoctor);
         totalCitas.setText("" + cantidad);
+        System.out.println("ID doctor recibido: " + idDoctor);
+List<Object[]> citas = controladorDoctor.obtenerCitasPorDoctor(idDoctor);
+System.out.println("Total de citas encontradas: " + citas.size());
+         llenarTablaCitas(idDoctor);
+     
     }
     private void configurarPaneles() {
         // Añadir al JTabbedPane
@@ -61,30 +65,16 @@ public class MenuDoctor extends javax.swing.JFrame {
         // También puedes resaltar el botón correspondiente
         animate.selectCitas(ButtonCita, ButtonDoc, ButtonPassword, ButtonLogout);
     }
-    
-    public void limpiarCampos() {
-    BloqueNombre.setText("");
-    BloqueApellidos.setText("");
-    BloqueCedula.setText("");
-    BloqueEmail.setText("");
-    BloqueTelefono.setText("");
-    BloqueEspecialidad.setText("");
-}
-private void llenarTabla(List<DoctorVeterinario> doctores) {
-    DefaultTableModel modelo = (DefaultTableModel) TablaDoctores.getModel();
-    modelo.setRowCount(0);  // Limpiar tabla
+ 
 
-    for (DoctorVeterinario dv : doctores) {
-        modelo.addRow(new Object[]{
-            dv.getID(),
-            dv.getNombre(),
-            dv.getApellido(),
-            dv.getnDocumento(),
-            dv.getEmail(),
-            dv.getNumeroTelefono(),
-            dv.getContraseña(),
-            dv.getEspecializacion()
-        });
+    private void llenarTablaCitas(int idDoctor){
+        DefaultTableModel modelo = (DefaultTableModel) TablaCitas.getModel();
+        modelo.setRowCount(0); // Limpiar tabla antes de llenarla
+
+    List<Object[]> citas = controladorDoctor.obtenerCitasPorDoctor(idDoctor);
+    for (Object[] fila : citas) {
+        System.out.println("Fila: " + java.util.Arrays.toString(fila));
+        modelo.addRow(fila);
     }
 }
     @SuppressWarnings("unchecked")
@@ -106,6 +96,10 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         totalCitas = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        jTextField1 = new javax.swing.JTextField();
+        jScrollBar2 = new javax.swing.JScrollBar();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TablaCitas = new javax.swing.JTable();
         panelDoc = new javax.swing.JPanel();
         TituloDoc = new javax.swing.JLabel();
         BloqueNombre = new javax.swing.JTextField();
@@ -120,11 +114,6 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         BloqueApellidos = new javax.swing.JTextField();
         BloqueEmail = new javax.swing.JTextField();
         BloqueTelefono = new javax.swing.JTextField();
-        Btt_Busqueda = new javax.swing.JButton();
-        Btt_Nuevo = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        TablaDoctores = new javax.swing.JTable();
-        jScrollBar1 = new javax.swing.JScrollBar();
         panelPassword = new javax.swing.JPanel();
         TituloContraseña = new javax.swing.JLabel();
         txt_contraseñaActual = new javax.swing.JLabel();
@@ -223,7 +212,7 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         txtInfMascita.setText("TOTAL");
 
         txtInfCita.setBackground(new java.awt.Color(151, 183, 112));
-        txtInfCita.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 18)); // NOI18N
+        txtInfCita.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 24)); // NOI18N
         txtInfCita.setForeground(new java.awt.Color(151, 183, 112));
         txtInfCita.setText("Información de la citas");
 
@@ -231,7 +220,7 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         Btt_CitasProgramadas.setFont(new java.awt.Font("Swis721 Blk BT", 0, 15)); // NOI18N
         Btt_CitasProgramadas.setForeground(new java.awt.Color(247, 254, 239));
         Btt_CitasProgramadas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/busqueda-de-lupa.png"))); // NOI18N
-        Btt_CitasProgramadas.setText("Buscar Citas Programadas");
+        Btt_CitasProgramadas.setText("Buscar cita");
         Btt_CitasProgramadas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         Btt_CitasProgramadas.setMaximumSize(new java.awt.Dimension(100, 50));
         Btt_CitasProgramadas.setMinimumSize(new java.awt.Dimension(100, 50));
@@ -245,31 +234,80 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         totalCitas.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 48)); // NOI18N
         totalCitas.setForeground(new java.awt.Color(96, 131, 52));
 
+        jTextField1.setText("jTextField1");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jScrollBar2.setBackground(new java.awt.Color(151, 183, 112));
+
+        TablaCitas.setBackground(new java.awt.Color(203, 221, 181));
+        TablaCitas.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 12)); // NOI18N
+        TablaCitas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Fecha", "Hora", "Nivel de Prioridad", "ID Mascota", "Mascota", "Especie", "ID Dueño", "Dueño"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(TablaCitas);
+        if (TablaCitas.getColumnModel().getColumnCount() > 0) {
+            TablaCitas.getColumnModel().getColumn(0).setResizable(false);
+            TablaCitas.getColumnModel().getColumn(1).setResizable(false);
+            TablaCitas.getColumnModel().getColumn(2).setResizable(false);
+            TablaCitas.getColumnModel().getColumn(3).setResizable(false);
+            TablaCitas.getColumnModel().getColumn(4).setResizable(false);
+            TablaCitas.getColumnModel().getColumn(5).setResizable(false);
+            TablaCitas.getColumnModel().getColumn(6).setResizable(false);
+            TablaCitas.getColumnModel().getColumn(7).setResizable(false);
+        }
+
         javax.swing.GroupLayout panelCitasLayout = new javax.swing.GroupLayout(panelCitas);
         panelCitas.setLayout(panelCitasLayout);
         panelCitasLayout.setHorizontalGroup(
             panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCitasLayout.createSequentialGroup()
-                .addGap(237, 237, 237)
+                .addGap(444, 444, 444)
                 .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtInfCita, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TituloCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TituloCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtInfCita, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addGap(229, 229, 229)
-                        .addComponent(Btt_CitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addGap(221, 221, 221)
-                        .addComponent(txtInfMascita, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addGap(183, 183, 183)
+                        .addGap(53, 53, 53)
                         .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtInfMascita, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(totalCitas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panelCitasLayout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelCitasLayout.createSequentialGroup()
-                        .addGap(249, 249, 249)
-                        .addComponent(totalCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(141, Short.MAX_VALUE))
+                        .addComponent(jTextField1)
+                        .addGap(18, 18, 18)
+                        .addComponent(Btt_CitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82))
+                    .addGroup(panelCitasLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1077, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(49, Short.MAX_VALUE))))
         );
         panelCitasLayout.setVerticalGroup(
             panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,7 +316,7 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
                     .addGroup(panelCitasLayout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(TituloCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
+                        .addGap(1, 1, 1)
                         .addComponent(txtInfCita))
                     .addGroup(panelCitasLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
@@ -289,9 +327,15 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
                         .addComponent(totalCitas, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(21, 21, 21)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 390, Short.MAX_VALUE)
-                .addComponent(Btt_CitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(Btt_CitasProgramadas, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1))
+                .addGap(33, 33, 33)
+                .addGroup(panelCitasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(124, 124, 124))
         );
 
         contenedores.addTab("Citas", panelCitas);
@@ -378,52 +422,6 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
             }
         });
 
-        Btt_Busqueda.setBackground(new java.awt.Color(151, 183, 112));
-        Btt_Busqueda.setFont(new java.awt.Font("Swis721 Blk BT", 0, 15)); // NOI18N
-        Btt_Busqueda.setForeground(new java.awt.Color(247, 254, 239));
-        Btt_Busqueda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/busqueda-de-lupa.png"))); // NOI18N
-        Btt_Busqueda.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Btt_Busqueda.setLabel("Buscar");
-        Btt_Busqueda.setMaximumSize(new java.awt.Dimension(100, 50));
-        Btt_Busqueda.setMinimumSize(new java.awt.Dimension(100, 50));
-        Btt_Busqueda.setPreferredSize(new java.awt.Dimension(100, 50));
-        Btt_Busqueda.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Btt_BusquedaActionPerformed(evt);
-            }
-        });
-
-        Btt_Nuevo.setBackground(new java.awt.Color(151, 183, 112));
-        Btt_Nuevo.setFont(new java.awt.Font("Swis721 Blk BT", 0, 15)); // NOI18N
-        Btt_Nuevo.setForeground(new java.awt.Color(247, 254, 239));
-        Btt_Nuevo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        Btt_Nuevo.setLabel("Nuevo Doctor");
-        Btt_Nuevo.setMaximumSize(new java.awt.Dimension(100, 50));
-        Btt_Nuevo.setMinimumSize(new java.awt.Dimension(75, 20));
-        Btt_Nuevo.setPreferredSize(new java.awt.Dimension(100, 50));
-        Btt_Nuevo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Btt_NuevoActionPerformed(evt);
-            }
-        });
-
-        TablaDoctores.setBackground(new java.awt.Color(203, 221, 181));
-        TablaDoctores.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 12)); // NOI18N
-        TablaDoctores.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(TablaDoctores);
-
-        jScrollBar1.setBackground(new java.awt.Color(151, 183, 112));
-
         javax.swing.GroupLayout panelDocLayout = new javax.swing.GroupLayout(panelDoc);
         panelDoc.setLayout(panelDocLayout);
         panelDocLayout.setHorizontalGroup(
@@ -435,40 +433,28 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDocLayout.createSequentialGroup()
                 .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDocLayout.createSequentialGroup()
+                        .addGap(62, 62, 62)
                         .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelDocLayout.createSequentialGroup()
-                                .addGap(62, 62, 62)
-                                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nombre)
-                                    .addComponent(apellido)
-                                    .addComponent(cedula))
-                                .addGap(18, 18, 18)
-                                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(BloqueApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(BloqueCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panelDocLayout.createSequentialGroup()
-                                .addGap(147, 147, 147)
-                                .addComponent(BloqueNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(nombre)
+                            .addComponent(apellido)
+                            .addComponent(cedula))
+                        .addGap(18, 18, 18)
                         .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(telefono)
-                            .addComponent(email)
-                            .addComponent(especialidad))
-                        .addGap(21, 21, 21)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BloqueEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BloqueTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(BloqueEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Btt_Busqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                            .addComponent(Btt_Nuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(15, 15, 15))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDocLayout.createSequentialGroup()
-                        .addGap(0, 44, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1077, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BloqueApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BloqueCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelDocLayout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(BloqueNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 280, Short.MAX_VALUE)
+                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(telefono)
+                    .addComponent(email)
+                    .addComponent(especialidad))
+                .addGap(21, 21, 21)
+                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BloqueEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BloqueTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BloqueEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43))
         );
         panelDocLayout.setVerticalGroup(
@@ -476,46 +462,34 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
             .addGroup(panelDocLayout.createSequentialGroup()
                 .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDocLayout.createSequentialGroup()
-                        .addContainerGap(139, Short.MAX_VALUE)
-                        .addComponent(Btt_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Btt_Busqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66))
+                        .addGap(31, 31, 31)
+                        .addComponent(TituloDoc)
+                        .addGap(33, 33, 33)
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BloqueNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nombre))
+                        .addGap(29, 29, 29)
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BloqueApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(apellido))
+                        .addGap(29, 29, 29)
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cedula)
+                            .addComponent(BloqueCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelDocLayout.createSequentialGroup()
-                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelDocLayout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(TituloDoc)
-                                .addGap(33, 33, 33)
-                                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(BloqueNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nombre))
-                                .addGap(29, 29, 29)
-                                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(BloqueApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(apellido))
-                                .addGap(29, 29, 29)
-                                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cedula)
-                                    .addComponent(BloqueCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panelDocLayout.createSequentialGroup()
-                                .addGap(128, 128, 128)
-                                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(BloqueEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(email))
-                                .addGap(29, 29, 29)
-                                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(BloqueTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(telefono))
-                                .addGap(29, 29, 29)
-                                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(especialidad)
-                                    .addComponent(BloqueEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(12, 12, 12)))
-                .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE))
-                .addGap(56, 56, 56))
+                        .addGap(128, 128, 128)
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BloqueEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(email))
+                        .addGap(29, 29, 29)
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BloqueTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(telefono))
+                        .addGap(29, 29, 29)
+                        .addGroup(panelDocLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(especialidad)
+                            .addComponent(BloqueEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(389, Short.MAX_VALUE))
         );
 
         contenedores.addTab("Inf Personal", panelDoc);
@@ -718,38 +692,6 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         // TODO add your handling code here:
     }//GEN-LAST:event_BloqueTelefonoActionPerformed
 
-    private void Btt_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_NuevoActionPerformed
-    // 1. Obtener los datos del formulario
-    String nombre = BloqueNombre.getText().trim();
-    String apellido = BloqueApellidos.getText().trim();
-    String nDocumento = BloqueCedula.getText().trim();
-    String email = BloqueEmail.getText().trim();
-    String telefono = BloqueTelefono.getText().trim();
-    String especializacion = BloqueEspecialidad.getText().trim();
-
-    // 2. Validar que no estén vacíos
-    if (nombre.isEmpty() || apellido.isEmpty() || nDocumento.isEmpty() || 
-        email.isEmpty() || telefono.isEmpty() || especializacion.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor, completa todos los campos.", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
-        return;
-    }
-    // 3. Crear el objeto DoctorVeterinario sin contraseña (esta se genera luego)
-    DoctorVeterinario nuevoDoctor = new DoctorVeterinario(0,nombre, apellido, nDocumento, email, telefono,"", especializacion);
-    // 4. Crear el controlador con la base de datos y el doctor
-   ControladorDoctorVeterinario controlador = new ControladorDoctorVeterinario();
-    String contraseñaGenerada = controlador.doctorVeterinarioEsCreado(nuevoDoctor);
-    // 6. Mostrar mensaje de éxito o error
-    if (contraseñaGenerada != null) {
-        JOptionPane.showMessageDialog(this, "Doctor creado con éxito.\nContraseña temporal: " + contraseñaGenerada, 
-                                      "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        limpiarCampos();  // Método opcional para limpiar después
-    } else {
-        JOptionPane.showMessageDialog(this, "No se pudo crear el doctor. Verifica la conexión o los datos.", 
-                                      "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    }//GEN-LAST:event_Btt_NuevoActionPerformed
-
     private void CambiarCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CambiarCActionPerformed
 String actual = new String(contraA.getPassword());        
     String nueva = new String(contraN.getPassword());
@@ -813,28 +755,13 @@ String actual = new String(contraA.getPassword());
     }
     }//GEN-LAST:event_VerOldClaveActionPerformed
 
-    private void Btt_BusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_BusquedaActionPerformed
-    ControladorDoctorVeterinario ctrl = new ControladorDoctorVeterinario();
-    String especialidad = BloqueEspecialidad.getText().trim();
-
-    List<DoctorVeterinario> lista;
-
-    if (especialidad.isEmpty()) {
-        // Si no hay filtro, cargar todos los doctores
-        lista = ctrl.obtenerTodosLosDoctores();
-    } else {
-        // Si hay texto, filtrar por especialidad
-        lista = ctrl.obtenerDoctoresPorEspecialidad(especialidad);
-    }
-
-    llenarTabla(lista); // Actualiza la tabla con los datos nuevos
-    }//GEN-LAST:event_Btt_BusquedaActionPerformed
-
     private void Btt_CitasProgramadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_CitasProgramadasActionPerformed
-        CitasProgramadas newframe = new CitasProgramadas();
-        newframe.setVisible(true);
-        this.dispose();
+  
     }//GEN-LAST:event_Btt_CitasProgramadasActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
@@ -849,15 +776,13 @@ String actual = new String(contraA.getPassword());
     private javax.swing.JTextField BloqueEspecialidad;
     private javax.swing.JTextField BloqueNombre;
     private javax.swing.JTextField BloqueTelefono;
-    private javax.swing.JButton Btt_Busqueda;
     private javax.swing.JButton Btt_CitasProgramadas;
-    private javax.swing.JButton Btt_Nuevo;
     private javax.swing.JButton ButtonCita;
     private javax.swing.JButton ButtonDoc;
     private javax.swing.JButton ButtonLogout;
     private javax.swing.JButton ButtonPassword;
     private javax.swing.JButton CambiarC;
-    private javax.swing.JTable TablaDoctores;
+    public javax.swing.JTable TablaCitas;
     private javax.swing.JLabel TituloCitas;
     private javax.swing.JLabel TituloContraseña;
     private javax.swing.JLabel TituloDoc;
@@ -873,10 +798,11 @@ String actual = new String(contraA.getPassword());
     private javax.swing.JLabel email;
     private javax.swing.JLabel especialidad;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollBar jScrollBar1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollBar jScrollBar2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel menu;
     private javax.swing.JLabel nombre;
     private javax.swing.JPanel panelCitas;
