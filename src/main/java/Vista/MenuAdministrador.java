@@ -33,7 +33,10 @@ public class MenuAdministrador extends javax.swing.JFrame {
         TablaDoctores.setModel(modeloTabla);
         ControladorDoctorVeterinario controlador = new ControladorDoctorVeterinario();
         llenarTabla(controlador.obtenerTodosLosDoctores());
-        cargarNombresDoctoresEnComboBox();
+        cargarDoctoresEnComboBox();
+        cargarPrioridadesEnCombo();
+        cargarComboTipoMascota();
+        cargarComboSexoMascota();
         
         try{
             this.baseDatos = new BaseDatos();
@@ -94,15 +97,32 @@ private void llenarTabla(List<DoctorVeterinario> doctores) {
         });
     }
 }
-private void cargarNombresDoctoresEnComboBox() {
-    ControladorDoctorVeterinario controlador = new ControladorDoctorVeterinario();
-    List<DoctorVeterinario> listaDoctores = controlador.obtenerTodosLosDoctores();
+private void cargarDoctoresEnComboBox() {
+    ComboDoctor.removeAllItems(); // Limpia el combo si ya tenía datos
 
-    ComboDoctor.removeAllItems(); // Limpia las opciones actuales
+    ControladorDoctorVeterinario controladorDoctor = new ControladorDoctorVeterinario();
+    List<DoctorVeterinario> listaDoctores = controladorDoctor.obtenerTodosLosDoctores();
 
     for (DoctorVeterinario doctor : listaDoctores) {
-        String nombreCompleto = doctor.nombreCompleto(); // Usa el método que tienes en tu clase
-        ComboDoctor.addItem(nombreCompleto); // Agrega solo el texto
+        ComboDoctor.addItem(doctor); // Agrega el objeto al combo
+    }
+}
+private void cargarPrioridadesEnCombo() {
+    ComboPrioridad.removeAllItems();
+    for (Cita.Prioridad p : Cita.Prioridad.values()) {
+        ComboPrioridad.addItem(p);
+    }
+}
+private void cargarComboTipoMascota() {
+    ComboTipo.removeAllItems(); // Limpiar por si ya tiene valores
+    for (Mascota.Tipo tipo : Mascota.Tipo.values()) {
+        ComboTipo.addItem(tipo);
+    }
+}
+private void cargarComboSexoMascota() {
+    ComboSexo.removeAllItems(); // Limpiar por si ya tiene valores
+    for (Mascota.Sexo sexo : Mascota.Sexo.values()) {
+        ComboSexo.addItem(sexo);
     }
 }
     @SuppressWarnings("unchecked")
@@ -324,7 +344,6 @@ private void cargarNombresDoctoresEnComboBox() {
         txtTipo.setText("Tipo");
 
         ComboTipo.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Perro", "Gato", "Ave", "Roedor", "Otro", "" }));
         ComboTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboTipoActionPerformed(evt);
@@ -332,7 +351,6 @@ private void cargarNombresDoctoresEnComboBox() {
         });
 
         ComboSexo.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Hembra", "Macho" }));
 
         txtSexo.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtSexo.setForeground(new java.awt.Color(27, 52, 13));
@@ -370,7 +388,7 @@ private void cargarNombresDoctoresEnComboBox() {
         txtPrioridad.setText("Hora");
 
         ComboHora.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "8:00", "9:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "" }));
+        ComboHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00" }));
         ComboHora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboHoraActionPerformed(evt);
@@ -378,7 +396,6 @@ private void cargarNombresDoctoresEnComboBox() {
         });
 
         ComboDoctor.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboDoctor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         txtDoctor.setFont(new java.awt.Font("Yu Gothic UI Semibold", 0, 14)); // NOI18N
         txtDoctor.setForeground(new java.awt.Color(27, 52, 13));
@@ -400,7 +417,6 @@ private void cargarNombresDoctoresEnComboBox() {
         });
 
         ComboPrioridad.setFont(new java.awt.Font("Yu Gothic UI Semilight", 0, 14)); // NOI18N
-        ComboPrioridad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Alta", "Media", "Baja" }));
         ComboPrioridad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ComboPrioridadActionPerformed(evt);
@@ -1143,7 +1159,7 @@ private void cargarNombresDoctoresEnComboBox() {
         JOptionPane.showMessageDialog(this, "No se pudo crear el doctor. Verifica la conexión o los datos.", 
                                       "Error", JOptionPane.ERROR_MESSAGE);
     }
-    cargarNombresDoctoresEnComboBox();
+    cargarDoctoresEnComboBox();
     }//GEN-LAST:event_Btt_NuevoActionPerformed
 
     private void Btt_EnviarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_EnviarContraseñaActionPerformed
@@ -1187,7 +1203,7 @@ private void cargarNombresDoctoresEnComboBox() {
     }//GEN-LAST:event_ComboHoraActionPerformed
 
     private void Btt_ProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btt_ProgramarActionPerformed
-        String nombreDueño = BloqNombre.getText();
+       String nombreDueño = BloqNombre.getText();
         String apellidoDueño = BloqApellidos.getText();
         String cedulaDueño = BloqCedula.getText();
         String telefonoDueño = BloqTelefono.getText();
@@ -1202,7 +1218,8 @@ private void cargarNombresDoctoresEnComboBox() {
         String fecha = BloqFecha.getText();
         String hora = ComboHora.getSelectedItem().toString();
         String fechaCompleta = fecha + "T" + hora;
-        LocalDateTime fechaCita = LocalDateTime.parse(fechaCompleta);
+        String isoFechaHora = fecha + "T" + hora + ":00";    
+        LocalDateTime fechaCita = LocalDateTime.parse(isoFechaHora);
         DoctorVeterinario doctorSeleccionado = (DoctorVeterinario) ComboDoctor.getSelectedItem();
         Cita.Prioridad prioridad = (Cita.Prioridad) ComboPrioridad.getSelectedItem();
             
@@ -1243,6 +1260,7 @@ private void cargarNombresDoctoresEnComboBox() {
             }
         }
     }
+    
     // 4. Crear la cita
     Cita cita = new Cita();
     cita.setDueño(dueño);
@@ -1335,11 +1353,11 @@ private void cargarNombresDoctoresEnComboBox() {
     private javax.swing.JButton ButtonLogout;
     private javax.swing.JButton ButtonPassword;
     private javax.swing.JButton ButtonPet;
-    private javax.swing.JComboBox<String> ComboDoctor;
+    public javax.swing.JComboBox<DoctorVeterinario> ComboDoctor;
     private javax.swing.JComboBox<String> ComboHora;
-    private javax.swing.JComboBox<String> ComboPrioridad;
-    private javax.swing.JComboBox<String> ComboSexo;
-    private javax.swing.JComboBox<String> ComboTipo;
+    public javax.swing.JComboBox<Cita.Prioridad> ComboPrioridad;
+    public javax.swing.JComboBox<Mascota.Sexo> ComboSexo;
+    public javax.swing.JComboBox<Mascota.Tipo> ComboTipo;
     private javax.swing.JPasswordField ConfirmPassword;
     private javax.swing.JPasswordField NewPassword;
     private javax.swing.JPasswordField OldPassword;
