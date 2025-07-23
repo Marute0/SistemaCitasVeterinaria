@@ -38,7 +38,7 @@ public class ControladorMascota {
         }
 
         // Insertar la mascota con el ID del dueño
-        String sql = "INSERT INTO `mascotas` (`nombre`, `tipo`, `raza`, `sexo`, `idDueño`) "
+        String sql = "INSERT INTO `mascotas` (`nombre`, `tipo`, `raza`, `sexo`, `idDueno`) "
                      + "VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
             pstmt.setString(1, M.getNombre());
@@ -56,7 +56,7 @@ public class ControladorMascota {
     }
     
         public int obtenerIdDueñoPorDocumento(String nDocumento) {
-        String sql = "SELECT ID FROM `dueños` WHERE `nDocumento` = ?";
+        String sql = "SELECT `ID` FROM `duenos` WHERE `nDocumento` = ?";
         try (PreparedStatement pstmt = baseDatos.getPreparedStatement(sql)) {
             pstmt.setString(1, nDocumento);
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -75,7 +75,7 @@ public class ControladorMascota {
     ArrayList<Mascota> lista = new ArrayList<>();
     this.baseDatos = new BaseDatos();
     
-    String sql = "SELECT * FROM mascotas ORDER BY nombre";
+    String sql = "SELECT * FROM `mascotas` ORDER BY `nombre`";
 
     try (PreparedStatement stmt = baseDatos.getPreparedStatement(sql);
          ResultSet rs = stmt.executeQuery()) {
@@ -90,7 +90,7 @@ public class ControladorMascota {
                 tipo,
                 rs.getString("raza"),
                 sexo,
-                rs.getInt("ID_dueño")
+                rs.getInt("idDueno")
             );
             lista.add(mascota);
         }
@@ -133,7 +133,7 @@ public boolean mascotaExiste(String nombreMascota, String cedulaDueño) {
     int idDueño = obtenerIdDueñoPorDocumento(cedulaDueño);
     if (idDueño == -1) return false;
 
-    String sql = "SELECT * FROM mascotas WHERE nombre = ? AND idDueño = ?";
+    String sql = "SELECT * FROM `mascotas` WHERE `nombre` = ? AND `idDueno` = ?";
     try (PreparedStatement stmt = baseDatos.getPreparedStatement(sql)) {
         stmt.setString(1, nombreMascota);
         stmt.setInt(2, idDueño);
