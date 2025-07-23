@@ -2,10 +2,13 @@ package Vista;
 
 import Controlador.GeneradorContraseñas;
 import Controlador.ControladorAdmin;
+import Controlador.ControladorDoctorVeterinario;
 import Controlador.LoginAdmin;
 import Controlador.LoginDoctor;
 import Modelo.Administrador;
 import Modelo.BaseDatos;
+import Modelo.DoctorVeterinario;
+import Modelo.SesionDoctor;
 import Vista.MenuAdministrador;
 import Vista.MenuDoctor;
 import javax.swing.JOptionPane;
@@ -14,10 +17,12 @@ public class Login extends javax.swing.JFrame {
 
 private LoginAdmin LoginAdmin;
 private ControladorAdmin controladorAdmin;
-private LoginDoctor controladorDoctor;
+private LoginDoctor LoginDoctor;
 private BaseDatos baseDatos;
 private GeneradorContraseñas generador;
 private Administrador ADM;
+private ControladorDoctorVeterinario ControladorDoctorVeterinario;
+private DoctorVeterinario DV;
 
     public Login() {
         initComponents();
@@ -35,8 +40,10 @@ private Administrador ADM;
         this.baseDatos = new BaseDatos();
         
         this.LoginAdmin = new Controlador.LoginAdmin(baseDatos, generador);
-        this.controladorDoctor = new Controlador.LoginDoctor(baseDatos);
+        this.LoginDoctor = new Controlador.LoginDoctor(baseDatos);
         this.controladorAdmin = new Controlador.ControladorAdmin(baseDatos, ADM);
+        this.ControladorDoctorVeterinario = new Controlador.ControladorDoctorVeterinario(DV, baseDatos);
+      
 
         
     } catch (Exception e) {
@@ -283,6 +290,7 @@ String tipoo = (String) tipousuario.getSelectedItem();
 String documento = usuario.getText().trim();
 String contraseña = new String(contras.getPassword()).trim();
 String tipoSeleccionado = (tipo != null) ? tipo.toString().trim() : "";
+System.out.println(tipoo);
 
 if (tipoSeleccionado.isEmpty() || documento.isEmpty() || contraseña.isEmpty()) {
     JOptionPane.showMessageDialog(this,
@@ -291,6 +299,7 @@ if (tipoSeleccionado.isEmpty() || documento.isEmpty() || contraseña.isEmpty()) 
         JOptionPane.WARNING_MESSAGE);
     return; // Detiene la ejecución del login si faltan campos
 }
+
 switch (tipoo) {
         case "Administrador":
             if (LoginAdmin.verificarCredencialesAdmin(documento, contraseña)) {
@@ -303,7 +312,15 @@ switch (tipoo) {
             break;
 
         case "Doctor Veterinario":
-            if (controladorDoctor.verificarCredencialesDoctor(documento, contraseña)) {
+            if (LoginDoctor.verificarCredencialesDoctor(documento, contraseña)) {
+                DoctorVeterinario doctor = ControladorDoctorVeterinario.obtenerDoctorPorDocumento(documento);
+
+                  if (doctor != null) {
+            // Guardamos los datos en la sesión
+            SesionDoctor.id = doctor.getID();
+            SesionDoctor.nombreCompleto = "Dr. " + doctor.getNombre() + " " + doctor.getApellido();
+            SesionDoctor.correo = doctor.getEmail();
+        }
                 JOptionPane.showMessageDialog(this, "Inicio de sesión como Doctor Veterinario, exitoso");
                 new MenuDoctor().setVisible(true); // Abre JFrame del doctor
                 this.dispose();
