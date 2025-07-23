@@ -76,6 +76,7 @@ JOptionPane.INFORMATION_MESSAGE
         jPanel1 = new javax.swing.JPanel();
         Rigth = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -103,23 +104,34 @@ JOptionPane.INFORMATION_MESSAGE
 
         jLabel3.setFont(new java.awt.Font("Arial Black", 2, 36)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("schedule");
+        jLabel3.setText("Pet");
+
+        jLabel6.setFont(new java.awt.Font("Arial Black", 2, 36)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("schedule");
 
         javax.swing.GroupLayout RigthLayout = new javax.swing.GroupLayout(Rigth);
         Rigth.setLayout(RigthLayout);
         RigthLayout.setHorizontalGroup(
             RigthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(RigthLayout.createSequentialGroup()
-                .addGap(72, 72, 72)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(100, Short.MAX_VALUE))
+                .addGroup(RigthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(RigthLayout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(RigthLayout.createSequentialGroup()
+                        .addGap(138, 138, 138)
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         RigthLayout.setVerticalGroup(
             RigthLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RigthLayout.createSequentialGroup()
-                .addContainerGap(357, Short.MAX_VALUE)
+            .addGroup(RigthLayout.createSequentialGroup()
+                .addContainerGap(171, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addGap(91, 91, 91))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addGap(219, 219, 219))
         );
 
         jPanel1.add(Rigth);
@@ -380,6 +392,7 @@ this.dispose();
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JComboBox<String> tipousuario;
