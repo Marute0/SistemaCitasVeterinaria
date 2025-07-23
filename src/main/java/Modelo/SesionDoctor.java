@@ -10,7 +10,11 @@ package Modelo;
  */
 public class SesionDoctor {
     public static int id;          
-    public static String nombreCompleto;
     public static String correo;
+    public static String nombre;
+    public static String apellido;
+    public static String documento;
+    public static String telefono;
+    public static String especialidad;
     
 }
