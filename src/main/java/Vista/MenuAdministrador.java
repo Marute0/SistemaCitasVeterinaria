@@ -1077,6 +1077,7 @@ private void cargarNombresDoctoresEnComboBox() {
     private void ButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonLogoutActionPerformed
         animate.selectSalir(ButtonCita, ButtonPet, ButtonDoc, ButtonPassword, ButtonLogout);
         this.dispose();
+        new Login().setVisible(true);
     }//GEN-LAST:event_ButtonLogoutActionPerformed
 
     private void ButtonCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ButtonCitaActionPerformed
